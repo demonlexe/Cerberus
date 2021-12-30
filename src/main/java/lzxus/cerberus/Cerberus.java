@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 /*
+-------------------------------------------------------
 Plugin written by Alexis Kaufman, a.k.a lzxus.
 First version published 12/29/2021
+-------------------------------------------------------
  */
 
 public final class Cerberus extends JavaPlugin {
