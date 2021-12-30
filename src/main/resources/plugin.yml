@@ -1,0 +1,27 @@
+name: Cerberus
+version: '${project.version}'
+main: lzxus.cerberus.Cerberus
+api-version: 1.18
+authors: [ lzxus ]
+description: A plugin with endless capabilities. Maybe.
+commands:
+  callow:
+    description: Allows the player to damage their wolves.
+    usage: /callow
+    permission: cerberus.callow
+  cstats:
+    description: Allows the player to view the statistic of their main wolf.
+    usage: /cstats
+    permission: cerberus.cstats
+  creset:
+    description: Allows the player to reset their wolf data.
+    usage: /creset
+    permission: cerberus.creset
+  cbring:
+    description: Allows the player to teleport their pet to them.
+    usage: /cbring
+    permission: cerberus.cbring
+  cname:
+    description: Allows the player to rename their pet.
+    usage: /cname
+    permission: cerberus.cname
