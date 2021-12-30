@@ -25,29 +25,22 @@ public class DogTamed implements Listener {
             Wolf tamedWolf = (Wolf) event.getEntity();
             Player tamer = (Player) event.getOwner();
             //System.out.println("A wolf has been tamed by "+tamer.getName());
-            PersistentDataContainer data = tamer.getPersistentDataContainer();
 
             //Creates Boolean data
-            NamespacedKey ownedKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-owned");
-            data.set(ownedKey,PersistentDataType.INTEGER, 1); //true
-            NamespacedKey aliveKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-status");
-            data.set(aliveKey,PersistentDataType.INTEGER, 1); //true
+            PlayerWolfData.setWolfOwned(tamer,1);//true
+            PlayerWolfData.setWolfStatus(tamer,1); //true
 
             //Creates Level data
-            NamespacedKey levelKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-level");
-            data.set(levelKey, PersistentDataType.INTEGER, 0);
+            PlayerWolfData.setWolfLvl(tamer,0);
 
             //Creates XP data
-            NamespacedKey xpKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-xp");
-            data.set(xpKey, PersistentDataType.DOUBLE, 0.0);
+            PlayerWolfData.setWolfXp(tamer,0.0);
 
             //Creates Name data
-            NamespacedKey nameKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-name");
-            data.set(nameKey, PersistentDataType.STRING, "");
+            PlayerWolfData.setWolfName(tamer,"");
 
             //Creates UUID data
-            NamespacedKey uniqueIDKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-uuid");
-            data.set(uniqueIDKey, PersistentDataType.STRING, tamedWolf.getUniqueId().toString());
+            PlayerWolfData.setWolfUUID(tamer,tamedWolf.getUniqueId().toString());
             Cerberus.updateWolfList(tamedWolf,tamer,true);
         }
     }

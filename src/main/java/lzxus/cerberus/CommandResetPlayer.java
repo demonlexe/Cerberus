@@ -14,7 +14,6 @@ public class CommandResetPlayer implements CommandExecutor {
             Wolf w = Cerberus.obtainFromWolfList(p);
             if (w != null)
             {
-                w.setHealth(0);
                 w = null;
                 Cerberus.updateWolfList(w,p,false);
             }

@@ -3,34 +3,21 @@ package lzxus.cerberus;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class WolfObtainer {
-    public static Wolf getWolf(String idAsString){
-        for (World w : Bukkit.getWorlds())
+    public static Wolf getWolf(Player p){
+        if ((PlayerWolfData.getWolfStatus(p).equals(1)) && (PlayerWolfData.getWolfUUID(p)).equals(""))
         {
-            for (Entity e : w.getEntities())
-            {
-                System.out.println(e.getUniqueId());
-                if (e.getUniqueId().toString().equals(idAsString))
-                {
-                    return (Wolf) e;
-                }
-            }
+            Wolf newWolf = (Wolf) (p).getWorld().spawnEntity((p).getLocation(), EntityType.WOLF);
+            newWolf.setTamed(true);
+            newWolf.setOwner(p);
+            Cerberus.updateWolfList(newWolf,p,true);
+            ModifyPetStats.updateStats(newWolf,PlayerWolfData.getWolfLvl(p));
+            return newWolf;
         }
         return null;
-    }
-
-    public static String getWolfIDFromPlayer(Player p)
-    {
-        System.out.println("Getting WolfID from Player "+p.getName());
-        PersistentDataContainer data = p.getPersistentDataContainer();
-        NamespacedKey uniqueIDKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-uuid");
-        String toReturn = data.get(uniqueIDKey, PersistentDataType.STRING);
-        return toReturn;
     }
 }

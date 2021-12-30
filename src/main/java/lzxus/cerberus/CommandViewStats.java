@@ -21,10 +21,8 @@ public class CommandViewStats implements CommandExecutor {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             Wolf obtainedWolf = null;
-            PersistentDataContainer data = p.getPersistentDataContainer();
 
-            NamespacedKey uniqueIDKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-uuid");
-            String obtainedString = data.get(uniqueIDKey, PersistentDataType.STRING);
+            String obtainedString = PlayerWolfData.getWolfUUID(p);
             if (obtainedString != null)
             {
                 obtainedWolf = Cerberus.obtainFromWolfList(p);
@@ -36,16 +34,17 @@ public class CommandViewStats implements CommandExecutor {
             }
 
             if (obtainedWolf != null) {
-                NamespacedKey xpKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-xp");
-                NamespacedKey lvlKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-level");
-                Double xp = data.get(xpKey,PersistentDataType.DOUBLE);
-                Integer lvl = data.get(lvlKey, PersistentDataType.INTEGER);
-
+                Double xp = PlayerWolfData.getWolfXp(p);
+                Integer lvl = PlayerWolfData.getWolfLvl(p);
+                Double health = PlayerWolfData.getWolfHealth(p);
+                Double damage = PlayerWolfData.getWolfDamage(p);
                 if (xp != null && lvl != null) {
                     p.sendMessage(ChatColor.GREEN + "Your wolf's statistics:" +
                             ChatColor.GRAY +
-                            "\r\n" + "Level: " + lvl +
-                            "\r\n" + "XP: " + Math.ceil(xp)
+                            "\n" + "Level: " + lvl +
+                            "\n" + "XP: " + Math.ceil(xp) +
+                                    "\n" + "Health: " +  health+
+                                    "\n" + "Attack Damage: " + damage
                             //FIXME: Add statistics like health, personality, damage, name.
                     );
                 }

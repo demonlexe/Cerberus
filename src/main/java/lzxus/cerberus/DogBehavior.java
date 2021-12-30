@@ -55,8 +55,7 @@ public class DogBehavior implements Listener {
             }
             else
             {
-                NamespacedKey ownedKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-owned");
-                Integer ownedValue = data.get(ownedKey,PersistentDataType.INTEGER);
+                Integer ownedValue = PlayerWolfData.getWolfOwned(p);
                 if (ownedValue != null && ownedValue.equals(1))
                 {
                     event.setCancelled(true);
@@ -84,9 +83,8 @@ public class DogBehavior implements Listener {
         {
             return;
         }
-        PersistentDataContainer data = p.getPersistentDataContainer();
-        NamespacedKey damageKey = new NamespacedKey(Cerberus.getPlugin(), "damageEnabled");
-        Integer dataObtained = data.get(damageKey, PersistentDataType.INTEGER);
+
+        Integer dataObtained = PlayerWolfData.getDamageEnabled(p);
         //If the attacker is not its owner, the damage does not occur and the wolf is angered.
         //System.out.println("Owner: " + damagedDog.getOwner().getName() + ", wolf is tamed: " + damagedDog.isTamed() + ", damager: " + damager.getName());
             if (damagedDog.isTamed() && damagedDog.getOwner().getName() != p.getName()) {

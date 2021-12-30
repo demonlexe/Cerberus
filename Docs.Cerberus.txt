@@ -1,0 +1,3 @@
+Cerberus.java
+    description: Main class. Involves connecting events and commands to the plugin.
+    functions:

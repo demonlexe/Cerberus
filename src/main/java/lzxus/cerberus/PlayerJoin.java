@@ -15,19 +15,13 @@ public class PlayerJoin implements Listener {
     {
         //Code to teleport main wolf to player, if applicable. Also loads wolf into Cerberus' hashtable.
         Player p = event.getPlayer();
-        PersistentDataContainer data = p.getPersistentDataContainer();
-        NamespacedKey uniqueIDKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-uuid");
-        String obtainedString = data.get(uniqueIDKey, PersistentDataType.STRING);
-        System.out.println("Player has joined, the string obtained is "+obtainedString);
-        if (obtainedString != null)
+        if (PlayerWolfData.getWolfStatus(p).equals(1))
         {
-            Wolf obtainedWolf = WolfObtainer.getWolf(obtainedString);
+            Wolf obtainedWolf = WolfObtainer.getWolf(p);
             System.out.println("Running PlayerJoin wolf obtainer: "+obtainedWolf);
             if (obtainedWolf != null)
             {
-                Cerberus.updateWolfList(obtainedWolf,p,true);
-                NamespacedKey levelKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-level");
-                Integer lvl = data.get(levelKey, PersistentDataType.INTEGER);
+                Integer lvl = PlayerWolfData.getWolfLvl(p);
                 if (lvl != null)
                     ModifyPetStats.updateStats(obtainedWolf,lvl);
             }

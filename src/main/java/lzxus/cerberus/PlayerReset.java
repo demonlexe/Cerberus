@@ -8,29 +8,22 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class PlayerReset {
     public static void resetP(Player p, Wolf w){
-        PersistentDataContainer data = p.getPersistentDataContainer();
 
         //Creates Boolean data
-        NamespacedKey ownedKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-owned");
-        data.set(ownedKey, PersistentDataType.INTEGER, 0); //false
-        NamespacedKey aliveKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-status");
-        data.set(aliveKey,PersistentDataType.INTEGER, 0); //false
+        PlayerWolfData.setWolfOwned(p,0); //false
+        PlayerWolfData.setWolfStatus(p,0); //false
 
         //Creates Level data
-        NamespacedKey levelKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-level");
-        data.set(levelKey, PersistentDataType.INTEGER, 0);
+        PlayerWolfData.setWolfLvl(p,0);
 
         //Creates XP data
-        NamespacedKey xpKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-xp");
-        data.set(xpKey, PersistentDataType.DOUBLE, 0.0);
+        PlayerWolfData.setWolfXp(p,0.0);
 
         //Creates Name data
-        NamespacedKey nameKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-name");
-        data.set(nameKey, PersistentDataType.STRING, "");
+        PlayerWolfData.setWolfName(p,"");
 
         //Creates UUID data
-        NamespacedKey uniqueIDKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-uuid");
-        data.set(uniqueIDKey, PersistentDataType.STRING, "");
+        PlayerWolfData.setWolfUUID(p,"");
         if (w!=null && p!= null)
         {
             Cerberus.updateWolfList(w,p,false);

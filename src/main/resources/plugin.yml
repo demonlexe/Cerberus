@@ -25,3 +25,11 @@ commands:
     description: Allows the player to rename their pet.
     usage: /cname
     permission: cerberus.cname
+  cdebug:
+    description: Displays all plugin data for local player.
+    usage: /cdebug
+    permission: cerberus.cdebug
+  cclean:
+    description: Cleans world of all wolves.
+    usage: /cclean
+    permission: cerberus.cclean

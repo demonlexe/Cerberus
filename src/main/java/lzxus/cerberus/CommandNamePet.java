@@ -20,9 +20,7 @@ public class CommandNamePet implements CommandExecutor {
             if (obtainedWolf != null)
             {
                 obtainedWolf.setCustomName(args[0]);
-                PersistentDataContainer data = p.getPersistentDataContainer();
-                NamespacedKey nameKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-name");
-                data.set(nameKey, PersistentDataType.STRING, args[0]);
+                PlayerWolfData.setWolfName(p,args[0]);
             }
         }
         return true;

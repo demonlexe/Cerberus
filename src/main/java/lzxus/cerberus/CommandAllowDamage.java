@@ -16,18 +16,16 @@ public class CommandAllowDamage implements CommandExecutor {
         if (sender instanceof Player)
         {
             Player p = (Player) sender;
-            PersistentDataContainer data = p.getPersistentDataContainer();
-            NamespacedKey damageKey = new NamespacedKey(Cerberus.getPlugin(), "damageEnabled");
-            Integer dataObtained = data.get(damageKey, PersistentDataType.INTEGER);
+            Integer dataObtained = PlayerWolfData.getDamageEnabled(p);
             if (dataObtained != null && dataObtained.equals(1))
               {
                   System.out.println("Setting updated; Damage is already enabled.");
                   p.sendMessage(ChatColor.GRAY + "Pet Damaging is now Disabled.");
-                  data.set(damageKey,PersistentDataType.INTEGER,0);
+                  PlayerWolfData.setDamageEnabled(p,0);
               }
             else
               {
-                  data.set(damageKey,PersistentDataType.INTEGER,1);
+                  PlayerWolfData.setDamageEnabled(p,1);
                   System.out.println("Setting updated; Damage is now enabled.");
                   p.sendMessage(ChatColor.GRAY + "Pet Damaging is now Enabled.");
               }
