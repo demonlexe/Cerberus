@@ -36,16 +36,18 @@ public class CommandViewStats implements CommandExecutor {
             if (obtainedWolf != null) {
                 Double xp = PlayerWolfData.getWolfXp(p);
                 Integer lvl = PlayerWolfData.getWolfLvl(p);
-                Double health = PlayerWolfData.getWolfHealth(p);
+                Double currentHealth = PlayerWolfData.getCurrentWolfHealth(p);
+                Double maxHealth = PlayerWolfData.getWolfHealth(p);
                 Double damage = PlayerWolfData.getWolfDamage(p);
+
                 if (xp != null && lvl != null) {
                     p.sendMessage(ChatColor.GREEN + "Your wolf's statistics:" +
                             ChatColor.GRAY +
-                            "\n" + "Level: " + lvl +
-                            "\n" + "XP: " + Math.ceil(xp) +
-                                    "\n" + "Health: " +  health+
-                                    "\n" + "Attack Damage: " + damage
-                            //FIXME: Add statistics like health, personality, damage, name.
+                            "\n" + "Level: " + ChatColor.BLUE +lvl +
+                                    ChatColor.GRAY +"\n" + "XP: " + ChatColor.BLUE +Math.ceil(xp) +
+                                    ChatColor.GRAY + "\n" + "Health: " + ChatColor.BLUE +currentHealth +" / "+ maxHealth+
+                                    ChatColor.GRAY + "\n" + "Attack Damage: " + ChatColor.BLUE +damage + "\n"
+                            //FIXME: Add statistics like personality.
                     );
                 }
             }

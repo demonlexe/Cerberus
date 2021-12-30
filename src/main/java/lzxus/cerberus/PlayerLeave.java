@@ -13,10 +13,10 @@ import java.util.Objects;
 
 public class PlayerLeave implements Listener {
 
-    private void funcOnDisconnect(Player p)
+    public static void funcOnDisconnect(Player p)
     {
         String currentUUID = PlayerWolfData.getWolfUUID(p);
-        if (currentUUID.equals("") || currentUUID == null)
+        if (currentUUID.equals("") || currentUUID.equals(null))
         {
 
         }

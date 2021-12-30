@@ -15,20 +15,21 @@ import org.bukkit.persistence.PersistentDataType;
 public class EntityDamaged implements Listener {
     FileConfiguration config = Cerberus.obtainConfig();
     double [] xpList = null;
-
+    Integer maxLevel = null;
     public void updateLevel(Wolf w, Player p)
     {
         if (xpList == null)
         {
             xpList = Cerberus.obtainXPList();
             System.out.println("Cerberus: Obtained XP List . . .");
+            maxLevel = xpList.length-1;
         }
         if (w != null && p != null && p.isOnline())
         {
             Double currentXP = PlayerWolfData.getWolfXp(p);
             Integer currentLevel = PlayerWolfData.getWolfLvl(p);
             System.out.println("Cerberus: Obtaining Data: CurrentXP is "+currentXP+" while currentLevel is "+currentLevel);
-            if ((currentLevel != null) && (currentXP != null) && (xpList[currentLevel+1] <= currentXP))
+            if ((currentLevel != null) && (currentXP != null) && (currentLevel < maxLevel) &&(xpList[currentLevel+1] <= currentXP))
             {
                 currentLevel++;
                 PlayerWolfData.setWolfLvl(p,currentLevel);

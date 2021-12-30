@@ -1,5 +1,6 @@
 package lzxus.cerberus;
 
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -9,6 +10,21 @@ import org.bukkit.persistence.PersistentDataType;
 
 //Contains functions related to data
 public class PlayerWolfData {
+
+    //Boolean functions
+    public static Player isPlayerPet(Wolf w)
+    {
+        for (Player p : Bukkit.getOnlinePlayers())
+        {
+            if (Cerberus.obtainFromWolfList(p).equals(w))
+            {
+                return p;
+            }
+        }
+        return null;
+    }
+
+
     //Getter functions
     public static String getWolfUUID(Player p)
     {
@@ -78,6 +94,18 @@ public class PlayerWolfData {
             return null;
         }
     }
+    public static Double getCurrentWolfHealth(Player p)
+    {
+        Wolf w = Cerberus.obtainFromWolfList(p);
+        if (w!=null)
+        {
+            return w.getHealth();
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public static Double getWolfDamage(Player p)
     {
@@ -92,7 +120,37 @@ public class PlayerWolfData {
         }
     }
 
+    public static String getAttackType(Player p)
+    {
+        PersistentDataContainer data = p.getPersistentDataContainer();
+        NamespacedKey attackKey = new NamespacedKey(Cerberus.getPlugin(), "attackType");
+        String toR = data.get(attackKey,PersistentDataType.STRING);
+        return toR;
+    }
+
+    public static Integer getAttackStatus(Player p)
+    {
+        PersistentDataContainer data = p.getPersistentDataContainer();
+        NamespacedKey statusKey = new NamespacedKey(Cerberus.getPlugin(), "attackStatus");
+        Integer toR = data.get(statusKey,PersistentDataType.INTEGER);
+        return toR;
+    }
+
     //Setter functions
+    public static void setAttackType(Player p, String s)
+    {
+        PersistentDataContainer data = p.getPersistentDataContainer();
+        NamespacedKey attackKey = new NamespacedKey(Cerberus.getPlugin(), "attackType");
+        data.set(attackKey,PersistentDataType.STRING,s);
+    }
+
+    public static void setAttackStatus(Player p, Integer val)
+    {
+        PersistentDataContainer data = p.getPersistentDataContainer();
+        NamespacedKey statusKey = new NamespacedKey(Cerberus.getPlugin(), "attackStatus");
+        data.set(statusKey,PersistentDataType.INTEGER,val);
+    }
+
     public static void setDamageEnabled(Player p, int val)
     {
         PersistentDataContainer data = p.getPersistentDataContainer();

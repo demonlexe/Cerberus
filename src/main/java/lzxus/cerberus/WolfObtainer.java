@@ -15,7 +15,6 @@ public class WolfObtainer {
             newWolf.setTamed(true);
             newWolf.setOwner(p);
             Cerberus.updateWolfList(newWolf,p,true);
-            ModifyPetStats.updateStats(newWolf,PlayerWolfData.getWolfLvl(p));
             return newWolf;
         }
         return null;

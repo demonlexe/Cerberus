@@ -1,13 +1,11 @@
 package lzxus.cerberus;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Hashtable;
 
 /*
@@ -34,6 +32,7 @@ public final class Cerberus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DogTamed(), this);
         getServer().getPluginManager().registerEvents(new EntityDamaged(), this);
         getServer().getPluginManager().registerEvents(new DogDied(), this);
+        //getServer().getPluginManager().registerEvents(new DogAttack(), this);
         this.getCommand("callow").setExecutor(new CommandAllowDamage());
         this.getCommand("cstats").setExecutor(new CommandViewStats());
         this.getCommand("creset").setExecutor(new CommandResetPlayer());
@@ -41,6 +40,8 @@ public final class Cerberus extends JavaPlugin {
         this.getCommand("cname").setExecutor(new CommandNamePet());
         this.getCommand("cdebug").setExecutor(new CommandDebugData());
         this.getCommand("cclean").setExecutor(new CommandClean());
+        this.getCommand("cjump").setExecutor(new CommandJump());
+        this.getCommand("cattack").setExecutor(new CommandAttack());
         plugin = this;
         config = getConfig();
 
@@ -82,6 +83,12 @@ public final class Cerberus extends JavaPlugin {
     @Override
     public void onDisable() {
         System.out.println("Cerberus has closed down.");
+        for (Player p : Bukkit.getOnlinePlayers()){
+            if (wList.get(p) != null)
+            {
+                PlayerLeave.funcOnDisconnect(p);
+            }
+        }
         // Plugin shutdown logic
     }
 
@@ -103,9 +110,9 @@ public final class Cerberus extends JavaPlugin {
     */
     public static void updateWolfList(Wolf w, Player p, boolean active)
     {
+        System.out.println("updateWolfList called with "+w.getUniqueId()+", active = "+active);
         String obtainedID = PlayerWolfData.getWolfUUID(p);
         if (active){
-            System.out.println("Calling for update with "+ obtainedID);
             if (obtainedID!=null && w!=null && (w.getUniqueId().toString()).equals(obtainedID))
             {
                 wList.put(p,w);
@@ -136,7 +143,7 @@ public final class Cerberus extends JavaPlugin {
     // Public getter function, returns a Wolf from wList using Player as the key.
     public static Wolf obtainFromWolfList(Player p)
     {
-        System.out.println("Calling for Wolfobtainer with "+p);
+        //System.out.println("Calling for Wolfobtainer with "+p);
         Wolf w = wList.get(p);
         if (w!=null)
         {
