@@ -5,39 +5,16 @@ api-version: 1.18
 authors: [ lzxus ]
 description: A plugin with endless capabilities. Maybe.
 commands:
-  callow:
-    description: Allows the player to damage their wolves.
-    usage: /callow
-    permission: cerberus.callow
-  cstats:
-    description: Allows the player to view the statistic of their main wolf.
-    usage: /cstats
-    permission: cerberus.cstats
-  creset:
-    description: Allows the player to reset their wolf data.
-    usage: /creset
-    permission: cerberus.creset
-  cbring:
-    description: Allows the player to teleport their pet to them.
-    usage: /cbring
-    permission: cerberus.cbring
-  cname:
-    description: Allows the player to rename their pet.
-    usage: /cname
-    permission: cerberus.cname
-  cdebug:
+  ce:
+    description: Type /ce or /ce help to view the Cerberus Menu.
+    usage: /ce, /ce help
+    permission: cerberus.main
+  ce debug:
     description: Displays all plugin data for local player.
-    usage: /cdebug
-    permission: cerberus.cdebug
-  cclean:
+    usage: /ce debug
+    permission: cerberus.debug
+  ce clean:
     description: Cleans world of all wolves. Only for OPed members.
-    usage: /cclean
-    permission: cerberus.cclean
-  cjump:
-    description: Your pet does a lil jump!
-    usage: /cjump
-    permission: cerberus.cjump
-  cattack:
-    description: Toggles attacking or attack type.
-    usage: /cattack, /cattack <attacktype>
-    permission: cerberus.cattack
+    usage: /ce clean
+    permission: cerberus.clean
+

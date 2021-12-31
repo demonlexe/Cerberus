@@ -40,15 +40,9 @@ public final class Cerberus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityDamaged(), this);
         getServer().getPluginManager().registerEvents(new DogDied(), this);
         getServer().getPluginManager().registerEvents(new DogAttack(), this);
-        this.getCommand("callow").setExecutor(new CommandAllowDamage());
-        this.getCommand("cstats").setExecutor(new CommandViewStats());
-        this.getCommand("creset").setExecutor(new CommandResetPlayer());
-        this.getCommand("cbring").setExecutor(new CommandBringPet());
-        this.getCommand("cname").setExecutor(new CommandNamePet());
         this.getCommand("cdebug").setExecutor(new CommandDebugData());
         this.getCommand("cclean").setExecutor(new CommandClean());
-        this.getCommand("cjump").setExecutor(new CommandJump());
-        this.getCommand("cattack").setExecutor(new CommandAttack());
+        this.getCommand("ce").setExecutor(new CommandMain());
         plugin = this;
         config = getConfig();
 
