@@ -19,7 +19,8 @@ public class PlayerWolfData {
     {
         for (Player p : Bukkit.getOnlinePlayers())
         {
-            if (Cerberus.obtainFromWolfList(p).equals(w))
+            Wolf obtainedWolf = Cerberus.obtainFromWolfList(p);
+            if (obtainedWolf != null && obtainedWolf.equals(w))
             {
                 return p;
             }

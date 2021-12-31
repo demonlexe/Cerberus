@@ -4,12 +4,15 @@ import lzxus.cerberus.Commands.*;
 import lzxus.cerberus.Listeners.*;
 import lzxus.cerberus.Structs.PlayerWolfData;
 import lzxus.cerberus.Structs.PetData;
+import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.awt.*;
 import java.util.Hashtable;
 
 /*
@@ -53,6 +56,13 @@ public final class Cerberus extends JavaPlugin {
         config.addDefault("levelMultiplier", 50);
         config.addDefault("xpBaseLevel",30.0);
         config.addDefault("maxLevel",100);
+        config.addDefault("warningColor", new int[]{255, 35, 23});
+        config.addDefault("successColor", new int[]{50, 232, 5});
+        config.addDefault("systemChatColor", (ChatColor.GRAY).toString());
+        config.addDefault("successChatColor", (ChatColor.GREEN).toString());
+        config.addDefault("warningChatColor", (ChatColor.DARK_RED).toString());
+        config.addDefault("failureChatColor", (ChatColor.RED).toString());
+        config.addDefault("dataChatColor", (ChatColor.BLUE).toString());
 
         //Updates Main Config
         config.options().copyDefaults(true);
@@ -153,35 +163,44 @@ public final class Cerberus extends JavaPlugin {
     // Public getter function, returns a Wolf from wList using Player as the key.
     public static Wolf obtainFromWolfList(Player p)
     {
-        //System.out.println("Calling for Wolfobtainer with "+p);
-        PetData pet = wList.get(p);
-        if (pet!= null)
+        if (!wList.isEmpty())
         {
-            Wolf w = pet.getWolf();
-            if (w!=null)
+            //System.out.println("Calling for Wolfobtainer with "+p);
+            PetData pet = wList.get(p);
+            if (pet!= null)
             {
-                return w;
+                Wolf w = pet.getWolf();
+                if (w!=null)
+                {
+                    return w;
+                }
             }
         }
         return null;
     }
     public static PetData obtainPetData(Player p)
     {
-        PetData pet = wList.get(p);
-        if (pet!= null)
+        if (!wList.isEmpty())
         {
-            return pet;
+            PetData pet = wList.get(p);
+            if (pet!= null)
+            {
+                return pet;
+            }
         }
         return null;
     }
 
     public static Player obtainFromPlayerList(String id)
     {
-        System.out.println("Calling for Playerobtainer with "+id);
-        Player p = pList.get(id);
-        if (p!=null)
+        if (!pList.isEmpty())
         {
-            return p;
+            System.out.println("Calling for Playerobtainer with "+id);
+            Player p = pList.get(id);
+            if (p!=null)
+            {
+                return p;
+            }
         }
         return null;
     }

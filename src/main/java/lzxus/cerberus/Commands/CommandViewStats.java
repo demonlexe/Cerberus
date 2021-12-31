@@ -1,6 +1,7 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,17 +12,44 @@ import org.bukkit.entity.Wolf;
 
 public class CommandViewStats implements CommandExecutor {
     private static double [] xpList = null;
+    private static String failColor = null;
+    private static String successColor = null;
+    private static String dataColor = null;
+    private static String systemColor = null;
+
+    private static String isLowHealth(double current, double max)
+    {
+        if (current/max < 0.5)
+        {
+            return failColor;
+        }
+        return dataColor;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
+
+            if (failColor == null){
+                failColor = ConfigFunctions.getChatColor("failureChatColor");
+            }
+            if (successColor == null){
+                successColor = ConfigFunctions.getChatColor("successChatColor");
+            }
+            if (dataColor == null){
+                dataColor = ConfigFunctions.getChatColor("dataChatColor");
+            }
+            if (systemColor == null){
+                systemColor = ConfigFunctions.getChatColor("systemChatColor");
+            }
+
             Player p = (Player) sender;
             Wolf obtainedWolf = null;
 
             if (xpList == null)
             {
                 xpList = Cerberus.obtainXPList();
-                System.out.println("Cerberus: Obtained XP List . . .");
+                //System.out.println("Cerberus: Obtained XP List . . .");
             }
 
             String obtainedString = PlayerWolfData.getWolfUUID(p);
@@ -31,7 +59,7 @@ public class CommandViewStats implements CommandExecutor {
             }
             else
             {
-                p.sendMessage(ChatColor.RED + "You do not have a main wolf currently registered!");
+                p.sendMessage(failColor + "You do not have a main wolf currently registered!");
                 return false;
             }
 
@@ -42,20 +70,20 @@ public class CommandViewStats implements CommandExecutor {
                 Double maxHealth = PlayerWolfData.getWolfHealth(p);
                 Double damage = PlayerWolfData.getWolfDamage(p);
 
-                if (xp != null && lvl != null) {
-                    p.sendMessage(ChatColor.GREEN + "Your wolf's statistics:" +
-                            ChatColor.GRAY +
-                            "\n" + "Level: " + ChatColor.BLUE +lvl +
-                                    ChatColor.GRAY +"\n" + "XP: " + ChatColor.BLUE +Math.ceil(xp) + " / " + xpList[lvl+1] +
-                                    ChatColor.GRAY + "\n" + "Health: " + ChatColor.BLUE +currentHealth +" / "+ maxHealth+
-                                    ChatColor.GRAY + "\n" + "Attack Damage: " + ChatColor.BLUE +damage + "\n"
+                if (xp != null && lvl != null && currentHealth != null && maxHealth != null && damage != null) {
+                    p.sendMessage(successColor + "Your wolf's statistics:" +
+                            systemColor +
+                            "\n" + "Level: " + dataColor +lvl +
+                                    systemColor +"\n" + "XP: " + dataColor +Math.ceil(xp) + " / " + xpList[lvl+1] +
+                                    systemColor + "\n" + "Health: " + isLowHealth(currentHealth,maxHealth) +currentHealth +" / "+ dataColor + maxHealth+
+                                    systemColor + "\n" + "Attack Damage: " + dataColor +damage + "\n"
                             //FIXME: Add statistics like personality.
                     );
                 }
             }
             else
             {
-                p.sendMessage(ChatColor.GREEN + "You do not have a main wolf currently registered!");
+                p.sendMessage(failColor + "You do not have a main wolf currently registered.");
                 return false;
             }
         }

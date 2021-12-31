@@ -41,7 +41,7 @@ public class PetData {
     {
         if (isAllowedToAttack(w,e) && !attackQueue.contains(e) && w.getTarget()!=e)
         {
-            while (attackQueue.size() > 10)
+            while (attackQueue.size() > 20)
             {
                 attackQueue.pollLast();
             }

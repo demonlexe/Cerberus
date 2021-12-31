@@ -1,5 +1,6 @@
 package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,11 +9,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandDebugData implements CommandExecutor {
+
+    private static String successColor = null;
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
+
+            if (successColor == null){
+                successColor = ConfigFunctions.getChatColor("successChatColor");
+            }
+
             Player p = (Player) sender;
-            p.sendMessage(ChatColor.RED + "wolf-xp: "+ PlayerWolfData.getWolfXp(p)+
+            p.sendMessage(successColor+ "wolf-xp: "+ PlayerWolfData.getWolfXp(p)+
                     "\n"+"wolf-lvl: "+PlayerWolfData.getWolfLvl(p)+
                     "\n"+"wolf-status: "+PlayerWolfData.getWolfStatus(p)+
                     "\n"+"wolf-uuid: "+PlayerWolfData.getWolfUUID(p)+
