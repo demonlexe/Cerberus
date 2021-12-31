@@ -82,12 +82,12 @@ public class CommandViewStats {
                 Double damage = PlayerWolfData.getWolfDamage(p);
 
                 if (xp != null && lvl != null && currentHealth != null && maxHealth != null && damage != null) {
-                    p.sendMessage("\n"+successColor + "Your wolf's statistics:" +
+                    p.sendMessage(systemColor+"------------------"+ "\n" + successColor + "Your wolf's statistics:" +
                             systemColor +
                             "\n" + "Level: " + dataColor +lvl +
                                     systemColor +"\n" + "XP: " + dataColor +Math.ceil(xp) + " / " + xpList[lvl+1] +
                                     systemColor + "\n" + "Health: " + isLowHealth(currentHealth,maxHealth) +currentHealth +" / "+ dataColor + maxHealth+
-                                    systemColor + "\n" + "Attack Damage: " + dataColor +damage + "\n"+""
+                                    systemColor + "\n" + "Attack Damage: " + dataColor +damage + systemColor+"\n"+"------------------"
                             //FIXME: Add statistics like personality.
                     );
                 }

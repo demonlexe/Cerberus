@@ -24,14 +24,14 @@ public class CommandHelp {
                 systemColor = ConfigFunctions.getChatColor("systemChatColor");
             }
 
-            sender.sendMessage("\n" + systemColor+ "Current Cerberus Commands:"
+            sender.sendMessage(systemColor+"------------------"+"\n" + "Current Cerberus Commands:"
                             +"\n" + CommandAllowDamage.getDescription()
                             +"\n" + CommandAttack.getDescription()
                             +"\n" + CommandBringPet.getDescription()
                             +"\n" + CommandJump.getDescription()
                             +"\n" + CommandNamePet.getDescription()
                             +"\n" + CommandResetPlayer.getDescription()
-                            +"\n" + CommandViewStats.getDescription() + "\n"
+                            +"\n" + CommandViewStats.getDescription() + systemColor + "\n" + "------------------"
                     //+"\n" + //FIXME
 
 
