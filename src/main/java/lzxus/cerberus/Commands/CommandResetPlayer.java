@@ -10,16 +10,39 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
-public class CommandResetPlayer implements CommandExecutor {
+public class CommandResetPlayer {
+    private static String systemColor = null;
     private static String successColor = null;
+    private static String failColor = null;
+    private static String dataColor = null;
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public static void updateColors(){
+        if (failColor == null){
+            failColor = ConfigFunctions.getChatColor("failureChatColor");
+        }
+        if (successColor == null){
+            successColor = ConfigFunctions.getChatColor("successChatColor");
+        }
+        if (dataColor == null){
+            dataColor = ConfigFunctions.getChatColor("dataChatColor");
+        }
+        if (systemColor == null){
+            systemColor = ConfigFunctions.getChatColor("systemChatColor");
+        }
+    }
+
+    public static String getDescription()
+    {
+        updateColors();
+        String formattedString = (successColor + "/ce reset"
+                + systemColor + " - " + dataColor + "Kills your current pet.");
+        return formattedString;
+    }
+
+    public static boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
 
-            if (successColor == null){
-                successColor = ConfigFunctions.getChatColor("successChatColor");
-            }
+            updateColors();
 
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);

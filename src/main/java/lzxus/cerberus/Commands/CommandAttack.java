@@ -10,14 +10,39 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandAttack implements CommandExecutor {
+public class CommandAttack {
     private static String [] validAttackTypes;
     private static String failColor = null;
     private static String successColor = null;
     private static String dataColor = null;
+    private static String systemColor = null;
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public static void updateColors(){
+        if (failColor == null){
+            failColor = ConfigFunctions.getChatColor("failureChatColor");
+        }
+        if (successColor == null){
+            successColor = ConfigFunctions.getChatColor("successChatColor");
+        }
+        if (dataColor == null){
+            dataColor = ConfigFunctions.getChatColor("dataChatColor");
+        }
+        if (systemColor == null){
+            systemColor = ConfigFunctions.getChatColor("systemChatColor");
+        }
+    }
+
+    public static String getDescription()
+    {
+        updateColors();
+        String formattedString = (successColor + "/ce attack"
+                + systemColor + " - " + dataColor + "Toggles if pet is allowed to attack."
+                + "\n" + successColor + "/ce attack <AttackType>"
+                + systemColor + " - " + dataColor + "Valid AttackTypes: a, p, m");
+        return formattedString;
+    }
+
+    public static boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
@@ -25,15 +50,7 @@ public class CommandAttack implements CommandExecutor {
             {
                 validAttackTypes = PetData.getTypeList();
             }
-            if (failColor == null){
-                failColor = ConfigFunctions.getChatColor("failureChatColor");
-            }
-            if (successColor == null){
-                successColor = ConfigFunctions.getChatColor("successChatColor");
-            }
-            if (dataColor == null){
-                dataColor = ConfigFunctions.getChatColor("dataChatColor");
-            }
+            updateColors();
 
             if (!ArrayUtils.isEmpty(args)){
                 String attackType = (args[0]).substring(0,1);

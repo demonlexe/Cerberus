@@ -6,15 +6,16 @@ authors: [ lzxus ]
 description: A plugin with endless capabilities. Maybe.
 commands:
   ce:
-    description: Type /ce or /ce help to view the Cerberus Menu.
-    usage: /ce, /ce help
+    description: Type /ce to view the Cerberus Menu.
+    usage: /ce
     permission: cerberus.main
-  ce debug:
+    aliases: [cerberus, cerb]
+  cdebug:
     description: Displays all plugin data for local player.
-    usage: /ce debug
+    usage: /cdebug
     permission: cerberus.debug
-  ce clean:
+  cclean:
     description: Cleans world of all wolves. Only for OPed members.
-    usage: /ce clean
+    usage: /cclean
     permission: cerberus.clean
 
