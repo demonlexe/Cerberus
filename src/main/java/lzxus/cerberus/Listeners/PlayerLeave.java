@@ -1,15 +1,12 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Listeners;
 
-import org.bukkit.NamespacedKey;
+import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
-
-import java.util.Objects;
 
 public class PlayerLeave implements Listener {
 
@@ -22,9 +19,8 @@ public class PlayerLeave implements Listener {
         }
         else
         {
-            Wolf w = Cerberus.obtainFromWolfList(p);
             PlayerWolfData.setWolfUUID(p,"");
-            Cerberus.updateWolfList(w,p,false);
+            Cerberus.updateWolfList(Cerberus.obtainPetData(p),p,false);
         }
     }
 

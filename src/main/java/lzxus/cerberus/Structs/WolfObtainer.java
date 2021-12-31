@@ -1,11 +1,8 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Structs;
 
-import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
-import org.bukkit.World;
+import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.entity.*;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 public class WolfObtainer {
     public static Wolf getWolf(Player p){
@@ -14,7 +11,8 @@ public class WolfObtainer {
             Wolf newWolf = (Wolf) (p).getWorld().spawnEntity((p).getLocation(), EntityType.WOLF);
             newWolf.setTamed(true);
             newWolf.setOwner(p);
-            Cerberus.updateWolfList(newWolf,p,true);
+            PetData newData = new PetData(newWolf);
+            Cerberus.updateWolfList(newData,p,true);
             return newWolf;
         }
         return null;

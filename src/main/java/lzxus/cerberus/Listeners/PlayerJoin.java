@@ -1,13 +1,13 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Listeners;
 
-import org.bukkit.NamespacedKey;
+import lzxus.cerberus.Structs.PlayerWolfData;
+import lzxus.cerberus.Structs.ModifyPetStats;
+import lzxus.cerberus.Structs.WolfObtainer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 public class PlayerJoin implements Listener {
     @EventHandler

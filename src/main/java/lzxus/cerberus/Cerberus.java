@@ -1,5 +1,9 @@
 package lzxus.cerberus;
 
+import lzxus.cerberus.Commands.*;
+import lzxus.cerberus.Listeners.*;
+import lzxus.cerberus.Structs.PlayerWolfData;
+import lzxus.cerberus.Structs.PetData;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -20,7 +24,7 @@ public final class Cerberus extends JavaPlugin {
     private static FileConfiguration config;
     private static Cerberus plugin;
     private static double [] xpRequirementList; //Holds the full list of XP requirements
-    private static Hashtable<Player, Wolf> wList = new Hashtable<Player, Wolf>(); //Key is Player, Value is live Wolf entity
+    private static Hashtable<Player, PetData> wList = new Hashtable<Player, PetData>(); //Key is Player, Value is live Wolf entity
     private static Hashtable<String, Player> pList = new Hashtable<String, Player>(); //Key is UUID, Value is Player
 
     @Override
@@ -32,7 +36,7 @@ public final class Cerberus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DogTamed(), this);
         getServer().getPluginManager().registerEvents(new EntityDamaged(), this);
         getServer().getPluginManager().registerEvents(new DogDied(), this);
-        //getServer().getPluginManager().registerEvents(new DogAttack(), this);
+        getServer().getPluginManager().registerEvents(new DogAttack(), this);
         this.getCommand("callow").setExecutor(new CommandAllowDamage());
         this.getCommand("cstats").setExecutor(new CommandViewStats());
         this.getCommand("creset").setExecutor(new CommandResetPlayer());
@@ -108,19 +112,24 @@ public final class Cerberus extends JavaPlugin {
     /* Public mutator function, updates wList and pList:
     - boolean active serves to determine if the intended call is to add values (true) or destroy values (false)
     */
-    public static void updateWolfList(Wolf w, Player p, boolean active)
+    public static void updateWolfList(PetData w, Player p, boolean active)
     {
-        System.out.println("updateWolfList called with "+w.getUniqueId()+", active = "+active);
+        Wolf pet = null;
+        if (w != null)
+        {
+            pet = w.getWolf();
+            System.out.println("updateWolfList called with "+pet.getUniqueId()+", active = "+active);
+        }
         String obtainedID = PlayerWolfData.getWolfUUID(p);
         if (active){
-            if (obtainedID!=null && w!=null && (w.getUniqueId().toString()).equals(obtainedID))
+            if (obtainedID!=null && w!=null && pet!=null && (pet.getUniqueId().toString()).equals(obtainedID))
             {
                 wList.put(p,w);
                 pList.put(obtainedID,p);
             }
-            else if (PlayerWolfData.getWolfStatus(p).equals(1) && w!=null)
+            else if (PlayerWolfData.getWolfStatus(p).equals(1) && w!=null && pet!=null)
             {
-                obtainedID = w.getUniqueId().toString();
+                obtainedID = pet.getUniqueId().toString();
                 PlayerWolfData.setWolfUUID(p,obtainedID);
                 wList.put(p,w);
                 pList.put(obtainedID,p);
@@ -128,11 +137,12 @@ public final class Cerberus extends JavaPlugin {
         }
         else
         {
-            Wolf wObtained = wList.get(p);
-            if (wObtained != null) {
+            PetData pObtained = wList.get(p);
+            if (pObtained != null) {
+                Wolf obtainedWolf = pObtained.getWolf();
                 wList.remove(p);
-                wObtained.remove();
-                wObtained.setHealth(0);
+                obtainedWolf.remove();
+                obtainedWolf.setHealth(0);
             }
             if (pList.get(obtainedID)!=null)
                 pList.remove(obtainedID);
@@ -144,13 +154,27 @@ public final class Cerberus extends JavaPlugin {
     public static Wolf obtainFromWolfList(Player p)
     {
         //System.out.println("Calling for Wolfobtainer with "+p);
-        Wolf w = wList.get(p);
-        if (w!=null)
+        PetData pet = wList.get(p);
+        if (pet!= null)
         {
-            return w;
+            Wolf w = pet.getWolf();
+            if (w!=null)
+            {
+                return w;
+            }
         }
         return null;
     }
+    public static PetData obtainPetData(Player p)
+    {
+        PetData pet = wList.get(p);
+        if (pet!= null)
+        {
+            return pet;
+        }
+        return null;
+    }
+
     public static Player obtainFromPlayerList(String id)
     {
         System.out.println("Calling for Playerobtainer with "+id);

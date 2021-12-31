@@ -1,34 +1,43 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Listeners;
 
+import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 public class DogBehavior implements Listener {
 
     // A static member function that resets anger and sit values
-    public static void resetWolf(Wolf playerWolf)
+    private static void resetWolf(Wolf playerWolf)
     {
         playerWolf.setAngry(false);
         playerWolf.setSitting(false);
     }
     // A static member function that makes a wolf angry
-    public static void angerWolf(Wolf playerWolf)
+    private static void angerWolf(Wolf playerWolf)
     {
         playerWolf.setAngry(true);
         playerWolf.setSitting(false);
+    }
+
+    public static void attackChoice(PetData pet)
+    {
+        Wolf w = pet.getWolf();
+        if (w != null)
+        {
+            Entity eChosen = pet.deQueue();
+            if (eChosen != null)
+            {
+                w.setTarget((LivingEntity) eChosen);
+            }
+        }
     }
 
     // An event function that operates upon an animal being interacted.

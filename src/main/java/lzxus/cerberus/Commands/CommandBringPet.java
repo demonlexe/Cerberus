@@ -1,25 +1,25 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Cerberus;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
-public class CommandResetPlayer implements CommandExecutor {
+public class CommandBringPet implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            Wolf w = Cerberus.obtainFromWolfList(p);
-            if (w != null)
+            Wolf obtainedWolf = Cerberus.obtainFromWolfList(p);
+            p.sendMessage(ChatColor.BLUE + "You have brought your pet!");
+            if (obtainedWolf != null)
             {
-                w = null;
-                Cerberus.updateWolfList(w,p,false);
+                obtainedWolf.teleport(p);
             }
-            PlayerReset.resetP(p,w);
-            return true;
         }
-        return false;
+        return true;
     }
 }

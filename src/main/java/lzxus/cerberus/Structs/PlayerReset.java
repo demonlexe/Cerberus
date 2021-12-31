@@ -1,10 +1,8 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Structs;
 
-import org.bukkit.NamespacedKey;
+import lzxus.cerberus.Cerberus;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 public class PlayerReset {
     public static void resetP(Player p, Wolf w){
@@ -22,11 +20,15 @@ public class PlayerReset {
         //Creates Name data
         PlayerWolfData.setWolfName(p,"");
 
+        //Creates Attack data
+        PlayerWolfData.setAttackStatus(p,1);
+        PlayerWolfData.setAttackType(p,"m");
+
         //Creates UUID data
         PlayerWolfData.setWolfUUID(p,"");
         if (w!=null && p!= null)
         {
-            Cerberus.updateWolfList(w,p,false);
+            Cerberus.updateWolfList(Cerberus.obtainPetData(p),p,false);
         }
     }
 }

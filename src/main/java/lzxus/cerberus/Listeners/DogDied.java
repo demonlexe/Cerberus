@@ -1,13 +1,12 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Listeners;
 
-import org.bukkit.NamespacedKey;
+import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.PlayerReset;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 public class DogDied implements Listener {
     @EventHandler

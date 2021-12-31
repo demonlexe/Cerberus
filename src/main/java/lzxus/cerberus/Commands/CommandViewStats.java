@@ -1,18 +1,13 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
-
-import java.io.File;
 
 public class CommandViewStats implements CommandExecutor {
 

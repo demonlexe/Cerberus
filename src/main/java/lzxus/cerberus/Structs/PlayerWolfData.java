@@ -1,5 +1,6 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Structs;
 
+import lzxus.cerberus.Cerberus;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -7,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.PriorityQueue;
 
 //Contains functions related to data
 public class PlayerWolfData {

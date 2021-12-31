@@ -1,4 +1,4 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;

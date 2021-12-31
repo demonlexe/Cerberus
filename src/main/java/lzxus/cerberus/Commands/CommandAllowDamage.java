@@ -1,13 +1,11 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 public class CommandAllowDamage implements CommandExecutor {
 

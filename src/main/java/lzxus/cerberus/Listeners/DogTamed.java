@@ -1,16 +1,14 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Listeners;
 
-import org.bukkit.NamespacedKey;
+import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTameEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
-import javax.naming.Name;
-import java.io.File;
 import java.io.IOException;
 
 public class DogTamed implements Listener {
@@ -36,12 +34,17 @@ public class DogTamed implements Listener {
             //Creates XP data
             PlayerWolfData.setWolfXp(tamer,0.0);
 
+            //Creates Attack data
+            PlayerWolfData.setAttackStatus(tamer,1);
+            PlayerWolfData.setAttackType(tamer,"m");
+
             //Creates Name data
             PlayerWolfData.setWolfName(tamer,"");
 
             //Creates UUID data
             PlayerWolfData.setWolfUUID(tamer,tamedWolf.getUniqueId().toString());
-            Cerberus.updateWolfList(tamedWolf,tamer,true);
+            PetData newData = new PetData(tamedWolf);
+            Cerberus.updateWolfList(newData,tamer,true);
         }
     }
 }

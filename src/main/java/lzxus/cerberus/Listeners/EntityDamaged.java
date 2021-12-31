@@ -1,15 +1,16 @@
-package lzxus.cerberus;
+package lzxus.cerberus.Listeners;
 
+import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.ModifyPetStats;
+import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 // Event listener for adding XP to a wolf.
 public class EntityDamaged implements Listener {
@@ -49,16 +50,28 @@ public class EntityDamaged implements Listener {
             if (w.getOwner() != null)
             {
                 Player p = (Player) w.getOwner();
-                double damageDone = e.getFinalDamage();
+                Integer allowedToAttack = null;
+                if (p != null) {
+                    allowedToAttack = PlayerWolfData.getAttackStatus(p);
+                    if (allowedToAttack.equals(1) && PetData.isAllowedToAttack(w,e.getEntity()))
+                    {
+                        double damageDone = e.getFinalDamage();
 
-                Double prevXp = PlayerWolfData.getWolfXp(p);
-                if (prevXp != null)
-                {
-                    PlayerWolfData.setWolfXp(p,prevXp+damageDone);
-                    System.out.println("Total XP of this wolf: "+PlayerWolfData.getWolfXp(p));
-                    updateLevel(w, p);
+                        Double prevXp = PlayerWolfData.getWolfXp(p);
+                        if (prevXp != null)
+                        {
+                            PlayerWolfData.setWolfXp(p,prevXp+damageDone);
+                            System.out.println("Total XP of this wolf: "+PlayerWolfData.getWolfXp(p));
+                            updateLevel(w, p);
+                        }
+                    }
+                    else
+                    {
+                        e.setCancelled(true);
+                    }
                 }
-                }
+
+            }
         }
     }
 }
