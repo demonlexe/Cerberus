@@ -10,12 +10,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
 public class CommandViewStats implements CommandExecutor {
+    private static double [] xpList = null;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             Wolf obtainedWolf = null;
+
+            if (xpList == null)
+            {
+                xpList = Cerberus.obtainXPList();
+                System.out.println("Cerberus: Obtained XP List . . .");
+            }
 
             String obtainedString = PlayerWolfData.getWolfUUID(p);
             if (obtainedString != null)
@@ -39,7 +46,7 @@ public class CommandViewStats implements CommandExecutor {
                     p.sendMessage(ChatColor.GREEN + "Your wolf's statistics:" +
                             ChatColor.GRAY +
                             "\n" + "Level: " + ChatColor.BLUE +lvl +
-                                    ChatColor.GRAY +"\n" + "XP: " + ChatColor.BLUE +Math.ceil(xp) +
+                                    ChatColor.GRAY +"\n" + "XP: " + ChatColor.BLUE +Math.ceil(xp) + " / " + xpList[lvl+1] +
                                     ChatColor.GRAY + "\n" + "Health: " + ChatColor.BLUE +currentHealth +" / "+ maxHealth+
                                     ChatColor.GRAY + "\n" + "Attack Damage: " + ChatColor.BLUE +damage + "\n"
                             //FIXME: Add statistics like personality.
