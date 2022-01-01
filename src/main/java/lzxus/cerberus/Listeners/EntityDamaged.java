@@ -44,15 +44,16 @@ public class EntityDamaged implements Listener {
 
         if (w != null && p != null && p.isOnline())
         {
-            Double currentXP = PlayerWolfData.getWolfXp(p);
-            Integer currentLevel = PlayerWolfData.getWolfLvl(p);
-            Double currentHealth = PlayerWolfData.getCurrentWolfHealth(p);
-            Double maxHealth = PlayerWolfData.getWolfHealth(p);
+            PetData pet = Cerberus.obtainPetData(p);
+            Double currentXP = pet.getWolfXp();
+            Integer currentLevel = pet.getWolfLvl();
+            Double currentHealth = pet.getCurrentWolfHealth();
+            Double maxHealth = pet.getWolfHealth();
             //System.out.println("Cerberus: Obtaining Data: CurrentXP is "+currentXP+" while currentLevel is "+currentLevel);
             if ((currentLevel != null) && (currentXP != null) && (currentLevel < maxLevel) &&(xpList[currentLevel+1] <= currentXP))
             {
                 currentLevel++;
-                PlayerWolfData.setWolfLvl(p,currentLevel);
+                pet.setWolfLvl(currentLevel);
                 ParticleBehavior.onLevelUp(w);
                 p.sendMessage(successColor + "Your pet has leveled up! It is now " +dataColor+"Level "+currentLevel);
                 ModifyPetStats.updateStats(w,currentLevel);
@@ -82,7 +83,7 @@ public class EntityDamaged implements Listener {
             else if (damagedEntity instanceof Wolf)
             {
                 Wolf w = (Wolf) damagedEntity;
-                Player p = PlayerWolfData.isPlayerPet(w);
+                Player p = (Player) (w).getOwner();
                 if (p!= null)
                 {
                     PetData pet = Cerberus.obtainPetData(p);
@@ -100,7 +101,7 @@ public class EntityDamaged implements Listener {
         if (attacker instanceof Wolf && damagedEntity instanceof LivingEntity)
         {
             Wolf w = (Wolf) attacker;
-            Player owner = PlayerWolfData.isPlayerPet(w);
+            Player owner = (Player) (w).getOwner();
             if (owner != null)
             {
                 PetData pet = Cerberus.obtainPetData(owner);
@@ -124,17 +125,17 @@ public class EntityDamaged implements Listener {
             if (w.getOwner() != null)
             {
                 Player p = (Player) w.getOwner();
-                Integer allowedToAttack = null;
                 if (p != null) {
-                    allowedToAttack = PlayerWolfData.getAttackStatus(p);
-                    if (allowedToAttack.equals(1) && PetData.isAllowedToAttack(w,e.getEntity()))
+                    PetData pet = Cerberus.obtainPetData(p);
+                    Integer allowedToAttack = pet.getAttackStatus();
+                    if (allowedToAttack.equals(1) && pet.isAllowedToAttack(e.getEntity()))
                     {
                         double damageDone = e.getFinalDamage();
 
-                        Double prevXp = PlayerWolfData.getWolfXp(p);
+                        Double prevXp = pet.getWolfXp();
                         if (prevXp != null)
                         {
-                            PlayerWolfData.setWolfXp(p,prevXp+damageDone);
+                            pet.setWolfXp(prevXp+damageDone);
                             //System.out.println("Total XP of this wolf: "+PlayerWolfData.getWolfXp(p));
                             updateLevel(w, p);
                         }

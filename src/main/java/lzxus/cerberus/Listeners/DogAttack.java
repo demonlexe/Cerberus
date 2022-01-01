@@ -2,14 +2,12 @@ package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.PetData;
-import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 

@@ -1,6 +1,7 @@
 package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.PetData;
 import lzxus.cerberus.Structs.PlayerReset;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -16,10 +17,12 @@ public class DogDied implements Listener {
         if (event.getEntity() instanceof Wolf)
         {
             Wolf w = (Wolf) event.getEntity();
-            Player p = Cerberus.obtainFromPlayerList(w.getUniqueId().toString());
+            Player p = (Player) w.getOwner();
             if (p != null)
             {
-                PlayerReset.resetP(p,w);
+                PetData pet = Cerberus.obtainPetData(p);
+                if (pet!= null && pet.getWolf().equals(w))
+                    PlayerReset.resetP(p,pet);
             }
         }
     }

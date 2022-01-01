@@ -2,10 +2,7 @@ package lzxus.cerberus;
 
 import lzxus.cerberus.Commands.*;
 import lzxus.cerberus.Listeners.*;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.PlayerWolfData;
 import lzxus.cerberus.Structs.PetData;
-import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.awt.*;
 import java.util.Hashtable;
 
 /*
@@ -29,7 +25,6 @@ public final class Cerberus extends JavaPlugin {
     private static Cerberus plugin;
     private static double [] xpRequirementList; //Holds the full list of XP requirements
     private static Hashtable<Player, PetData> wList = new Hashtable<>(); //Key is Player, Value is live Wolf entity
-    private static Hashtable<String, Player> pList = new Hashtable<>(); //Key is UUID, Value is Player
 
     @Override
     public void onEnable() {
@@ -117,65 +112,69 @@ public final class Cerberus extends JavaPlugin {
     //Obtains XP List, as double array
     public static double [] obtainXPList() {return xpRequirementList; }
 
-    /* Public mutator function, updates wList and pList:
+    /* Public mutator function, updates wList:
     - boolean active serves to determine if the intended call is to add values (true) or destroy values (false)
     */
-    public static void updateWolfList(PetData w, Player p, boolean active)
-    {
-        Wolf pet = null;
-        if (w != null)
-        {
-            pet = w.getWolf();
-            //System.out.println("updateWolfList called with "+pet.getUniqueId()+", active = "+active);
-        }
-        String obtainedID = PlayerWolfData.getWolfUUID(p);
-        if (active){
-            if (obtainedID!=null && w!=null && pet!=null && (pet.getUniqueId().toString()).equals(obtainedID))
-            {
-                wList.put(p,w);
-                pList.put(obtainedID,p);
-            }
-            else if (PlayerWolfData.getWolfStatus(p).equals(1) && w!=null && pet!=null)
-            {
-                obtainedID = pet.getUniqueId().toString();
-                PlayerWolfData.setWolfUUID(p,obtainedID);
-                wList.put(p,w);
-                pList.put(obtainedID,p);
-            }
-        }
-        else
-        {
-            PetData pObtained = wList.get(p);
-            if (pObtained != null) {
-                Wolf obtainedWolf = pObtained.getWolf();
-                wList.remove(p);
-                obtainedWolf.remove();
-                obtainedWolf.setHealth(0);
-            }
-            if (pList.get(obtainedID)!=null)
-                pList.remove(obtainedID);
-        }
 
+    private static void updateHelper(Player p, PetData pet)
+    {
+        if (wList.get(p) != null)
+        {
+            wList.remove(p);
+        }
+        wList.put(p,pet);
     }
-
-    // Public getter function, returns a Wolf from wList using Player as the key.
-    public static Wolf obtainFromWolfList(Player p)
+    public static void updateWolfList(PetData pet, Player p, String callType)
     {
-        if (!wList.isEmpty())
+        switch(callType)
         {
-            //System.out.println("Calling for Wolfobtainer with "+p);
-            PetData pet = wList.get(p);
-            if (pet!= null)
-            {
-                Wolf w = pet.getWolf();
+            case "NoPetOwned":
+                updateHelper(p,pet);
+                break;
+            case "PetRemoved":
+                PetData pObtained = wList.get(p);
+                if (pObtained != null) {
+                    Wolf obtainedWolf = pObtained.getWolf();
+                    wList.remove(p);
+                    if (obtainedWolf != null && obtainedWolf.getHealth() > 0)
+                    {
+                        obtainedWolf.remove();
+                        obtainedWolf.setHealth(0);
+                    }
+                }
+                updateHelper(p,new PetData(p));
+                break;
+            case "PetAdded":
+                Wolf w = null;
+                String obtainedID = null;
+
+                if (pet!=null)
+                    w = pet.getWolf();
                 if (w!=null)
                 {
-                    return w;
+                    obtainedID = pet.getWolfUUID();
+                    if (obtainedID != null && w.getUniqueId().toString().equalsIgnoreCase(obtainedID))
+                    {
+                        updateHelper(p,pet);
+                    }
+                    else if (pet.getWolfStatus().equals(1))
+                    {
+                        obtainedID = w.getUniqueId().toString();
+                        pet.setWolfUUID(obtainedID);
+                        if (wList.get(p) != null)
+                        {
+                            wList.remove(p);
+                        }
+                        wList.put(p,pet);
+                    }
                 }
-            }
+                break;
+            default:
+                System.out.println("ERROR");
         }
-        return null;
+
     }
+
     public static PetData obtainPetData(Player p)
     {
         if (!wList.isEmpty())
@@ -184,20 +183,6 @@ public final class Cerberus extends JavaPlugin {
             if (pet!= null)
             {
                 return pet;
-            }
-        }
-        return null;
-    }
-
-    public static Player obtainFromPlayerList(String id)
-    {
-        if (!pList.isEmpty())
-        {
-            //System.out.println("Calling for Playerobtainer with "+id);
-            Player p = pList.get(id);
-            if (p!=null)
-            {
-                return p;
             }
         }
         return null;

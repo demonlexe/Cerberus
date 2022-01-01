@@ -1,7 +1,7 @@
 package lzxus.cerberus.Listeners;
 
+import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.PetData;
-import lzxus.cerberus.Structs.PlayerWolfData;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -62,9 +62,11 @@ public class DogBehavior implements Listener {
             {
                 p.sendMessage(ChatColor.BLUE+"This dog is your main pet!");
             }
-            else
+            else //FIXME: ADD A "THIS IS NOT YOUR PET" HANDLER
             {
-                Integer ownedValue = PlayerWolfData.getWolfOwned(p);
+                PetData pet = Cerberus.obtainPetData(p);
+                assert pet != null;
+                Integer ownedValue = pet.getWolfOwned();
                 if (ownedValue != null && ownedValue.equals(1))
                 {
                     event.setCancelled(true);
@@ -93,7 +95,9 @@ public class DogBehavior implements Listener {
             return;
         }
 
-        Integer dataObtained = PlayerWolfData.getDamageEnabled(p);
+        PetData pet = Cerberus.obtainPetData(p);
+        assert pet!=null;
+        Integer dataObtained = pet.getDamageEnabled();
         //If the attacker is not its owner, the damage does not occur and the wolf is angered.
         //System.out.println("Owner: " + damagedDog.getOwner().getName() + ", wolf is tamed: " + damagedDog.isTamed() + ", damager: " + damager.getName());
             if (damagedDog.isTamed() && damagedDog.getOwner().getName() != p.getName()) {

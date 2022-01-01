@@ -5,30 +5,30 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
 public class PlayerReset {
-    public static void resetP(Player p, Wolf w){
+    public static void resetP(Player p, PetData pet){
 
         //Creates Boolean data
-        PlayerWolfData.setWolfOwned(p,0); //false
-        PlayerWolfData.setWolfStatus(p,0); //false
+        pet.setWolfOwned(0); //false
+        pet.setWolfStatus(0); //false
 
         //Creates Level data
-        PlayerWolfData.setWolfLvl(p,0);
+        pet.setWolfLvl(0);
 
         //Creates XP data
-        PlayerWolfData.setWolfXp(p,0.0);
+        pet.setWolfXp(0.0);
 
         //Creates Name data
-        PlayerWolfData.setWolfName(p,"");
+        pet.setWolfName("");
 
         //Creates Attack data
-        PlayerWolfData.setAttackStatus(p,1);
-        PlayerWolfData.setAttackType(p,"m");
+        pet.setAttackStatus(1);
+        pet.setAttackType("m");
 
         //Creates UUID data
-        PlayerWolfData.setWolfUUID(p,"");
-        if (w!=null && p!= null)
+        pet.setWolfUUID("");
+        if (pet!=null && p!= null)
         {
-            Cerberus.updateWolfList(Cerberus.obtainPetData(p),p,false);
+            Cerberus.updateWolfList(pet,p,"PetRemoved");
         }
     }
 }

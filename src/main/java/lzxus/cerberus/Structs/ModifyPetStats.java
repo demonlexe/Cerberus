@@ -23,10 +23,12 @@ public class ModifyPetStats {
                 w.addPotionEffect(newEffect);
             }
 
-            Player p = Cerberus.obtainFromPlayerList(w.getUniqueId().toString());
+            Player p = (Player) w.getOwner();
             if (p != null)
             {
-                w.setCustomName(PlayerWolfData.getWolfName(p));
+                PetData pet = Cerberus.obtainPetData(p);
+                if (pet!= null && pet.getWolf().equals(w))
+                    w.setCustomName(pet.getWolfName());
             }
         }
     }

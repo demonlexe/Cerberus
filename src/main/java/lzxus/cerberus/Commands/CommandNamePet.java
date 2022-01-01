@@ -2,12 +2,8 @@ package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.ConfigFunctions;
-import lzxus.cerberus.Structs.PlayerWolfData;
+import lzxus.cerberus.Structs.PetData;
 import org.apache.commons.lang.ArrayUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -23,16 +19,27 @@ public class CommandNamePet extends CerberusCommand {
     public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player && !ArrayUtils.isEmpty(args)) {
             Player p = (Player) sender;
-            Wolf obtainedWolf = Cerberus.obtainFromWolfList(p);
-            String newName = (args[0]).replaceAll("\\s+","");
-            p.sendMessage(successColor + "Your pet is now named " +dataColor+newName+ successColor+"!");
-            if (obtainedWolf != null)
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet!=null;
+
+            if (pet.getWolfStatus().equals(1))
             {
-                obtainedWolf.setCustomName(newName);
-                PlayerWolfData.setWolfName(p,newName);
+                Wolf obtainedWolf = pet.getWolf();
+                String newName = (args[0]).replaceAll("\\s+","");
+                p.sendMessage(successColor + "Your pet is now named " +dataColor+newName+ successColor+"!");
+                if (obtainedWolf != null)
+                {
+                    obtainedWolf.setCustomName(newName);
+                    pet.setWolfName(newName);
+                }
             }
+            else
+            {
+                commandFailedMessage(p);
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     public CommandNamePet(){

@@ -25,12 +25,7 @@ public class CommandResetPlayer extends CerberusCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
-            if (pet != null)
-            {
-                pet = null;
-                Cerberus.updateWolfList(pet,p,false);
-            }
-            PlayerReset.resetP(p,null);
+            PlayerReset.resetP(p,pet);
             p.sendMessage(successColor+"Your pet data has been reset!");
             return true;
         }

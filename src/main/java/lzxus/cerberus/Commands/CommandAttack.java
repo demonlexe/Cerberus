@@ -1,17 +1,16 @@
 package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PetData;
-import lzxus.cerberus.Structs.PlayerWolfData;
 import org.apache.commons.lang.ArrayUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+
 public class CommandAttack extends CerberusCommand {
+
     public String getDescription()
     {
         String formattedString = (successColor + "/ce attack"
@@ -24,36 +23,47 @@ public class CommandAttack extends CerberusCommand {
     public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet!=null;
 
-            if (!ArrayUtils.isEmpty(args)){
-                String attackType = (args[0]).substring(0,1);
-                attackType = attackType.toLowerCase();
-                if (ArrayUtils.contains(validAttackTypes,attackType))
-                {
-                    PlayerWolfData.setAttackType(p,attackType);
-                    p.sendMessage(successColor+"Your pet will now attack: "+ dataColor +attackType);
+            if (pet.getWolfStatus().equals(1))
+            {
+
+                if (!ArrayUtils.isEmpty(args)){
+                    String attackType = (args[0]).substring(0,1);
+                    attackType = attackType.toLowerCase();
+                    if (ArrayUtils.contains(validAttackTypes,attackType))
+                    {
+                        pet.setAttackType(attackType);
+                        p.sendMessage(successColor+"Your pet will now attack: "+ dataColor +attackType);
+                    }
+                    else
+                    {
+                        //FIXME
+                        p.sendMessage(failColor+"That is not a valid attack type! Valid types are all, passive, monsters");
+                    }
                 }
                 else
                 {
-                    //FIXME
-                    p.sendMessage(failColor+"That is not a valid attack type! Valid types are all, passive, monsters");
+                    if (pet.getAttackStatus().equals(0))
+                    {
+                        pet.setAttackStatus(1);
+                        p.sendMessage(successColor+ "Your pet will now attack mobs!");
+                    }
+                    else
+                    {
+                        pet.setAttackStatus(0);
+                        p.sendMessage(failColor+"Your pet will no longer attack any mobs.");
+                    }
                 }
+
+                return true;
             }
             else
             {
-                if (PlayerWolfData.getAttackStatus(p).equals(0))
-                {
-                    PlayerWolfData.setAttackStatus(p,1);
-                    p.sendMessage(successColor+ "Your pet will now attack mobs!");
-                }
-                else
-                {
-                    PlayerWolfData.setAttackStatus(p,0);
-                    p.sendMessage(failColor+"Your pet will no longer attack any mobs.");
-                }
+                commandFailedMessage(p);
+                return true;
             }
-
-            return true;
         }
         return false;
     }

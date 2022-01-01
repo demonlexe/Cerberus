@@ -3,6 +3,7 @@ package lzxus.cerberus.Commands;
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.ConfigFunctions;
+import lzxus.cerberus.Structs.PetData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,14 +22,25 @@ public class CommandJump extends CerberusCommand {
     public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            Wolf w = Cerberus.obtainFromWolfList(p);
-            if (w!=null)
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet!=null;
+
+            if (pet.getWolfStatus().equals(1))
             {
-                w.setVelocity(new Vector(0,.5,0));
+                Wolf w = pet.getWolf();
+                if (w!=null)
+                {
+                    w.setVelocity(new Vector(0,.5,0));
                 /*for(float i = 0; i<=360; i++)
                 {
                     w.setRotation(0.0F,i);
                 }*/
+                    return true;
+                }
+            }
+            else
+            {
+                commandFailedMessage(p);
                 return true;
             }
         }

@@ -1,8 +1,8 @@
 package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.ConfigFunctions;
-import lzxus.cerberus.Structs.PlayerWolfData;
-import org.bukkit.ChatColor;
+import lzxus.cerberus.Structs.PetData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,15 +21,17 @@ public class CommandDebugData implements CommandExecutor {
             }
 
             Player p = (Player) sender;
-            p.sendMessage(successColor+ "wolf-xp: "+ PlayerWolfData.getWolfXp(p)+
-                    "\n"+"wolf-lvl: "+PlayerWolfData.getWolfLvl(p)+
-                    "\n"+"wolf-status: "+PlayerWolfData.getWolfStatus(p)+
-                    "\n"+"wolf-uuid: "+PlayerWolfData.getWolfUUID(p)+
-                    "\n"+"damageEnabled: "+PlayerWolfData.getDamageEnabled(p)+
-                    "\n"+"wolf-name: "+PlayerWolfData.getWolfName(p) +
-                    "\n"+"wolf-owned: "+PlayerWolfData.getWolfOwned(p) +
-                    "\n"+"wolf-attack-status: "+PlayerWolfData.getAttackStatus(p) +
-                    "\n"+"wolf-attack-type: "+PlayerWolfData.getAttackType(p)
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet != null;
+            p.sendMessage(successColor+ "wolf-xp: "+ pet.getWolfXp()+
+                    "\n"+"wolf-lvl: "+pet.getWolfLvl()+
+                    "\n"+"wolf-status: "+pet.getWolfStatus()+
+                    "\n"+"wolf-uuid: "+pet.getWolfUUID()+
+                    "\n"+"damageEnabled: "+pet.getDamageEnabled()+
+                    "\n"+"wolf-name: "+pet.getWolfName() +
+                    "\n"+"wolf-owned: "+pet.getWolfOwned() +
+                    "\n"+"wolf-attack-status: "+pet.getAttackStatus() +
+                    "\n"+"wolf-attack-type: "+pet.getAttackType()
 
             );
             return true;

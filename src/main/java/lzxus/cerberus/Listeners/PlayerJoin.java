@@ -1,7 +1,8 @@
 package lzxus.cerberus.Listeners;
 
-import lzxus.cerberus.Structs.PlayerWolfData;
+import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.ModifyPetStats;
+import lzxus.cerberus.Structs.PetData;
 import lzxus.cerberus.Structs.WolfObtainer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -15,15 +16,17 @@ public class PlayerJoin implements Listener {
     {
         //Code to teleport main wolf to player, if applicable. Also loads wolf into Cerberus' hashtable.
         Player p = event.getPlayer();
-        if (PlayerWolfData.getWolfStatus(p).equals(1))
+        Wolf obtainedWolf = WolfObtainer.getWolf(p);
+        System.out.println("Running PlayerJoin wolf obtainer: "+obtainedWolf);
+        if (obtainedWolf != null)
         {
-            Wolf obtainedWolf = WolfObtainer.getWolf(p);
-            System.out.println("Running PlayerJoin wolf obtainer: "+obtainedWolf);
-            if (obtainedWolf != null)
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet != null;
+            Integer lvl = pet.getWolfLvl();
+            if (lvl != null)
             {
-                Integer lvl = PlayerWolfData.getWolfLvl(p);
-                if (lvl != null)
-                    ModifyPetStats.updateStats(obtainedWolf,lvl);
+                ModifyPetStats.updateStats(obtainedWolf,lvl);
+                System.out.printf("Stats updated.");
             }
 
         }

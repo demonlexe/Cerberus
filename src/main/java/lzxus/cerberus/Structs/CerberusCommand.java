@@ -35,7 +35,16 @@ public class CerberusCommand {
     {
         if (p!=null)
         {
-            p.sendMessage(failColor+"This is not a valid command!");
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet!=null;
+            if (pet.getWolfStatus().equals(0))
+            {
+                p.sendMessage(failColor+"You do not currently have a pet!");
+            }
+            else
+            {
+                p.sendMessage(failColor+"This is not a valid command!");
+            }
             return true;
         }
         return false;

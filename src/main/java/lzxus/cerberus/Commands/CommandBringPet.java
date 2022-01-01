@@ -3,6 +3,7 @@ package lzxus.cerberus.Commands;
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.ConfigFunctions;
+import lzxus.cerberus.Structs.PetData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,14 +22,25 @@ public class CommandBringPet extends CerberusCommand {
     public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            Wolf obtainedWolf = Cerberus.obtainFromWolfList(p);
-            p.sendMessage(successColor + "You have brought your pet!");
-            if (obtainedWolf != null)
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet!=null;
+            if (pet.getWolfStatus().equals(1))
             {
-                obtainedWolf.teleport(p);
+                Wolf obtainedWolf = pet.getWolf();
+                p.sendMessage(successColor + "You have brought your pet!");
+                if (obtainedWolf != null)
+                {
+                    obtainedWolf.teleport(p);
+                }
+                return true;
+            }
+            else
+            {
+                commandFailedMessage(p);
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public CommandBringPet(){

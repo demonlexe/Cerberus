@@ -24,8 +24,9 @@ public class ParticleBehavior {
 
         if (w!=null)
         {
-            Player p = PlayerWolfData.isPlayerPet(w);
-            if (p!=null)
+            Player p = (Player) (w).getOwner();
+            PetData pet = Cerberus.obtainPetData(p);
+            if (p!=null && pet != null && pet.getWolf().equals(w))
             {
                 World wWorld = w.getWorld();
                 Location loc = w.getLocation();
