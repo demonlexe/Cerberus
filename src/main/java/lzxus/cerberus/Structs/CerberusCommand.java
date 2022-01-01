@@ -20,17 +20,34 @@ public class CerberusCommand {
     protected String Description;
     //FIXME Add Permission Field
 
+    /**
+     * General getter function for a command description.
+     * SHOULD be overridden by subclass.
+     * Returns an error message to be sent to player.
+     * @return
+     */
     public String getDescription()
     {
         String formattedString = (failColor+"Error in obtained description for this command.");
         return formattedString;
     }
 
-    public ArrayList<String> getAliases()
+    /**
+     * Returns an ArrayList containing all aliases for a command.
+     * Should NOT be overridden.
+     * @return
+     */
+    public final ArrayList<String> getAliases()
     {
         return Aliases;
     }
 
+    /**
+     * Method to be called by CommandMain.
+     * CAN be overridden.
+     * @param p
+     * @return
+     */
     public boolean commandFailedMessage(Player p)
     {
         if (p!=null)
@@ -50,18 +67,35 @@ public class CerberusCommand {
         return false;
     }
 
+    /**
+     * SHOULD be overridden. Default main function for subclass. Returns error message.
+     * @param sender
+     * @param args
+     * @return
+     */
     public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player)
             commandFailedMessage((Player) sender);
         return false;
     }
+    /**
+     * SHOULD be overridden. Default main function, intended for CommandHelp or any command needing access
+     * to the command list. Returns error message.
+     * @param sender
+     * @param args
+     * @return
+     */
     public boolean onCommand(CommandSender sender, String[] args, ArrayList<CerberusCommand> list) {
         if (sender instanceof Player)
             commandFailedMessage((Player) sender);
         return false;
     }
 
-    protected void initializeConfigData()
+    /**
+     * Should NOT be overridden by subclass.
+     * Initializes chat color values, from the config.
+     */
+    protected final void initializeConfigData()
     {
             failColor = ConfigFunctions.getChatColor("failureChatColor");
             successColor = ConfigFunctions.getChatColor("successChatColor");
@@ -71,6 +105,9 @@ public class CerberusCommand {
             xpList = Cerberus.obtainXPList();
     }
 
+    /**
+     * Default constructor. Should NOT be overridden, SHOULD be called by subclass.
+     */
     public CerberusCommand()
     {
         initializeConfigData();

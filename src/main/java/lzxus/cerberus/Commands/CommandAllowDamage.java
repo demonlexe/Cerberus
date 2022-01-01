@@ -7,7 +7,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandAllowDamage extends CerberusCommand {
-
+    /**
+     * CAN be overridden by subclass.
+     * Returns a formatted string describing command function.
+     * @return
+     */
     public String getDescription()
     {
         String formattedString = (successColor + "/ce allow"
@@ -15,6 +19,11 @@ public class CommandAllowDamage extends CerberusCommand {
         return formattedString;
     }
 
+    /**
+     * Code to be run when a Player executes this command.
+     * Toggles if a pet is able to be harmed by the owner.
+     * CAN be overridden by subclass.
+     */
     public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player)
         {
@@ -46,6 +55,10 @@ public class CommandAllowDamage extends CerberusCommand {
         return false;
     }
 
+    /**
+     * Constructor to be called by CommandMain. MUST call super();
+     * Overwrites command info, such as Description, CommandName, Aliases.
+     */
     public CommandAllowDamage()
     {
         super();

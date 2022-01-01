@@ -2,6 +2,7 @@ package lzxus.cerberus;
 
 import lzxus.cerberus.Commands.*;
 import lzxus.cerberus.Listeners.*;
+import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.PetData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,6 +20,10 @@ First version published 12/29/2021
 -------------------------------------------------------
  */
 
+/**
+ * This is the main Cerberus class, extending JavaPlugin.
+ */
+
 public final class Cerberus extends JavaPlugin {
 
     private static FileConfiguration config;
@@ -26,6 +31,15 @@ public final class Cerberus extends JavaPlugin {
     private static double [] xpRequirementList; //Holds the full list of XP requirements
     private static Hashtable<Player, PetData> wList = new Hashtable<>(); //Key is Player, Value is live Wolf entity
 
+    /**
+     * Plugin start-up logic.
+     * Registers all events/listeners.
+     * Registers single-word utility commands ce, cclean, and cdebug
+     * Sets up plugin config with default values, which is a FileConfiguration
+     * Initializes the array of levels using data from config
+     * Calls CommandMain.main() to set up CerberusCommand
+     *
+     */
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -87,6 +101,10 @@ public final class Cerberus extends JavaPlugin {
         System.out.println("Cerberus has completed start-up behaviors and is successfully launched.");
     }
 
+    /**
+     * Plugin shutdown logic. For all online players, calls disconnection function.
+     * @see PlayerLeave
+     */
     @Override
     public void onDisable() {
         System.out.println("Cerberus has closed down.");
@@ -101,21 +119,28 @@ public final class Cerberus extends JavaPlugin {
 
     //Public Functions, non-startup and non-shutdown
 
-    //Obtains plugin, as Cerberus
+    /**Obtains plugin
+     * @see Cerberus
+     */
     public static Cerberus getPlugin() {
         return plugin;
     }
 
-    //Obtains config, as FileConfiguration
+    /**Obtains config
+     * @see FileConfiguration
+    */
     public static FileConfiguration obtainConfig() {return config; }
 
-    //Obtains XP List, as double array
+    /**Obtains XP List, generated from onEnabled(), as double array
+     */
     public static double [] obtainXPList() {return xpRequirementList; }
 
-    /* Public mutator function, updates wList:
-    - boolean active serves to determine if the intended call is to add values (true) or destroy values (false)
-    */
 
+    /**
+     * Private function to aid updateWolfList
+     * @param p
+     * @param pet
+     */
     private static void updateHelper(Player p, PetData pet)
     {
         if (wList.get(p) != null)
@@ -124,6 +149,9 @@ public final class Cerberus extends JavaPlugin {
         }
         wList.put(p,pet);
     }
+    /** Public mutator function, updates wList:
+     - String callType serves to determine case
+     */
     public static void updateWolfList(PetData pet, Player p, String callType)
     {
         switch(callType)
@@ -175,6 +203,11 @@ public final class Cerberus extends JavaPlugin {
 
     }
 
+    /**
+     * Used to obtain PetData for given Player p
+     * @param p
+     * @return
+     */
     public static PetData obtainPetData(Player p)
     {
         if (!wList.isEmpty())
