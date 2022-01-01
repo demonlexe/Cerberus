@@ -2,6 +2,7 @@ package lzxus.cerberus;
 
 import lzxus.cerberus.Commands.*;
 import lzxus.cerberus.Listeners.*;
+import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.PlayerWolfData;
 import lzxus.cerberus.Structs.PetData;
 import org.apache.commons.lang.ArrayUtils;
@@ -84,6 +85,9 @@ public final class Cerberus extends JavaPlugin {
             System.out.println("At position: "+i+" Value: "+xpRequirementList[i]);
         }
         */
+
+        //Initalize main methods:
+        CommandMain.main();
 
         System.out.println("Cerberus has completed start-up behaviors and is successfully launched.");
     }

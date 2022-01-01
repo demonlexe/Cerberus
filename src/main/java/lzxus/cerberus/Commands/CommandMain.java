@@ -8,7 +8,26 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.HelpCommand;
 import org.bukkit.entity.Player;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class CommandMain implements CommandExecutor {
+    private static ArrayList<CerberusCommand> commandList = new ArrayList<>();
+    private static CerberusCommand helpCommand;
+
+    //to be called by Cerberus.java
+    public static void main()
+    {
+        System.out.println("Adding commands to CommandList.");
+        commandList.add(new CommandAllowDamage());
+        commandList.add(new CommandAttack());
+        commandList.add(new CommandBringPet());
+        commandList.add(new CommandJump());
+        commandList.add(new CommandNamePet());
+        commandList.add(new CommandResetPlayer());
+        commandList.add(new CommandViewStats());
+        helpCommand = new CommandHelp();
+    }
 
     private static String [] getNewArgs(String [] oldArgs)
     {
@@ -21,53 +40,40 @@ public class CommandMain implements CommandExecutor {
         return newArgs;
     }
 
+    private static boolean checkAliases(ArrayList<String> list, String toCompare)
+    {
+        for (String s : list)
+        {
+            System.out.println("Checking for aliases.");
+            if (s.equalsIgnoreCase(toCompare))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         boolean toR = false;
         if (sender instanceof Player) {
             if (ArrayUtils.isEmpty(args))
             {
-                toR = CommandHelp.onCommand(sender,args);
+                toR = helpCommand.onCommand(sender,args,commandList);
             }
             else
             {
                 String commandName = args[0];
-                if (commandName.equalsIgnoreCase("allow"))
+                for (CerberusCommand c : commandList)
                 {
-                    toR = CommandAllowDamage.onCommand(sender, getNewArgs(args));
+                    if (checkAliases(c.getAliases(),commandName))
+                    {
+                        toR = c.onCommand(sender, getNewArgs(args));
+                        return toR;
+                    }
                 }
-                else if (commandName.equalsIgnoreCase("attack"))
-                {
-                    toR = CommandAttack.onCommand(sender, getNewArgs(args));
-                }
-                else if (commandName.equalsIgnoreCase("bring"))
-                {
-                    toR = CommandBringPet.onCommand(sender, getNewArgs(args));
-                }
-                else if (commandName.equalsIgnoreCase("help"))
-                {
-                    toR = CommandHelp.onCommand(sender, getNewArgs(args));
-                }
-                else if (commandName.equalsIgnoreCase("jump"))
-                {
-                    toR = CommandJump.onCommand(sender, getNewArgs(args));
-                }
-                else if (commandName.equalsIgnoreCase("name"))
-                {
-                    toR = CommandNamePet.onCommand(sender, getNewArgs(args));
-                }
-                else if (commandName.equalsIgnoreCase("reset"))
-                {
-                    toR = CommandResetPlayer.onCommand(sender, getNewArgs(args));
-                }
-                else if (commandName.equalsIgnoreCase("stats") || commandName.equalsIgnoreCase("s"))
-                {
-                    toR = CommandViewStats.onCommand(sender, getNewArgs(args));
-                }
-                else
-                {
-                    toR = CerberusCommand.commandFailedMessage((Player) sender);
-                }
+                helpCommand.commandFailedMessage((Player) sender);
+                toR = helpCommand.onCommand(sender,args,commandList);
             }
         }
         return toR;

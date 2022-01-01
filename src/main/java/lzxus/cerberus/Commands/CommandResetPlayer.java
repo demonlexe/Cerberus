@@ -13,17 +13,15 @@ import org.bukkit.entity.Wolf;
 
 public class CommandResetPlayer extends CerberusCommand {
 
-
-    public static String getDescription()
+//FIXME : CHANGE TO /CE RESET CONFIRM. OVERWRITE ERROR MESSAGE TO SAY "PLEASE CONFIRM WITH /CE RESET CONFIRM"
+    public String getDescription()
     {
-        initializeData();
         String formattedString = (successColor + "/ce reset"
                 + systemColor + " - " + dataColor + "Kills your current pet.");
         return formattedString;
     }
 
-    public static boolean onCommand(CommandSender sender, String[] args) {
-        initializeData();
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
@@ -37,5 +35,13 @@ public class CommandResetPlayer extends CerberusCommand {
             return true;
         }
         return false;
+    }
+
+    public CommandResetPlayer()
+    {
+        super();
+        Description = getDescription();
+        CommandName = "reset";
+        Aliases.add("reset");
     }
 }

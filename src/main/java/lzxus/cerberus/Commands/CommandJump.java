@@ -11,16 +11,14 @@ import org.bukkit.entity.Wolf;
 import org.bukkit.util.Vector;
 
 public class CommandJump extends CerberusCommand {
-    public static String getDescription()
+    public String getDescription()
     {
-        initializeData();
         String formattedString = (successColor + "/ce jump"
                 + systemColor + " - " + dataColor + "Your pet does a lil jump.");
         return formattedString;
     }
 
-    public static boolean onCommand(CommandSender sender, String[] args) {
-        initializeData();
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             Wolf w = Cerberus.obtainFromWolfList(p);
@@ -36,4 +34,14 @@ public class CommandJump extends CerberusCommand {
         }
         return false;
     }
+
+    public CommandJump()
+    {
+        super();
+        Description = getDescription();
+        CommandName = "jump";
+        Aliases.add("jump");
+        Aliases.add("j");
+    }
+
 }

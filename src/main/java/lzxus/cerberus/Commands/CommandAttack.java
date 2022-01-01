@@ -14,9 +14,8 @@ import org.bukkit.entity.Player;
 public class CommandAttack extends CerberusCommand {
 
 
-    public static String getDescription()
+    public String getDescription()
     {
-        initializeData();
         String formattedString = (successColor + "/ce attack"
                 + systemColor + " - " + dataColor + "Toggles if pet is allowed to attack."
                 + "\n" + successColor + "/ce attack <AttackType>"
@@ -24,8 +23,7 @@ public class CommandAttack extends CerberusCommand {
         return formattedString;
     }
 
-    public static boolean onCommand(CommandSender sender, String[] args) {
-        initializeData();
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
@@ -60,5 +58,12 @@ public class CommandAttack extends CerberusCommand {
             return true;
         }
         return false;
+    }
+
+    public CommandAttack(){
+        super();
+        Description = getDescription();
+        CommandName = "attack";
+        Aliases.add("attack");
     }
 }

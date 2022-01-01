@@ -11,16 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
 public class CommandBringPet extends CerberusCommand {
-    public static String getDescription()
+    public String getDescription()
     {
-        initializeData();
         String formattedString = (successColor + "/ce bring"
                 + systemColor + " - " + dataColor + "Teleports your pet to you.");
         return formattedString;
     }
 
-    public static boolean onCommand(CommandSender sender, String[] args) {
-        initializeData();
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             Wolf obtainedWolf = Cerberus.obtainFromWolfList(p);
@@ -31,5 +29,13 @@ public class CommandBringPet extends CerberusCommand {
             }
         }
         return true;
+    }
+
+    public CommandBringPet(){
+        super();
+        Description = getDescription();
+        CommandName = "bring";
+        Aliases.add("bring");
+        Aliases.add("b");
     }
 }

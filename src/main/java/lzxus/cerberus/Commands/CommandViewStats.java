@@ -12,15 +12,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
 public class CommandViewStats extends CerberusCommand {
-    public static String getDescription()
+    public String getDescription()
     {
-        initializeData();
         String formattedString = (successColor + "/ce stats"
                 + systemColor + " - " + dataColor + "Displays current pet statistics.");
         return formattedString;
     }
 
-    private static String isLowHealth(double current, double max)
+    private String isLowHealth(double current, double max)
     {
         if (current/max < 0.5)
         {
@@ -29,8 +28,7 @@ public class CommandViewStats extends CerberusCommand {
         return dataColor;
     }
 
-    public static boolean onCommand(CommandSender sender, String[] args) {
-        initializeData();
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             Wolf obtainedWolf = null;
@@ -71,5 +69,13 @@ public class CommandViewStats extends CerberusCommand {
             }
         }
         return true;
+    }
+
+    CommandViewStats(){
+        super();
+        Description = getDescription();
+        CommandName = "stats";
+        Aliases.add("s");
+        Aliases.add("stats");
     }
 }

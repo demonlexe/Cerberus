@@ -16,16 +16,14 @@ import java.util.Objects;
 
 public class CommandAllowDamage extends CerberusCommand {
 
-    public static String getDescription()
+    public String getDescription()
     {
-        initializeData();
         String formattedString = (successColor + "/ce allow"
                 + systemColor + " - " + dataColor + "Toggles if pet is able to be harmed by you.");
         return formattedString;
     }
 
-    public static boolean onCommand(CommandSender sender, String[] args) {
-        initializeData();
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (sender instanceof Player)
         {
             Player p = (Player) sender;
@@ -44,5 +42,13 @@ public class CommandAllowDamage extends CerberusCommand {
               }
         }
         return true;
+    }
+
+    public CommandAllowDamage()
+    {
+        super();
+        Description = getDescription();
+        CommandName = "allow";
+        Aliases.add("allow");
     }
 }

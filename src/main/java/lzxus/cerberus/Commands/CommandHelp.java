@@ -6,35 +6,47 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+
 public class CommandHelp extends CerberusCommand {
-    public static String getDescription()
+    public String getDescription()
     {
-        initializeData();
         String formattedString = (successColor + "/ce help"
                 + systemColor + " - " + dataColor + "View the Cerberus help page.");
         return formattedString;
     }
 
-    public static boolean onCommand(CommandSender sender, String [] args)
+    private String obtainDesc(ArrayList<CerberusCommand> list)
     {
-        initializeData();
+        String newString = "";
+        for (CerberusCommand c : list)
+        {
+            newString += ("\n" + c.getDescription());
+        }
+        return newString;
+    }
+
+    public boolean onCommand(CommandSender sender, String [] args, ArrayList<CerberusCommand> list)
+    {
         if (sender instanceof Player)
         {
             sender.sendMessage(systemColor+"------------------"+"\n" + "Current Cerberus Commands:"
-                            +"\n" + CommandAllowDamage.getDescription()
-                            +"\n" + CommandAttack.getDescription()
-                            +"\n" + CommandBringPet.getDescription()
-                            +"\n" + getDescription()
-                            +"\n" + CommandJump.getDescription()
-                            +"\n" + CommandNamePet.getDescription()
-                            +"\n" + CommandResetPlayer.getDescription()
-                            +"\n" + CommandViewStats.getDescription() + systemColor + "\n" + "------------------"
-                    //+"\n" + //FIXME
-
+                            + obtainDesc(list)
+                            + systemColor + "\n" + "------------------"
+//FIXME add pages?
 
             );
             return true;
         }
         return false;
     }
+
+    public CommandHelp(){
+        super();
+        Description = getDescription();
+        CommandName = "help";
+        Aliases.add("help");
+        Aliases.add("h");
+    }
+
 }
