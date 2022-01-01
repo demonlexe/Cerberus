@@ -1,5 +1,6 @@
 package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PetData;
 import lzxus.cerberus.Structs.PlayerWolfData;
@@ -10,31 +11,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandAttack {
-    private static String [] validAttackTypes;
-    private static String failColor = null;
-    private static String successColor = null;
-    private static String dataColor = null;
-    private static String systemColor = null;
+public class CommandAttack extends CerberusCommand {
 
-    public static void updateColors(){
-        if (failColor == null){
-            failColor = ConfigFunctions.getChatColor("failureChatColor");
-        }
-        if (successColor == null){
-            successColor = ConfigFunctions.getChatColor("successChatColor");
-        }
-        if (dataColor == null){
-            dataColor = ConfigFunctions.getChatColor("dataChatColor");
-        }
-        if (systemColor == null){
-            systemColor = ConfigFunctions.getChatColor("systemChatColor");
-        }
-    }
 
     public static String getDescription()
     {
-        updateColors();
+        initializeData();
         String formattedString = (successColor + "/ce attack"
                 + systemColor + " - " + dataColor + "Toggles if pet is allowed to attack."
                 + "\n" + successColor + "/ce attack <AttackType>"
@@ -43,14 +25,9 @@ public class CommandAttack {
     }
 
     public static boolean onCommand(CommandSender sender, String[] args) {
+        initializeData();
         if (sender instanceof Player) {
             Player p = (Player) sender;
-
-            if (validAttackTypes == null)
-            {
-                validAttackTypes = PetData.getTypeList();
-            }
-            updateColors();
 
             if (!ArrayUtils.isEmpty(args)){
                 String attackType = (args[0]).substring(0,1);

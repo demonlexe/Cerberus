@@ -1,33 +1,30 @@
 package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.ConfigFunctions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandHelp {
-    private static String successColor = null;
-    private static String dataColor = null;
-    private static String systemColor = null;
+public class CommandHelp extends CerberusCommand {
+    public static String getDescription()
+    {
+        initializeData();
+        String formattedString = (successColor + "/ce help"
+                + systemColor + " - " + dataColor + "View the Cerberus help page.");
+        return formattedString;
+    }
 
     public static boolean onCommand(CommandSender sender, String [] args)
     {
+        initializeData();
         if (sender instanceof Player)
         {
-            if (successColor == null){
-                successColor = ConfigFunctions.getChatColor("successChatColor");
-            }
-            if (dataColor == null){
-                dataColor = ConfigFunctions.getChatColor("dataChatColor");
-            }
-            if (systemColor == null){
-                systemColor = ConfigFunctions.getChatColor("systemChatColor");
-            }
-
             sender.sendMessage(systemColor+"------------------"+"\n" + "Current Cerberus Commands:"
                             +"\n" + CommandAllowDamage.getDescription()
                             +"\n" + CommandAttack.getDescription()
                             +"\n" + CommandBringPet.getDescription()
+                            +"\n" + getDescription()
                             +"\n" + CommandJump.getDescription()
                             +"\n" + CommandNamePet.getDescription()
                             +"\n" + CommandResetPlayer.getDescription()

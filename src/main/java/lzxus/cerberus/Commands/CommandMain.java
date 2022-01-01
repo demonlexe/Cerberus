@@ -1,5 +1,6 @@
 package lzxus.cerberus.Commands;
 
+import lzxus.cerberus.Structs.CerberusCommand;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,6 +44,10 @@ public class CommandMain implements CommandExecutor {
                 {
                     toR = CommandBringPet.onCommand(sender, getNewArgs(args));
                 }
+                else if (commandName.equalsIgnoreCase("help"))
+                {
+                    toR = CommandHelp.onCommand(sender, getNewArgs(args));
+                }
                 else if (commandName.equalsIgnoreCase("jump"))
                 {
                     toR = CommandJump.onCommand(sender, getNewArgs(args));
@@ -61,7 +66,7 @@ public class CommandMain implements CommandExecutor {
                 }
                 else
                 {
-                    toR = BehaviorCommand.commandFailedMessage((Player) sender);
+                    toR = CerberusCommand.commandFailedMessage((Player) sender);
                 }
             }
         }

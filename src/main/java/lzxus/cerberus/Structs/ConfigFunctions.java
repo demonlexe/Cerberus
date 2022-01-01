@@ -7,14 +7,24 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.List;
 
 public class ConfigFunctions {
-    private static FileConfiguration config = Cerberus.obtainConfig();
+    private static FileConfiguration config = null;
+
+    private static void configObtained()
+    {
+        if (config == null)
+        {
+            config = Cerberus.obtainConfig();
+        }
+    }
 
     public static String getChatColor(String s){
+        configObtained();
         String obtainedS = config.getString(s);
         return obtainedS;
     }
     public static Color getColor(String s)
     {
+        configObtained();
         List<Integer> rgbArray = config.getIntegerList(s);
         if (rgbArray != null && rgbArray.size() == 3)
         {

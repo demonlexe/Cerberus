@@ -27,8 +27,8 @@ public final class Cerberus extends JavaPlugin {
     private static FileConfiguration config;
     private static Cerberus plugin;
     private static double [] xpRequirementList; //Holds the full list of XP requirements
-    private static Hashtable<Player, PetData> wList = new Hashtable<Player, PetData>(); //Key is Player, Value is live Wolf entity
-    private static Hashtable<String, Player> pList = new Hashtable<String, Player>(); //Key is UUID, Value is Player
+    private static Hashtable<Player, PetData> wList = new Hashtable<>(); //Key is Player, Value is live Wolf entity
+    private static Hashtable<String, Player> pList = new Hashtable<>(); //Key is UUID, Value is Player
 
     @Override
     public void onEnable() {
