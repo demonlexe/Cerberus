@@ -40,7 +40,7 @@ public class DogAttack implements Listener {
     }
     private static void determineBehavior(Entity entityFound, PetData pet){
         Entity peekedEnt = pet.peekQueue();
-        if (entityFound != null && pet != null)
+        if (entityFound != null && pet != null && !(entityFound instanceof Player))
         {
             if (peekedEnt != null && peekedEnt.equals(entityFound))
             {

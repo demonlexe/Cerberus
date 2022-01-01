@@ -125,7 +125,7 @@ public class PetData {
     public static boolean isAllowedToAttack(Wolf currentWolf, Entity e)
     {
         Player p = PlayerWolfData.isPlayerPet(currentWolf);
-        if (p != null)
+        if (p != null && !(e.equals(p)))
         {
             Integer attackAllowed = PlayerWolfData.getAttackStatus(p);
             if (attackAllowed != null && attackAllowed.equals(1))

@@ -12,8 +12,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandAttack extends CerberusCommand {
-
-
     public String getDescription()
     {
         String formattedString = (successColor + "/ce attack"
