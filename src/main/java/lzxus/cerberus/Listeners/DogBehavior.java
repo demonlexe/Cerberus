@@ -32,7 +32,7 @@ public class DogBehavior implements Listener {
         Wolf w = pet.getWolf();
         if (w != null)
         {
-            Entity eChosen = pet.deQueue();
+            Entity eChosen = pet.peekQueue();
             if (eChosen != null)
             {
                 w.setTarget((LivingEntity) eChosen);

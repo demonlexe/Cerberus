@@ -122,7 +122,7 @@ public final class Cerberus extends JavaPlugin {
         if (w != null)
         {
             pet = w.getWolf();
-            System.out.println("updateWolfList called with "+pet.getUniqueId()+", active = "+active);
+            //System.out.println("updateWolfList called with "+pet.getUniqueId()+", active = "+active);
         }
         String obtainedID = PlayerWolfData.getWolfUUID(p);
         if (active){
@@ -189,7 +189,7 @@ public final class Cerberus extends JavaPlugin {
     {
         if (!pList.isEmpty())
         {
-            System.out.println("Calling for Playerobtainer with "+id);
+            //System.out.println("Calling for Playerobtainer with "+id);
             Player p = pList.get(id);
             if (p!=null)
             {

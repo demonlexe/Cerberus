@@ -4,6 +4,8 @@ import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.*;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
@@ -19,7 +21,9 @@ public class EntityDamaged implements Listener {
     private static double [] xpList = null;
     private static Integer maxLevel = null;
 
-    public void updateLevel(Wolf w, Player p)
+
+
+    public static void updateLevel(Wolf w, Player p)
     {
         if (xpList == null)
         {
@@ -42,6 +46,8 @@ public class EntityDamaged implements Listener {
         {
             Double currentXP = PlayerWolfData.getWolfXp(p);
             Integer currentLevel = PlayerWolfData.getWolfLvl(p);
+            Double currentHealth = PlayerWolfData.getCurrentWolfHealth(p);
+            Double maxHealth = PlayerWolfData.getWolfHealth(p);
             //System.out.println("Cerberus: Obtaining Data: CurrentXP is "+currentXP+" while currentLevel is "+currentLevel);
             if ((currentLevel != null) && (currentXP != null) && (currentLevel < maxLevel) &&(xpList[currentLevel+1] <= currentXP))
             {
@@ -51,13 +57,67 @@ public class EntityDamaged implements Listener {
                 p.sendMessage(successColor + "Your pet has leveled up! It is now " +dataColor+"Level "+currentLevel);
                 ModifyPetStats.updateStats(w,currentLevel);
             }
+
+            if (currentHealth / maxHealth < .5)
+            {
+                p.sendMessage(failColor+"Warning! Your pet is at low health!");
+            }
+
         }
 
+    }
+
+    private static void isThreat(Entity damagedEntity, Entity attacker)
+    {
+        if (!isDeadByPet(damagedEntity,attacker)) {
+            if (damagedEntity instanceof Player)
+            {
+                Player p = (Player) damagedEntity;
+                PetData pet = Cerberus.obtainPetData(p);
+                if (pet!= null)
+                {
+                    pet.enQueueFirst(attacker);
+                }
+            }
+            else if (damagedEntity instanceof Wolf)
+            {
+                Wolf w = (Wolf) damagedEntity;
+                Player p = PlayerWolfData.isPlayerPet(w);
+                if (p!= null)
+                {
+                    PetData pet = Cerberus.obtainPetData(p);
+                    if (pet!= null)
+                    {
+                        pet.enQueueFirst(attacker);
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean isDeadByPet(Entity damagedEntity, Entity attacker)
+    {
+        if (attacker instanceof Wolf && damagedEntity instanceof LivingEntity)
+        {
+            Wolf w = (Wolf) attacker;
+            Player owner = PlayerWolfData.isPlayerPet(w);
+            if (owner != null)
+            {
+                PetData pet = Cerberus.obtainPetData(owner);
+                if (pet!=null && (((LivingEntity) damagedEntity).getHealth() <= 0))
+                {
+                    DogBehavior.attackChoice(pet);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @EventHandler
     public void onDamaged(EntityDamageByEntityEvent e)
     {
+        isThreat(e.getEntity(),e.getDamager());
         if (e.getDamager() instanceof Wolf)
         {
             Wolf w = (Wolf) e.getDamager();

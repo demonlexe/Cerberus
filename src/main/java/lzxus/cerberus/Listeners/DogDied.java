@@ -2,6 +2,7 @@ package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.PlayerReset;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;

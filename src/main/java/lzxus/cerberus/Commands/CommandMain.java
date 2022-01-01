@@ -59,6 +59,10 @@ public class CommandMain implements CommandExecutor {
                 {
                     toR = CommandViewStats.onCommand(sender, getNewArgs(args));
                 }
+                else
+                {
+                    toR = BehaviorCommand.commandFailedMessage((Player) sender);
+                }
             }
         }
         return toR;
