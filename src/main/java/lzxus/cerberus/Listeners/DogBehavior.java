@@ -102,7 +102,6 @@ public class DogBehavior implements Listener {
         //System.out.println("Owner: " + damagedDog.getOwner().getName() + ", wolf is tamed: " + damagedDog.isTamed() + ", damager: " + damager.getName());
             if (damagedDog.isTamed() && damagedDog.getOwner().getName() != p.getName()) {
                 event.setCancelled(true);
-                angerWolf(damagedDog);
             }
             //If attacker is the owner, and has pet attacking disabled, cancel
             else if (damagedDog.isTamed() && damagedDog.getOwner().getName() == damager.getName()) {

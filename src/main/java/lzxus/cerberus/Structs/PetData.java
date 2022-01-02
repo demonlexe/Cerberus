@@ -80,7 +80,7 @@ public class PetData {
         w = newWolf;
         p = pl;
         data = p.getPersistentDataContainer();
-        attackQueue = new LinkedList<Entity>();
+        attackQueue = new LinkedList<>();
         updateKeys();
     }
 
@@ -111,7 +111,11 @@ public class PetData {
 
     public void enQueue(Entity e)
     {
-        if (isAllowedToAttack(e) && w.getTarget()!=e)
+        Entity peekedEnt = peekQueue();
+        if (peekedEnt != null && peekedEnt.equals(e)) {
+            return;
+        }
+        if (isAllowedToAttack(e))
         {
             if (checkQueueForEntity(e))
             {
@@ -128,7 +132,11 @@ public class PetData {
 
     public void enQueueFirst(Entity e)
     {
-        if (isAllowedToAttack(e) && w.getTarget()!=e)
+        Entity peekedEnt = peekQueue();
+        if (peekedEnt != null && peekedEnt.equals(e)) {
+            return;
+        }
+        if (isAllowedToAttack(e))
         {
             if (checkQueueForEntity(e))
             {
@@ -168,11 +176,13 @@ public class PetData {
     //Non-Static methods
     public boolean isAllowedToAttack(Entity e)
     {
-        if (p != null && !(e.equals(p)))
+        if (p != null && !e.equals(p))
         {
+            System.out.println("PetData: 2"+e);
             Integer attackAllowed = getAttackStatus();
             if (attackAllowed != null && attackAllowed.equals(1))
             {
+                System.out.println("PetData: 3"+e);
                 String attackMode = getAttackType();
                 if (ArrayUtils.contains(attackTypeList,attackMode))
                 {
@@ -192,6 +202,7 @@ public class PetData {
                     }
                     else if (attackMode.equals("a"))
                     {
+                        System.out.println("PetData: Returning true");
                         return true;
                     }
                 }

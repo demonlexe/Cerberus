@@ -20,6 +20,9 @@ public class PlayerReset {
         //Creates Name data
         pet.setWolfName("");
 
+        //Creates allowance data
+        pet.setDamageEnabled(0);
+
         //Creates Attack data
         pet.setAttackStatus(1);
         pet.setAttackType("m");

@@ -28,24 +28,12 @@ public class DogAttack implements Listener {
                 for (Entity entityFound : w.getNearbyEntities(5.0,5.0,5.0))
                 {
                     //System.out.println("Cerberus: Testing position 2");
-                    if (!(entityFound.equals(p)) && (entityFound instanceof LivingEntity))
+                    if (entityFound instanceof LivingEntity)
                     {
-                        determineBehavior(entityFound, pet);
+                        pet.enQueue(entityFound);
                     }
                 }
             }
-        }
-    }
-    private static void determineBehavior(Entity entityFound, PetData pet){
-        Entity peekedEnt = pet.peekQueue();
-        if (entityFound != null && pet != null && !(entityFound instanceof Player))
-        {
-            if (peekedEnt != null && peekedEnt.equals(entityFound))
-            {
-                return;
-            }
-            System.out.println("Entity not found in queue: Calling to enqueue.");
-            pet.enQueue(entityFound);
         }
     }
 }

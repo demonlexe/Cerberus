@@ -35,7 +35,7 @@ public class CommandMain implements CommandExecutor {
         for (int i = 1; i <oldArgs.length; i++)
         {
             newArgs[i-1] = oldArgs[i];
-            System.out.println("Inserting: "+ oldArgs[i]);
+          //  System.out.println("Inserting: "+ oldArgs[i]);
         }
         return newArgs;
     }
@@ -44,7 +44,7 @@ public class CommandMain implements CommandExecutor {
     {
         for (String s : list)
         {
-            System.out.println("Checking for aliases.");
+           // System.out.println("Checking for aliases.");
             if (s.equalsIgnoreCase(toCompare))
             {
                 return true;
