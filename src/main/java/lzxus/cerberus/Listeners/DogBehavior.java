@@ -8,6 +8,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -39,7 +40,6 @@ public class DogBehavior implements Listener {
             }
         }
     }
-
     // An event function that operates upon an animal being interacted.
     // It then checks if it is of EntityType.WOLF and
     // the item interacted with is a bone.
@@ -62,7 +62,7 @@ public class DogBehavior implements Listener {
             {
                 p.sendMessage(ChatColor.BLUE+"This dog is your main pet!");
             }
-            else //FIXME: ADD A "THIS IS NOT YOUR PET" HANDLER
+            else if (playerDog.isTamed())
             {
                 PetData pet = Cerberus.obtainPetData(p);
                 assert pet != null;
@@ -70,7 +70,7 @@ public class DogBehavior implements Listener {
                 if (ownedValue != null && ownedValue.equals(1))
                 {
                     event.setCancelled(true);
-                    p.sendMessage(ChatColor.BLUE+"You already have a pet!");
+                    p.sendMessage(ChatColor.BLUE+"This is not your pet!");
                 }
             }
         }

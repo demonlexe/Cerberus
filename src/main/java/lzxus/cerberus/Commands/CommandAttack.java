@@ -21,10 +21,10 @@ public class CommandAttack extends CerberusCommand {
      */
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce attack"
-                + systemColor + " - " + dataColor + "Toggles if pet is allowed to attack."
-                + "\n" + successColor + "/ce attack <AttackType>"
-                + systemColor + " - " + dataColor + "Valid AttackTypes: all, passive, monsters");
+        String formattedString = (cData.successColor + "/ce attack"
+                + cData.systemColor + " - " + cData.dataColor + "Toggles if pet is allowed to attack."
+                + "\n" + cData.successColor + "/ce attack <AttackType>"
+                + cData.systemColor + " - " + cData.dataColor + "Valid AttackTypes: all, passive, monsters");
         return formattedString;
     }
 
@@ -46,15 +46,15 @@ public class CommandAttack extends CerberusCommand {
                 if (!ArrayUtils.isEmpty(args)){
                     String attackType = (args[0]).substring(0,1);
                     attackType = attackType.toLowerCase();
-                    if (ArrayUtils.contains(validAttackTypes,attackType))
+                    if (ArrayUtils.contains(cData.validAttackTypes,attackType))
                     {
                         pet.setAttackType(attackType);
-                        p.sendMessage(successColor+"Your pet will now attack: "+ dataColor +attackType);
+                        p.sendMessage(cData.successColor+"Your pet will now attack: "+ cData.dataColor +attackType);
                     }
                     else
                     {
                         //FIXME
-                        p.sendMessage(failColor+"That is not a valid attack type! Valid types are all, passive, monsters");
+                        p.sendMessage(cData.failColor+"That is not a valid attack type! Valid types are all, passive, monsters");
                     }
                 }
                 else
@@ -62,12 +62,12 @@ public class CommandAttack extends CerberusCommand {
                     if (pet.getAttackStatus().equals(0))
                     {
                         pet.setAttackStatus(1);
-                        p.sendMessage(successColor+ "Your pet will now attack mobs!");
+                        p.sendMessage(cData.successColor+ "Your pet will now attack mobs!");
                     }
                     else
                     {
                         pet.setAttackStatus(0);
-                        p.sendMessage(failColor+"Your pet will no longer attack any mobs.");
+                        p.sendMessage(cData.failColor+"Your pet will no longer attack any mobs.");
                     }
                 }
 

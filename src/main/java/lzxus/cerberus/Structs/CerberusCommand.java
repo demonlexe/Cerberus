@@ -1,19 +1,13 @@
 package lzxus.cerberus.Structs;
 
 import lzxus.cerberus.Cerberus;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
 public class CerberusCommand {
-    protected String failColor;
-    protected String successColor;
-    protected String dataColor;
-    protected String systemColor;
-    protected String [] validAttackTypes;
-    protected double [] xpList;
+    protected ConfigData cData = new ConfigData();;
 
     protected String CommandName;
     protected ArrayList<String> Aliases;
@@ -28,7 +22,7 @@ public class CerberusCommand {
      */
     public String getDescription()
     {
-        String formattedString = (failColor+"Error in obtained description for this command.");
+        String formattedString = (cData.failColor+"Error in obtained description for this command.");
         return formattedString;
     }
 
@@ -56,11 +50,11 @@ public class CerberusCommand {
             assert pet!=null;
             if (pet.getWolfStatus().equals(0))
             {
-                p.sendMessage(failColor+"You do not currently have a pet!");
+                p.sendMessage(cData.failColor+"You do not currently have a pet!");
             }
             else
             {
-                p.sendMessage(failColor+"This is not a valid command!");
+                p.sendMessage(cData.failColor+"This is not a valid command!");
             }
             return true;
         }
@@ -95,22 +89,12 @@ public class CerberusCommand {
      * Should NOT be overridden by subclass.
      * Initializes chat color values, from the config.
      */
-    protected final void initializeConfigData()
-    {
-            failColor = ConfigFunctions.getChatColor("failureChatColor");
-            successColor = ConfigFunctions.getChatColor("successChatColor");
-            dataColor = ConfigFunctions.getChatColor("dataChatColor");
-            systemColor = ConfigFunctions.getChatColor("systemChatColor");
-            validAttackTypes = PetData.getTypeList();
-            xpList = Cerberus.obtainXPList();
-    }
 
     /**
      * Default constructor. Should NOT be overridden, SHOULD be called by subclass.
      */
     public CerberusCommand()
     {
-        initializeConfigData();
         Aliases = new ArrayList<>();
         Description = getDescription();
     }

@@ -17,8 +17,8 @@ public class CommandAllowDamage extends CerberusCommand {
      */
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce allow"
-                + systemColor + " - " + dataColor + "Toggles if pet is able to be harmed by you.");
+        String formattedString = (cData.successColor + "/ce allow"
+                + cData.systemColor + " - " + cData.dataColor + "Toggles if pet is able to be harmed by you.");
         return formattedString;
     }
 
@@ -39,14 +39,14 @@ public class CommandAllowDamage extends CerberusCommand {
                 if (dataObtained != null && dataObtained.equals(1))
                 {
                     //System.out.println("Setting updated; Damage is already enabled.");
-                    p.sendMessage(systemColor + "Pet Damaging is now " +failColor+ "Disabled.");
+                    p.sendMessage(cData.systemColor + "Pet Damaging is now " +cData.failColor+ "Disabled.");
                     pet.setDamageEnabled(0);
                 }
                 else
                 {
                     pet.setDamageEnabled(1);
                     //System.out.println("Setting updated; Damage is now enabled.");
-                    p.sendMessage(systemColor + "Pet Damaging is now "+ successColor+ "Enabled.");
+                    p.sendMessage(cData.systemColor + "Pet Damaging is now "+ cData.successColor+ "Enabled.");
                 }
             }
             else

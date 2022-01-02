@@ -11,8 +11,8 @@ import org.bukkit.entity.Wolf;
 public class CommandNamePet extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce name <Name>"
-                + systemColor + " - " + dataColor + "Names your pet.");
+        String formattedString = (cData.successColor + "/ce name <Name>"
+                + cData.systemColor + " - " + cData.dataColor + "Names your pet.");
         return formattedString;
     }
 
@@ -26,7 +26,7 @@ public class CommandNamePet extends CerberusCommand {
             {
                 Wolf obtainedWolf = pet.getWolf();
                 String newName = (args[0]).replaceAll("\\s+","");
-                p.sendMessage(successColor + "Your pet is now named " +dataColor+newName+ successColor+"!");
+                p.sendMessage(cData.successColor + "Your pet is now named " +cData.dataColor+newName+ cData.successColor+"!");
                 if (obtainedWolf != null)
                 {
                     obtainedWolf.setCustomName(newName);

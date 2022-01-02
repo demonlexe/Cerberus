@@ -10,8 +10,8 @@ import org.bukkit.entity.Wolf;
 public class CommandViewStats extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce stats"
-                + systemColor + " - " + dataColor + "Displays current pet statistics.");
+        String formattedString = (cData.successColor + "/ce stats"
+                + cData.systemColor + " - " + cData.dataColor + "Displays current pet statistics.");
         return formattedString;
     }
 
@@ -19,9 +19,9 @@ public class CommandViewStats extends CerberusCommand {
     {
         if (current/max < 0.5)
         {
-            return failColor;
+            return cData.failColor;
         }
-        return dataColor;
+        return cData.dataColor;
     }
 
     public boolean onCommand(final CommandSender sender, final String[] args) {
@@ -40,7 +40,7 @@ public class CommandViewStats extends CerberusCommand {
                 }
                 else
                 {
-                    p.sendMessage(failColor + "You do not have a main wolf currently registered!");
+                    p.sendMessage(cData.failColor + "You do not have a main wolf currently registered!");
                     return false;
                 }
 
@@ -52,19 +52,19 @@ public class CommandViewStats extends CerberusCommand {
                     Double damage = pet.getWolfDamage();
 
                     if (xp != null && lvl != null && currentHealth != null && maxHealth != null && damage != null) {
-                        p.sendMessage(systemColor+"------------------"+ "\n" + successColor + "Your wolf's statistics:" +
-                                        systemColor +
-                                        "\n" + "Level: " + dataColor +lvl +
-                                        systemColor +"\n" + "XP: " + dataColor +Math.ceil(xp) + " / " + xpList[lvl+1] +
-                                        systemColor + "\n" + "Health: " + isLowHealth(currentHealth,maxHealth) +currentHealth +" / "+ dataColor + maxHealth+
-                                        systemColor + "\n" + "Attack Damage: " + dataColor +damage + systemColor+"\n"+"------------------"
+                        p.sendMessage(cData.systemColor+"------------------"+ "\n" + cData.successColor + "Your wolf's statistics:" +
+                                        cData.systemColor +
+                                        "\n" + "Level: " + cData.dataColor +lvl +
+                                        cData.systemColor +"\n" + "XP: " + cData.dataColor +Math.ceil(xp) + " / " + cData.xpList[lvl+1] +
+                                        cData.systemColor + "\n" + "Health: " + isLowHealth(currentHealth,maxHealth) +currentHealth +" / "+ cData.dataColor + maxHealth+
+                                        cData.systemColor + "\n" + "Attack Damage: " + cData.dataColor +damage + cData.systemColor+"\n"+"------------------"
                                 //FIXME: Add statistics like personality.
                         );
                     }
                 }
                 else
                 {
-                    p.sendMessage(failColor + "You do not have a main wolf currently registered.");
+                    p.sendMessage(cData.failColor + "You do not have a main wolf currently registered.");
                     return false;
                 }
             }

@@ -22,7 +22,7 @@ public class DogDied implements Listener {
             {
                 PetData pet = Cerberus.obtainPetData(p);
                 if (pet!= null && pet.getWolf().equals(w))
-                    PlayerReset.resetP(p,pet);
+                    pet.resetP(p,pet);
             }
         }
     }

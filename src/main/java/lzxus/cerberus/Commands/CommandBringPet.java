@@ -14,8 +14,8 @@ import org.bukkit.entity.Wolf;
 public class CommandBringPet extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce bring"
-                + systemColor + " - " + dataColor + "Teleports your pet to you.");
+        String formattedString = (cData.successColor + "/ce bring"
+                + cData.systemColor + " - " + cData.dataColor + "Teleports your pet to you.");
         return formattedString;
     }
 
@@ -27,10 +27,11 @@ public class CommandBringPet extends CerberusCommand {
             if (pet.getWolfStatus().equals(1))
             {
                 Wolf obtainedWolf = pet.getWolf();
-                p.sendMessage(successColor + "You have brought your pet!");
+                p.sendMessage(cData.successColor + "You have brought your pet!");
                 if (obtainedWolf != null)
                 {
                     obtainedWolf.teleport(p);
+                    pet.clearQueue();
                 }
                 return true;
             }

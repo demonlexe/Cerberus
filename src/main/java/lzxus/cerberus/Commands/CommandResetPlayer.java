@@ -17,8 +17,8 @@ public class CommandResetPlayer extends CerberusCommand {
 //FIXME : CHANGE TO /CE RESET CONFIRM. OVERWRITE ERROR MESSAGE TO SAY "PLEASE CONFIRM WITH /CE RESET CONFIRM"
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce reset"
-                + systemColor + " - " + dataColor + "Kills your current pet.");
+        String formattedString = (cData.successColor + "/ce reset"
+                + cData.systemColor + " - " + cData.dataColor + "Kills your current pet.");
         return formattedString;
     }
 
@@ -30,11 +30,11 @@ public class CommandResetPlayer extends CerberusCommand {
             assert pet!=null;
             if (pet.getWolfStatus().equals(0))
             {
-                p.sendMessage(failColor+"You do not currently have a pet!");
+                p.sendMessage(cData.failColor+"You do not currently have a pet!");
             }
             else
             {
-                p.sendMessage(failColor+"To confirm this action, please type "+dataColor+"/ce reset confirm");
+                p.sendMessage(cData.failColor+"To confirm this action, please type "+cData.dataColor+"/ce reset confirm");
             }
             return true;
         }
@@ -49,8 +49,8 @@ public class CommandResetPlayer extends CerberusCommand {
                 if (confirmation.equalsIgnoreCase("confirm"))
                 {
                     PetData pet = Cerberus.obtainPetData(p);
-                    PlayerReset.resetP(p,pet);
-                    p.sendMessage(successColor+"Your pet data has been reset!");
+                    pet.resetP(p,pet);
+                    p.sendMessage(cData.successColor+"Your pet data has been reset!");
                     return true;
                 }
             }

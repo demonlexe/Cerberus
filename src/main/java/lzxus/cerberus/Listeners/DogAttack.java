@@ -25,7 +25,7 @@ public class DogAttack implements Listener {
             //System.out.println("Cerberus: Testing position 3"+p);
             if (w!= null)
             {
-                for (Entity entityFound : w.getNearbyEntities(5.0,5.0,5.0))
+                for (Entity entityFound : p.getNearbyEntities(5.0,5.0,5.0))
                 {
                     //System.out.println("Cerberus: Testing position 2");
                     if (entityFound instanceof LivingEntity)

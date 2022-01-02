@@ -55,9 +55,9 @@ public class EntityDamaged implements Listener {
             {
                 currentLevel++;
                 pet.setWolfLvl(currentLevel);
-                ParticleBehavior.onLevelUp(w);
+                pet.onLevelUp();
                 p.sendMessage(successColor + "Your pet has leveled up! It is now " +dataColor+"Level "+currentLevel);
-                ModifyPetStats.updateStats(w,currentLevel);
+                pet.updateStats(currentLevel);
             }
 
             if (currentHealth / maxHealth < .5)
@@ -138,6 +138,7 @@ public class EntityDamaged implements Listener {
                         {
                             pet.setWolfXp(prevXp+damageDone);
                             //System.out.println("Total XP of this wolf: "+PlayerWolfData.getWolfXp(p));
+                            pet.onXPGained((int)damageDone);
                             updateLevel(w, p);
                         }
                     }

@@ -19,8 +19,8 @@ public class CommandJump extends CerberusCommand {
      */
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce jump"
-                + systemColor + " - " + dataColor + "Your pet does a lil jump.");
+        String formattedString = (cData.successColor + "/ce jump"
+                + cData.systemColor + " - " + cData.dataColor + "Your pet does a lil jump.");
         return formattedString;
     }
 

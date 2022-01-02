@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class CommandHelp extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce help"
-                + systemColor + " - " + dataColor + "View the Cerberus help page.");
+        String formattedString = (cData.successColor + "/ce help"
+                + cData.systemColor + " - " + cData.dataColor + "View the Cerberus help page.");
         return formattedString;
     }
 
@@ -30,9 +30,9 @@ public class CommandHelp extends CerberusCommand {
     {
         if (sender instanceof Player)
         {
-            sender.sendMessage(systemColor+"------------------"+"\n" + "Current Cerberus Commands:"
+            sender.sendMessage(cData.systemColor+"------------------"+"\n" + "Current Cerberus Commands:"
                             + obtainDesc(list)
-                            + systemColor + "\n" + "------------------"
+                            + cData.systemColor + "\n" + "------------------"
 //FIXME add pages?
 
             );
