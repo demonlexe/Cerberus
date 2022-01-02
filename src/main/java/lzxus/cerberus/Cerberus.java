@@ -6,6 +6,8 @@ import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.PetData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -167,7 +169,7 @@ public final class Cerberus extends JavaPlugin {
                     if (obtainedWolf != null && obtainedWolf.getHealth() > 0)
                     {
                         obtainedWolf.remove();
-                        obtainedWolf.setHealth(0);
+                        //obtainedWolf.setHealth(0);
                     }
                 }
                 updateHelper(p,new PetData(p));

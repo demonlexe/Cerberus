@@ -35,7 +35,7 @@ public class CommandClean implements CommandExecutor {
                             PetData pet = Cerberus.obtainPetData(wolfOwner);
                             PlayerReset.resetP(wolfOwner,pet);
                         }
-                        ((Wolf) e).setHealth(0);
+                        e.remove();
                     }
                 }
             }
