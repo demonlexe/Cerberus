@@ -49,9 +49,11 @@ public class CommandResetPlayer extends CerberusCommand {
                 if (confirmation.equalsIgnoreCase("confirm"))
                 {
                     PetData pet = Cerberus.obtainPetData(p);
-                    pet.resetP(p,pet);
-                    p.sendMessage(cData.successColor+"Your pet data has been reset!");
-                    return true;
+                    if (pet!=null){
+                        pet.getResetFunctions().resetP(p,pet);
+                        p.sendMessage(cData.successColor+"Your pet data has been reset!");
+                        return true;
+                    }
                 }
             }
             commandFailedMessage(p);

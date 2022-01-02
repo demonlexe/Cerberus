@@ -30,9 +30,7 @@ public class CommandViewStats extends CerberusCommand {
             PetData pet = Cerberus.obtainPetData(p);
             Wolf obtainedWolf = null;
 
-            assert pet != null;
-
-            if (pet.getWolfStatus().equals(1)) {
+            if (pet!=null && pet.getWolfStatus().equals(1)) {
                 String obtainedString = pet.getWolfUUID();
                 if (obtainedString != null)
                 {

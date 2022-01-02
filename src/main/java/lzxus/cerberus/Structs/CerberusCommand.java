@@ -47,7 +47,7 @@ public class CerberusCommand {
         if (p!=null)
         {
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet!=null;
+            if (pet==null) {return false;}
             if (pet.getWolfStatus().equals(0))
             {
                 p.sendMessage(cData.failColor+"You do not currently have a pet!");

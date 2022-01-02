@@ -12,7 +12,7 @@ public class PlayerLeave implements Listener {
     public static void funcOnDisconnect(Player p)
     {
         PetData pet = Cerberus.obtainPetData(p);
-        assert pet!= null;
+        if (pet==null) {return;}
         String currentUUID = pet.getWolfUUID();
         if (currentUUID == null || currentUUID.equals(""))
         {

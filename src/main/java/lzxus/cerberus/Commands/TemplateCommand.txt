@@ -36,18 +36,20 @@ public class //FIXME extends CerberusCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet!=null;
 
-            if (pet.getWolfStatus().equals(1))
+            if (pet!=null)
             {
-                //FIXME
+             if (pet.getWolfStatus().equals(1))
+                         {
+                             //FIXME
+                         }
+                         else
+                         {
+                         //FIXME
+                             commandFailedMessage(p);
+                         }
+                         return true;
             }
-            else
-            {
-            //FIXME
-                commandFailedMessage(p);
-            }
-            return true;
         }
         return false;
     }

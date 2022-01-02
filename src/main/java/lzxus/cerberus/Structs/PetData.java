@@ -16,7 +16,7 @@ import javax.xml.stream.events.Namespace;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class PetData extends PlayerReset {
+public class PetData {
     private Wolf w;
     private Player p;
     private PersistentDataContainer data;
@@ -32,15 +32,14 @@ public class PetData extends PlayerReset {
     private NamespacedKey attackKey;
     private NamespacedKey initalizedKey;
     private ConfigData cData;
-
-    private static final String [] attackTypeList = {"a","p","m"};
+    private PlayerReset ResetFunctions;
 
     private void initalizeKeys()
     {
         if (data.get(initalizedKey,PersistentDataType.INTEGER) == null)
         {
             data.set(initalizedKey,PersistentDataType.INTEGER,1);
-            initializeP(p,this); //extended from PlayerReset
+            ResetFunctions.initializeP(p,this); //extended from PlayerReset
         }
     }
 
@@ -58,23 +57,13 @@ public class PetData extends PlayerReset {
         initalizedKey = new NamespacedKey(Cerberus.getPlugin(),"initalizedStatus");
     }
 
-    public PetData() //Should not be used.
-    {
-        w = null;
-        p = null;
-        data = null;
-        attackQueue = new LinkedList<Entity>();
-        cData = new ConfigData();
-        updateKeys();
-        initalizeKeys();
-    }
-
     public PetData(Player pl) //Called if player does not own a pet.
     {
         w = null;
         p = pl;
         data = p.getPersistentDataContainer();
         cData = new ConfigData();
+        ResetFunctions = new PlayerReset();
         updateKeys();
         initalizeKeys();
     }
@@ -85,6 +74,7 @@ public class PetData extends PlayerReset {
         p = pl;
         data = p.getPersistentDataContainer();
         cData = new ConfigData();
+        ResetFunctions = new PlayerReset();
         attackQueue = new LinkedList<>();
         updateKeys();
     }
@@ -97,6 +87,7 @@ public class PetData extends PlayerReset {
     {
         w = newWolf;
     }
+    public PlayerReset getResetFunctions() {return ResetFunctions;}
 
     public Deque<Entity> getQueue(){
         return attackQueue;
@@ -193,11 +184,6 @@ public class PetData extends PlayerReset {
             return null;
     }
 
-    //Static methods
-    public static String [] getTypeList(){
-        return attackTypeList;
-    }
-
     //Non-Static methods
     public boolean isAllowedToAttack(Entity e)
     {
@@ -207,23 +193,23 @@ public class PetData extends PlayerReset {
             if (attackAllowed != null && attackAllowed.equals(1))
             {
                 String attackMode = getAttackType();
-                if (ArrayUtils.contains(attackTypeList,attackMode))
+                if (ArrayUtils.contains(cData.attackTypeList,attackMode))
                 {
-                    if (attackMode.equals("m"))
+                    if (attackMode.equals("monster"))
                     {
                         if (e instanceof Monster)
                         {
                             return true;
                         }
                     }
-                    else if (attackMode.equals("p"))
+                    else if (attackMode.equals("passive"))
                     {
                         if (e instanceof Animals)
                         {
                             return true;
                         }
                     }
-                    else if (attackMode.equals("a"))
+                    else if (attackMode.equals("all"))
                     {
                         return true;
                     }

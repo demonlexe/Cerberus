@@ -20,7 +20,7 @@ public class PlayerJoin implements Listener {
         if (obtainedWolf != null)
         {
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet != null;
+            if (pet==null) {return;}
             Integer lvl = pet.getWolfLvl();
             if (lvl != null)
             {

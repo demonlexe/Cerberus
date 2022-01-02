@@ -45,7 +45,7 @@ public class EntityDamaged implements Listener {
         if (w != null && p != null && p.isOnline())
         {
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet!=null;
+            if (pet==null) {return;}
             Double currentXP = pet.getWolfXp();
             Integer currentLevel = pet.getWolfLvl();
             Double currentHealth = pet.getCurrentWolfHealth();

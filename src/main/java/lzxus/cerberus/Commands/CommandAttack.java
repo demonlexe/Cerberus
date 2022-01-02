@@ -24,7 +24,7 @@ public class CommandAttack extends CerberusCommand {
         String formattedString = (cData.successColor + "/ce attack"
                 + cData.systemColor + " - " + cData.dataColor + "Toggles if pet is allowed to attack."
                 + "\n" + cData.successColor + "/ce attack <AttackType>"
-                + cData.systemColor + " - " + cData.dataColor + "Valid AttackTypes: all, passive, monsters");
+                + cData.systemColor + " - " + cData.dataColor + "Valid AttackTypes: "+cData.displayTypeList());
         return formattedString;
     }
 
@@ -38,15 +38,14 @@ public class CommandAttack extends CerberusCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet!=null;
 
-            if (pet.getWolfStatus().equals(1))
+            if (pet!=null && pet.getWolfStatus().equals(1))
             {
 
                 if (!ArrayUtils.isEmpty(args)){
-                    String attackType = (args[0]).substring(0,1);
+                    String attackType = args[0];
                     attackType = attackType.toLowerCase();
-                    if (ArrayUtils.contains(cData.validAttackTypes,attackType))
+                    if (ArrayUtils.contains(cData.attackTypeList,attackType))
                     {
                         pet.setAttackType(attackType);
                         p.sendMessage(cData.successColor+"Your pet will now attack: "+ cData.dataColor +attackType);
@@ -54,7 +53,7 @@ public class CommandAttack extends CerberusCommand {
                     else
                     {
                         //FIXME
-                        p.sendMessage(cData.failColor+"That is not a valid attack type! Valid types are all, passive, monsters");
+                        p.sendMessage(cData.failColor+"That is not a valid attack type! Valid types are "+cData.displayTypeList());
                     }
                 }
                 else

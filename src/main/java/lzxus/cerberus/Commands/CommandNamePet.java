@@ -20,9 +20,7 @@ public class CommandNamePet extends CerberusCommand {
         if (sender instanceof Player && !ArrayUtils.isEmpty(args)) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet!=null;
-
-            if (pet.getWolfStatus().equals(1))
+            if (pet!=null && pet.getWolfStatus().equals(1))
             {
                 Wolf obtainedWolf = pet.getWolf();
                 String newName = (args[0]).replaceAll("\\s+","");

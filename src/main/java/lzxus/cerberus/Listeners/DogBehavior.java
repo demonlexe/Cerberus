@@ -65,12 +65,14 @@ public class DogBehavior implements Listener {
             else if (playerDog.isTamed())
             {
                 PetData pet = Cerberus.obtainPetData(p);
-                assert pet != null;
-                Integer ownedValue = pet.getWolfOwned();
-                if (ownedValue != null && ownedValue.equals(1))
+                if (pet!=null)
                 {
-                    event.setCancelled(true);
-                    p.sendMessage(ChatColor.BLUE+"This is not your pet!");
+                    Integer ownedValue = pet.getWolfOwned();
+                    if (ownedValue != null && ownedValue.equals(1))
+                    {
+                        event.setCancelled(true);
+                        p.sendMessage(ChatColor.BLUE+"This is not your pet!");
+                    }
                 }
             }
         }
@@ -96,7 +98,7 @@ public class DogBehavior implements Listener {
         }
 
         PetData pet = Cerberus.obtainPetData(p);
-        assert pet!=null;
+        if (pet==null) {return;}
         Integer dataObtained = pet.getDamageEnabled();
         //If the attacker is not its owner, the damage does not occur and the wolf is angered.
         //System.out.println("Owner: " + damagedDog.getOwner().getName() + ", wolf is tamed: " + damagedDog.isTamed() + ", damager: " + damager.getName());

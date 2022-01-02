@@ -28,9 +28,7 @@ public class CommandJump extends CerberusCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet!=null;
-
-            if (pet.getWolfStatus().equals(1))
+            if (pet!=null && pet.getWolfStatus().equals(1))
             {
                 Wolf w = pet.getWolf();
                 if (w!=null)

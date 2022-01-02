@@ -33,7 +33,10 @@ public class CommandClean implements CommandExecutor {
                         if (wolfOwner != null)
                         {
                             PetData pet = Cerberus.obtainPetData(wolfOwner);
-                            pet.resetP(wolfOwner,pet);
+                            if (pet!=null)
+                            {
+                                pet.getResetFunctions().resetP(wolfOwner,pet);
+                            }
                         }
                         e.remove();
                     }

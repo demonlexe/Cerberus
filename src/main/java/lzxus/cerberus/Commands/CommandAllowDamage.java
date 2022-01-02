@@ -32,8 +32,7 @@ public class CommandAllowDamage extends CerberusCommand {
         {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
-            assert pet!=null;
-            if (pet.getWolfStatus().equals(1))
+            if (pet != null && pet.getWolfStatus().equals(1))
             {
                 Integer dataObtained  = pet.getDamageEnabled();
                 if (dataObtained != null && dataObtained.equals(1))
