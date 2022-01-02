@@ -7,30 +7,25 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.List;
 
 public class ConfigFunctions {
-    private static FileConfiguration config = null;
+    private FileConfiguration config = null;
 
-    private static void configObtained()
-    {
-        if (config == null)
-        {
-            config = Cerberus.obtainConfig();
-        }
-    }
-
-    public static String getChatColor(String s){
-        configObtained();
+    public String getChatColor(String s){
         String obtainedS = config.getString(s);
         return obtainedS;
     }
-    public static Color getColor(String s)
+    public Color getColor(String s)
     {
-        configObtained();
-        List<Integer> rgbArray = config.getIntegerList(s);
-        if (rgbArray != null && rgbArray.size() == 3)
-        {
-            Color newColor = Color.fromRGB(rgbArray.get(0),rgbArray.get(1),rgbArray.get(2));
-            return newColor;
+        switch (s) {
+            case "levelUpColor":
+                return Color.fromRGB(50,232,5);
+            case "warningColor":
+                return Color.fromRGB(255,35,23);
         }
-        return null;
+        return Color.fromRGB(255,255,255);
+    }
+
+    public ConfigFunctions()
+    {
+        config = Cerberus.obtainConfig();
     }
 }

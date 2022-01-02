@@ -1,6 +1,7 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.ConfigData;
 import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PetData;
 import org.bukkit.command.Command;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 
 public class CommandDebugData implements CommandExecutor {
 
+    private static ConfigData cData = new ConfigData();
     private static String successColor = null;
 
     @Override
@@ -17,7 +19,7 @@ public class CommandDebugData implements CommandExecutor {
         if (sender instanceof Player) {
 
             if (successColor == null){
-                successColor = ConfigFunctions.getChatColor("successChatColor");
+                successColor = cData.getChatColor("successChatColor");
             }
 
             Player p = (Player) sender;

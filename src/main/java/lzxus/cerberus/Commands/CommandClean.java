@@ -1,11 +1,13 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.Structs.ConfigData;
 import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PetData;
 import lzxus.cerberus.Structs.PlayerReset;
 import net.md_5.bungee.chat.SelectorComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,13 +17,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
 public class CommandClean implements CommandExecutor {
-    private static String warnColor = null;
-
+    private static ConfigData cData = new ConfigData();
+    private static String warnColor;
     @Override
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
         if (sender instanceof Player && sender.isOp()) {
             if (warnColor == null){
-                warnColor = ConfigFunctions.getChatColor("warningChatColor");
+                warnColor = cData.getChatColor("warningChatColor");
             }
             for (World w : Bukkit.getWorlds())
             {

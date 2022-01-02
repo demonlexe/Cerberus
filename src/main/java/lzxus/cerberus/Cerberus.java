@@ -45,17 +45,6 @@ public final class Cerberus extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getServer().getPluginManager().registerEvents(new DogBehavior(), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-        getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
-        getServer().getPluginManager().registerEvents(new DogTamed(), this);
-        getServer().getPluginManager().registerEvents(new EntityDamaged(), this);
-        getServer().getPluginManager().registerEvents(new DogDied(), this);
-        getServer().getPluginManager().registerEvents(new DogAttack(), this);
-        getServer().getPluginManager().registerEvents(new ArmorStandBehavior(), this);
-        this.getCommand("cdebug").setExecutor(new CommandDebugData());
-        this.getCommand("cclean").setExecutor(new CommandClean());
-        this.getCommand("ce").setExecutor(new CommandMain());
         plugin = this;
         config = getConfig();
 
@@ -63,8 +52,6 @@ public final class Cerberus extends JavaPlugin {
         config.addDefault("levelMultiplier", 50);
         config.addDefault("xpBaseLevel",30.0);
         config.addDefault("maxLevel",100);
-        config.addDefault("warningColor", new int[]{255, 35, 23});
-        config.addDefault("successColor", new int[]{50, 232, 5});
         config.addDefault("systemChatColor", (ChatColor.GRAY).toString());
         config.addDefault("successChatColor", (ChatColor.GREEN).toString());
         config.addDefault("warningChatColor", (ChatColor.DARK_RED).toString());
@@ -100,6 +87,18 @@ public final class Cerberus extends JavaPlugin {
 
         //Initalize main methods:
         CommandMain.main();
+
+        getServer().getPluginManager().registerEvents(new DogBehavior(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
+        getServer().getPluginManager().registerEvents(new DogTamed(), this);
+        getServer().getPluginManager().registerEvents(new EntityDamaged(), this);
+        getServer().getPluginManager().registerEvents(new DogDied(), this);
+        getServer().getPluginManager().registerEvents(new DogAttack(), this);
+        getServer().getPluginManager().registerEvents(new ArmorStandBehavior(), this);
+        this.getCommand("cdebug").setExecutor(new CommandDebugData());
+        this.getCommand("cclean").setExecutor(new CommandClean());
+        this.getCommand("ce").setExecutor(new CommandMain());
 
         System.out.println("Cerberus has completed start-up behaviors and is successfully launched.");
     }

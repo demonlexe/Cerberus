@@ -3,7 +3,7 @@ package lzxus.cerberus.Structs;
 import lzxus.cerberus.Cerberus;
 import org.bukkit.Color;
 
-public class ConfigData {
+public class ConfigData extends ConfigFunctions{
     public static final String [] attackTypeList = {"all", "passive", "monster"};
 
     public String failColor;
@@ -16,11 +16,12 @@ public class ConfigData {
 
     public ConfigData()
     {
-        failColor = ConfigFunctions.getChatColor("failureChatColor");
-        successColor = ConfigFunctions.getChatColor("successChatColor");
-        dataColor = ConfigFunctions.getChatColor("dataChatColor");
-        systemColor = ConfigFunctions.getChatColor("systemChatColor");
-        newColor = ConfigFunctions.getColor("successColor");
+        super();
+        failColor = getChatColor("failureChatColor");
+        successColor = getChatColor("successChatColor");
+        dataColor = getChatColor("dataChatColor");
+        systemColor = getChatColor("systemChatColor");
+        newColor = getColor("levelUpColor");
         xpList = Cerberus.obtainXPList();
     }
 

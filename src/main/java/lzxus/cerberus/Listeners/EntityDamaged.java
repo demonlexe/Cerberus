@@ -17,7 +17,7 @@ public class EntityDamaged implements Listener {
     private static String failColor = null;
     private static String successColor = null;
     private static String dataColor = null;
-    private static FileConfiguration config = Cerberus.obtainConfig();
+    private static ConfigData cData = new ConfigData();
     private static double [] xpList = null;
     private static Integer maxLevel = null;
 
@@ -33,13 +33,13 @@ public class EntityDamaged implements Listener {
         }
 
         if (failColor == null){
-            failColor = ConfigFunctions.getChatColor("failureChatColor");
+            failColor = cData.getChatColor("failureChatColor");
         }
         if (successColor == null){
-            successColor = ConfigFunctions.getChatColor("successChatColor");
+            successColor = cData.getChatColor("successChatColor");
         }
         if (dataColor == null){
-            dataColor = ConfigFunctions.getChatColor("dataChatColor");
+            dataColor = cData.getChatColor("dataChatColor");
         }
 
         if (w != null && p != null && p.isOnline())
