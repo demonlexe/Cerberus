@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
 public class PlayerReset {
-    public static void resetP(Player p, PetData pet){
-
+    private static void createPetData(Player p, PetData pet)
+    {
         //Creates Boolean data
         pet.setWolfOwned(0); //false
         pet.setWolfStatus(0); //false
@@ -26,6 +26,16 @@ public class PlayerReset {
 
         //Creates UUID data
         pet.setWolfUUID("");
+    }
+
+    public static void initializeP(Player p, PetData pet)
+    {
+        createPetData(p,pet);
+    }
+
+    public static void resetP(Player p, PetData pet){
+
+        createPetData(p,pet);
         if (pet!=null && p!= null)
         {
             Cerberus.updateWolfList(pet,p,"PetRemoved");

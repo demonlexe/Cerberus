@@ -11,6 +11,7 @@ import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.xml.stream.events.Namespace;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -28,8 +29,19 @@ public class PetData {
     private NamespacedKey damageKey;
     private NamespacedKey statusKey;
     private NamespacedKey attackKey;
+    private NamespacedKey initalizedKey;
 
     private static final String [] attackTypeList = {"a","p","m"};
+
+    private void initalizeKeys()
+    {
+        if (data.get(initalizedKey,PersistentDataType.INTEGER) == null)
+        {
+            data.set(initalizedKey,PersistentDataType.INTEGER,1);
+            PlayerReset.initializeP(p,this);
+        }
+    }
+
     private void updateKeys()
     {
         uniqueIDKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-uuid");
@@ -41,6 +53,7 @@ public class PetData {
         damageKey = new NamespacedKey(Cerberus.getPlugin(), "damageEnabled");
         statusKey = new NamespacedKey(Cerberus.getPlugin(), "attackStatus");
         attackKey = new NamespacedKey(Cerberus.getPlugin(), "attackType");
+        initalizedKey = new NamespacedKey(Cerberus.getPlugin(),"initalizedStatus");
     }
 
     public PetData() //Should not be used.
@@ -50,6 +63,7 @@ public class PetData {
         data = null;
         attackQueue = new LinkedList<Entity>();
         updateKeys();
+        initalizeKeys();
     }
 
     public PetData(Player pl) //Called if player does not own a pet.
@@ -58,6 +72,7 @@ public class PetData {
         p = pl;
         data = p.getPersistentDataContainer();
         updateKeys();
+        initalizeKeys();
     }
 
     public PetData(Wolf newWolf, Player pl) //Called if a player owns a pet.
