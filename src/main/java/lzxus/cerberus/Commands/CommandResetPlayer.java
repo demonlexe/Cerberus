@@ -34,7 +34,7 @@ public class CommandResetPlayer extends CerberusCommand {
             }
             else
             {
-                p.sendMessage(failColor+"To confirm this action, please type /ce reset confirm");
+                p.sendMessage(failColor+"To confirm this action, please type "+dataColor+"/ce reset confirm");
             }
             return true;
         }
@@ -55,6 +55,7 @@ public class CommandResetPlayer extends CerberusCommand {
                 }
             }
             commandFailedMessage(p);
+            return true;
         }
         return false;
     }
