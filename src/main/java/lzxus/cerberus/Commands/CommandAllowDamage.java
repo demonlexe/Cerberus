@@ -6,6 +6,9 @@ import lzxus.cerberus.Structs.PetData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * Should be constructed as an object by CommandMain. Toggles if the pet is able to be harmed by its owner.
+ */
 public class CommandAllowDamage extends CerberusCommand {
     /**
      * CAN be overridden by subclass.
@@ -24,7 +27,7 @@ public class CommandAllowDamage extends CerberusCommand {
      * Toggles if a pet is able to be harmed by the owner.
      * CAN be overridden by subclass.
      */
-    public boolean onCommand(CommandSender sender, String[] args) {
+    public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player)
         {
             Player p = (Player) sender;

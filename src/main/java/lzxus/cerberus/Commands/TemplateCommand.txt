@@ -4,50 +4,64 @@ import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PetData;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
+import org.bukkit.util.Vector;
 
-public class CommandBringPet extends CerberusCommand {
+/**
+ * Should be constructed as an object by CommandMain. //FIXME : Description
+ */
+public class //FIXME extends CerberusCommand {
+/**
+     * CAN be overridden by subclass.
+     * Returns a formatted string describing command function.
+     * @return
+     */
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce bring"
-                + systemColor + " - " + dataColor + "Teleports your pet to you.");
+        String formattedString = (successColor + "/ce //FIXME"
+                + systemColor + " - " + dataColor + //FIXME);
         return formattedString;
     }
+    /**
+         * Code to be run when a Player executes this command.
+         * //FIXME : Description
+         * CAN be overridden by subclass.
+         */
 
     public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
             assert pet!=null;
+
             if (pet.getWolfStatus().equals(1))
             {
-                Wolf obtainedWolf = pet.getWolf();
-                p.sendMessage(successColor + "You have brought your pet!");
-                if (obtainedWolf != null)
-                {
-                    obtainedWolf.teleport(p);
-                }
-                return true;
+                //FIXME
             }
             else
             {
+            //FIXME
                 commandFailedMessage(p);
-                return true;
             }
+            return true;
         }
         return false;
     }
 
-    public CommandBringPet(){
+/**
+     * Constructor to be called by CommandMain. MUST call super();
+     * Overwrites command info, such as Description, CommandName, Aliases.
+     */
+    public //FIXME()
+    {
         super();
         Description = getDescription();
-        CommandName = "bring";
-        Aliases.add("bring");
-        Aliases.add("b");
+        CommandName = //FIXME;
+        Aliases.add(//FIXME);
     }
+
 }

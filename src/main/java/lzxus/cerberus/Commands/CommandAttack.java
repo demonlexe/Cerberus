@@ -8,19 +8,33 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-
+/**
+ * Should be constructed as an object by CommandMain.
+ * Toggles if the pet is allowed to attack, and what it can attack.
+ */
 public class CommandAttack extends CerberusCommand {
 
+    /**
+     * CAN be overridden by subclass.
+     * Returns a formatted string describing command function.
+     * @return
+     */
     public String getDescription()
     {
         String formattedString = (successColor + "/ce attack"
                 + systemColor + " - " + dataColor + "Toggles if pet is allowed to attack."
                 + "\n" + successColor + "/ce attack <AttackType>"
-                + systemColor + " - " + dataColor + "Valid AttackTypes: a, p, m");
+                + systemColor + " - " + dataColor + "Valid AttackTypes: all, passive, monsters");
         return formattedString;
     }
 
-    public boolean onCommand(CommandSender sender, String[] args) {
+    /**
+     * Code to be run when a Player executes this command.
+     * If player has a wolf, and does not provide parameters, toggles if pet can attack.
+     * If player has a wolf and provides parameters, changes attack type.
+     * CAN be overridden by subclass.
+     */
+    public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
@@ -68,6 +82,11 @@ public class CommandAttack extends CerberusCommand {
         return false;
     }
 
+
+    /**
+     * Constructor to be called by CommandMain. MUST call super();
+     * Overwrites command info, such as Description, CommandName, Aliases.
+     */
     public CommandAttack(){
         super();
         Description = getDescription();

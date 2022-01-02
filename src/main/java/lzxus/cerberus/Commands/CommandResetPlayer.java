@@ -5,6 +5,7 @@ import lzxus.cerberus.Structs.CerberusCommand;
 import lzxus.cerberus.Structs.ConfigFunctions;
 import lzxus.cerberus.Structs.PetData;
 import lzxus.cerberus.Structs.PlayerReset;
+import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,13 +22,39 @@ public class CommandResetPlayer extends CerberusCommand {
         return formattedString;
     }
 
-    public boolean onCommand(CommandSender sender, String[] args) {
+    public boolean commandFailedMessage(Player p)
+    {
+        if (p!=null)
+        {
+            PetData pet = Cerberus.obtainPetData(p);
+            assert pet!=null;
+            if (pet.getWolfStatus().equals(0))
+            {
+                p.sendMessage(failColor+"You do not currently have a pet!");
+            }
+            else
+            {
+                p.sendMessage(failColor+"To confirm this action, please type /ce reset confirm");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            PetData pet = Cerberus.obtainPetData(p);
-            PlayerReset.resetP(p,pet);
-            p.sendMessage(successColor+"Your pet data has been reset!");
-            return true;
+            if (!ArrayUtils.isEmpty(args)) {
+                String confirmation = args[0];
+                if (confirmation.equalsIgnoreCase("confirm"))
+                {
+                    PetData pet = Cerberus.obtainPetData(p);
+                    PlayerReset.resetP(p,pet);
+                    p.sendMessage(successColor+"Your pet data has been reset!");
+                    return true;
+                }
+            }
+            commandFailedMessage(p);
         }
         return false;
     }

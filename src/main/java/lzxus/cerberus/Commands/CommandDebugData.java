@@ -13,7 +13,7 @@ public class CommandDebugData implements CommandExecutor {
     private static String successColor = null;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
         if (sender instanceof Player) {
 
             if (successColor == null){

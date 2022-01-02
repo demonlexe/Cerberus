@@ -29,7 +29,7 @@ public class CommandMain implements CommandExecutor {
         helpCommand = new CommandHelp();
     }
 
-    private static String [] getNewArgs(String [] oldArgs)
+    private static String [] getNewArgs(final String [] oldArgs)
     {
         String [] newArgs = new String[oldArgs.length-1];
         for (int i = 1; i <oldArgs.length; i++)
@@ -40,7 +40,7 @@ public class CommandMain implements CommandExecutor {
         return newArgs;
     }
 
-    private static boolean checkAliases(ArrayList<String> list, String toCompare)
+    private static boolean checkAliases(final ArrayList<String> list, final String toCompare)
     {
         for (String s : list)
         {
@@ -54,7 +54,7 @@ public class CommandMain implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
         boolean toR = false;
         if (sender instanceof Player) {
             if (ArrayUtils.isEmpty(args))

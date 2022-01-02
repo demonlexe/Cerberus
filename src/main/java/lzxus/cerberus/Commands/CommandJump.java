@@ -12,6 +12,11 @@ import org.bukkit.entity.Wolf;
 import org.bukkit.util.Vector;
 
 public class CommandJump extends CerberusCommand {
+    /**
+     * CAN be overridden by subclass.
+     * Returns a formatted string describing command function.
+     * @return
+     */
     public String getDescription()
     {
         String formattedString = (successColor + "/ce jump"
@@ -19,7 +24,7 @@ public class CommandJump extends CerberusCommand {
         return formattedString;
     }
 
-    public boolean onCommand(CommandSender sender, String[] args) {
+    public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);

@@ -18,7 +18,7 @@ public class CommandClean implements CommandExecutor {
     private static String warnColor = null;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
         if (sender instanceof Player && sender.isOp()) {
             if (warnColor == null){
                 warnColor = ConfigFunctions.getChatColor("warningChatColor");

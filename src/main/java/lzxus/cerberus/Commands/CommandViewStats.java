@@ -15,7 +15,7 @@ public class CommandViewStats extends CerberusCommand {
         return formattedString;
     }
 
-    private String isLowHealth(double current, double max)
+    private String isLowHealth(final double current, final double max)
     {
         if (current/max < 0.5)
         {
@@ -24,7 +24,7 @@ public class CommandViewStats extends CerberusCommand {
         return dataColor;
     }
 
-    public boolean onCommand(CommandSender sender, String[] args) {
+    public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);

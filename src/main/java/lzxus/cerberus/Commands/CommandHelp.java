@@ -16,7 +16,7 @@ public class CommandHelp extends CerberusCommand {
         return formattedString;
     }
 
-    private String obtainDesc(ArrayList<CerberusCommand> list)
+    private String obtainDesc(final ArrayList<CerberusCommand> list)
     {
         String newString = "";
         for (CerberusCommand c : list)
@@ -26,7 +26,7 @@ public class CommandHelp extends CerberusCommand {
         return newString;
     }
 
-    public boolean onCommand(CommandSender sender, String [] args, ArrayList<CerberusCommand> list)
+    public boolean onCommand(final CommandSender sender, final String [] args, final ArrayList<CerberusCommand> list)
     {
         if (sender instanceof Player)
         {

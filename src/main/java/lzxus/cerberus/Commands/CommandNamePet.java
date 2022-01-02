@@ -16,7 +16,7 @@ public class CommandNamePet extends CerberusCommand {
         return formattedString;
     }
 
-    public boolean onCommand(CommandSender sender, String[] args) {
+    public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player && !ArrayUtils.isEmpty(args)) {
             Player p = (Player) sender;
             PetData pet = Cerberus.obtainPetData(p);
