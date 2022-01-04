@@ -219,10 +219,12 @@ public class PetData {
         return false;
     }
 
-    public void onXPGained(int gainedXP)
+    public void onXPGained(String gainedXP)
     {
         if (w!=null) {
             if (p != null) {
+                Hologram h = new Hologram(this, "+ "+gainedXP, cData.successColor,w);
+                Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), h::removeHologram, 20L);
                 //p.sendMessage(cData.successColor+"Your pet has gained " + gainedXP + " XP!");
             }
         }

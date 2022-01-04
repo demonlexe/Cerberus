@@ -138,7 +138,7 @@ public class EntityDamaged implements Listener {
                         {
                             pet.setWolfXp(prevXp+damageDone);
                             //System.out.println("Total XP of this wolf: "+PlayerWolfData.getWolfXp(p));
-                            pet.onXPGained((int)damageDone);
+                            pet.onXPGained(Double.toString(damageDone));
                             updateLevel(w, p);
                         }
                     }
