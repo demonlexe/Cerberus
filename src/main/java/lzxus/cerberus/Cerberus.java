@@ -3,6 +3,7 @@ package lzxus.cerberus;
 import lzxus.cerberus.Commands.*;
 import lzxus.cerberus.Listeners.*;
 import lzxus.cerberus.Structs.CerberusCommand;
+import lzxus.cerberus.Structs.ConfigData;
 import lzxus.cerberus.Structs.PetData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,6 +33,7 @@ public final class Cerberus extends JavaPlugin {
     private static Cerberus plugin;
     private static double [] xpRequirementList; //Holds the full list of XP requirements
     private static Hashtable<Player, PetData> wList = new Hashtable<>(); //Key is Player, Value is live Wolf entity
+    private static ConfigData cData;
 
     /**
      * Plugin start-up logic.
@@ -99,6 +101,8 @@ public final class Cerberus extends JavaPlugin {
         this.getCommand("cdebug").setExecutor(new CommandDebugData());
         this.getCommand("cclean").setExecutor(new CommandClean());
         this.getCommand("ce").setExecutor(new CommandMain());
+
+        cData = new ConfigData();
 
         System.out.println("Cerberus has completed start-up behaviors and is successfully launched.");
     }
@@ -171,6 +175,11 @@ public final class Cerberus extends JavaPlugin {
                         obtainedWolf.remove();
                         //obtainedWolf.setHealth(0);
                     }
+
+                    p.sendMessage(cData.successColor+"Your pet data has been reset!"
+                            +"\n"+cData.systemColor+"To register a name pet, "
+                            +cData.successColor+"tame another wolf"
+                    +"\n"+cData.systemColor+"or right-click a tamed wolf with a "+cData.successColor+"Bone.");
                 }
                 updateHelper(p,new PetData(p));
                 break;

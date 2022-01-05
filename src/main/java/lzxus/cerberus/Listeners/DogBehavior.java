@@ -2,6 +2,7 @@ package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.Structs.PlayerReset;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.persistence.PersistentDataContainer;
 
 public class DogBehavior implements Listener {
+    private static final PlayerReset pReset = new PlayerReset();
 
     // A static member function that resets anger and sit values
     private static void resetWolf(Wolf playerWolf)
@@ -57,22 +59,30 @@ public class DogBehavior implements Listener {
         if (entityClicked.getType() == EntityType.WOLF && itemInHand == Material.BONE)
         {
             Wolf playerDog = (Wolf) entityClicked;
+            PetData pet = Cerberus.obtainPetData(p);
+            if (pet==null) { return;}
             //If player is the owner, changes this dog to be main pet;
             if (playerDog.isTamed() && playerDog.getOwner().getName() == p.getName())
             {
-                p.sendMessage(ChatColor.BLUE+"This dog is your main pet!");
+                if (pet.getWolfOwned().equals(1))
+                {
+                    p.sendMessage(ChatColor.GREEN+"You already own a pet! To reset and claim a new pet,"
+                    +"\n"+"type"+ChatColor.BLUE+" /ce reset");
+                }
+                else
+                {
+                    pReset.initializeP(p,pet);
+                    PetData newData = new PetData(playerDog,p);
+                    Cerberus.updateWolfList(newData,p,"PetAdded");
+                }
             }
             else if (playerDog.isTamed())
             {
-                PetData pet = Cerberus.obtainPetData(p);
-                if (pet!=null)
+                Integer ownedValue = pet.getWolfOwned();
+                if (ownedValue != null && ownedValue.equals(1))
                 {
-                    Integer ownedValue = pet.getWolfOwned();
-                    if (ownedValue != null && ownedValue.equals(1))
-                    {
-                        event.setCancelled(true);
-                        p.sendMessage(ChatColor.BLUE+"This is not your pet!");
-                    }
+                    event.setCancelled(true);
+                    p.sendMessage(ChatColor.RED+"This is not your pet!");
                 }
             }
         }

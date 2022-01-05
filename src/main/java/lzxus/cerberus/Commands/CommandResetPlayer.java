@@ -28,7 +28,7 @@ public class CommandResetPlayer extends CerberusCommand {
         {
             PetData pet = Cerberus.obtainPetData(p);
             assert pet!=null;
-            if (pet.getWolfStatus().equals(0))
+            if (pet.getWolfOwned().equals(0))
             {
                 p.sendMessage(cData.failColor+"You do not currently have a pet!");
             }
@@ -51,7 +51,6 @@ public class CommandResetPlayer extends CerberusCommand {
                     PetData pet = Cerberus.obtainPetData(p);
                     if (pet!=null){
                         pet.getResetFunctions().resetP(p,pet);
-                        p.sendMessage(cData.successColor+"Your pet data has been reset!");
                         return true;
                     }
                 }

@@ -9,6 +9,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerLeave implements Listener {
 
+    /**
+     * Used by Cerberus.java, PlayerLeave.java
+     */
     public static void funcOnDisconnect(Player p)
     {
         PetData pet = Cerberus.obtainPetData(p);

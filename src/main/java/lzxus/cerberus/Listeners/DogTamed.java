@@ -2,6 +2,7 @@ package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.Structs.PlayerReset;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -15,7 +16,7 @@ import java.io.IOException;
 public class DogTamed implements Listener {
     // An event function that operates upon an animal being tamed.
     // It then checks if it is of EntityType.WOLF
-
+    private static final PlayerReset pReset = new PlayerReset();
     @EventHandler
     public void onAnimalTamed(EntityTameEvent event) throws IOException {
         if (event.getEntity() instanceof Wolf && event.getOwner() instanceof Player)
@@ -26,33 +27,17 @@ public class DogTamed implements Listener {
             PetData pet = Cerberus.obtainPetData(tamer);
             if (pet!=null)
             {
-                if (!(tamedWolf).isAdult() || pet.getWolfOwned().equals(1))
+                if (pet.getWolfOwned().equals(1))
                 {
-                    event.setCancelled(true);
                     tamer.sendMessage(ChatColor.BLUE+"You already have a pet!");
                     return;
                 }
-                //Creates Boolean data
-                pet.setWolfOwned(1);//true
-                pet.setWolfStatus(1); //true
-
-                //Creates Level data
-                pet.setWolfLvl(0);
-
-                //Creates XP data
-                pet.setWolfXp(0.0);
-
-                //Creates Attack data
-                pet.setAttackStatus(1);
-                pet.setAttackType("m");
-
-                //Creates Name data
-                pet.setWolfName("");
-
-                //Creates UUID data
-                pet.setWolfUUID(tamedWolf.getUniqueId().toString());
-                PetData newData = new PetData(tamedWolf,tamer);
-                Cerberus.updateWolfList(newData,tamer,"PetAdded");
+                else
+                {
+                    pReset.initializeP(tamer,pet);
+                    PetData newData = new PetData(tamedWolf,tamer);
+                    Cerberus.updateWolfList(newData,tamer,"PetAdded");
+                }
             }
             //System.out.println("A wolf has been tamed by "+tamer.getName());
         }
