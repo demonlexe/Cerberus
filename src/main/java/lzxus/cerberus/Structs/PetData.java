@@ -128,7 +128,7 @@ public class PetData {
                 attackQueue.pollLast();
             }
             attackQueue.addLast(e);
-            DogBehavior.attackChoice(this);
+            attackChoice();
         }
     }
 
@@ -150,7 +150,7 @@ public class PetData {
                 attackQueue.pollLast();
             }
             attackQueue.addFirst(e);
-            DogBehavior.attackChoice(this);
+            attackChoice();
         }
     }
 
@@ -219,10 +219,23 @@ public class PetData {
         return false;
     }
 
+    public void attackChoice()
+    {
+        if (w != null)
+        {
+            Entity eChosen = peekQueue();
+            if (eChosen != null)
+            {
+                w.setTarget((LivingEntity) eChosen);
+            }
+        }
+    }
+
     public void onXPGained(String gainedXP)
     {
         if (w!=null) {
             if (p != null) {
+                attackChoice();
                 Hologram h = new Hologram(this, "+ "+gainedXP+" XP", cData.successColor,w);
                 Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), h::removeHologram, 15L);
                 //p.sendMessage(cData.successColor+"Your pet has gained " + gainedXP + " XP!");

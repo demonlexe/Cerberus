@@ -71,7 +71,6 @@ public class EntityDamaged implements Listener {
 
     private static void isThreat(Entity damagedEntity, Entity attacker)
     {
-        if (!isDeadByPet(damagedEntity,attacker)) {
             if (damagedEntity instanceof Player)
             {
                 Player p = (Player) damagedEntity;
@@ -94,26 +93,6 @@ public class EntityDamaged implements Listener {
                     }
                 }
             }
-        }
-    }
-
-    private static boolean isDeadByPet(Entity damagedEntity, Entity attacker)
-    {
-        if (attacker instanceof Wolf && damagedEntity instanceof LivingEntity)
-        {
-            Wolf w = (Wolf) attacker;
-            Player owner = (Player) (w).getOwner();
-            if (owner != null)
-            {
-                PetData pet = Cerberus.obtainPetData(owner);
-                if (pet!=null && (((LivingEntity) damagedEntity).getHealth() <= 0))
-                {
-                    DogBehavior.attackChoice(pet);
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     @EventHandler

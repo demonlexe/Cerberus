@@ -30,18 +30,6 @@ public class DogBehavior implements Listener {
         playerWolf.setSitting(false);
     }
 
-    public static void attackChoice(PetData pet)
-    {
-        Wolf w = pet.getWolf();
-        if (w != null)
-        {
-            Entity eChosen = pet.peekQueue();
-            if (eChosen != null)
-            {
-                w.setTarget((LivingEntity) eChosen);
-            }
-        }
-    }
     // An event function that operates upon an animal being interacted.
     // It then checks if it is of EntityType.WOLF and
     // the item interacted with is a bone.
