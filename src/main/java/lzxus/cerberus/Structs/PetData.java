@@ -223,8 +223,8 @@ public class PetData {
     {
         if (w!=null) {
             if (p != null) {
-                Hologram h = new Hologram(this, "+ "+gainedXP, cData.successColor,w);
-                Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), h::removeHologram, 20L);
+                Hologram h = new Hologram(this, "+ "+gainedXP+" XP", cData.successColor,w);
+                Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), h::removeHologram, 15L);
                 //p.sendMessage(cData.successColor+"Your pet has gained " + gainedXP + " XP!");
             }
         }

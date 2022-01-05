@@ -30,7 +30,7 @@ public class Hologram {
                 newLoc.setY(newLoc.getY()-1);
                 standEntity.setVelocity(new Vector(0,.4,0));
                 standEntity.teleport(newLoc);
-            }, 5L);
+            }, 3L);
         }
     }
 

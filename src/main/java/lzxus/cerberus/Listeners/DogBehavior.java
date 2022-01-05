@@ -66,8 +66,16 @@ public class DogBehavior implements Listener {
             {
                 if (pet.getWolfOwned().equals(1))
                 {
-                    p.sendMessage(ChatColor.GREEN+"You already own a pet! To reset and claim a new pet,"
-                    +"\n"+"type"+ChatColor.BLUE+" /ce reset");
+                    if (pet.getWolf().equals(playerDog))
+                    {
+                        p.sendMessage(ChatColor.GREEN+"This is your main pet! To view statistics, type"+ChatColor.BLUE+" /ce stats");
+                    }
+                    else
+                    {
+                        p.sendMessage(ChatColor.GREEN+"You already own a pet! To reset and claim a new pet,"
+                                +"\n"+"type"+ChatColor.BLUE+" /ce reset");
+                    }
+
                 }
                 else
                 {
