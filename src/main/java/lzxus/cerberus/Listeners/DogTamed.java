@@ -20,16 +20,13 @@ public class DogTamed implements Listener {
 
     @EventHandler
     public void onAnimalTamed(EntityTameEvent event) throws IOException {
-        System.out.println("TameEventFired");
         if (event.getEntity() instanceof Wolf && event.getOwner() instanceof Player)
         {
             Wolf tamedWolf = (Wolf) event.getEntity();
             Player tamer = (Player) event.getOwner();
             PetData pet = Cerberus.obtainPetData(tamer);
-            System.out.println("TameEventFired2");
             if (pet!=null)
             {
-                System.out.println("WolfNotNull");
                 if (pet.getWolfOwned().equals(1))
                 {
                     tamer.sendMessage(ChatColor.BLUE+"You already have a pet!");

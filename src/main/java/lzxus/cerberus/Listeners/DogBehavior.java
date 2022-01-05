@@ -46,7 +46,6 @@ public class DogBehavior implements Listener {
         {
             Wolf playerDog = (Wolf) entityClicked;
             PetData pet = Cerberus.obtainPetData(p);
-            System.out.println("ClickEventFired + "+pet);
             if (pet==null) { return;}
             //If player is the owner, changes this dog to be main pet;
             if (playerDog.isTamed() && playerDog.getOwner().getName() == p.getName())
