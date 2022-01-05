@@ -36,6 +36,13 @@ public class PlayerReset {
         createPetData(p,pet);
     }
 
+    public void newP(Player p, PetData pet, Wolf w) {
+        createPetData(p, pet);
+        pet.setWolfStatus(1);
+        pet.setWolfOwned(1);
+        pet.setWolfUUID(w.getUniqueId().toString());
+    }
+
     public void resetP(Player p, PetData pet){
 
         createPetData(p,pet);

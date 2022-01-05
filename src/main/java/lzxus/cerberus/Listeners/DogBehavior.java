@@ -41,13 +41,12 @@ public class DogBehavior implements Listener {
         Material itemInHand = pInv.getItemInMainHand().getType();
         Entity entityClicked = event.getRightClicked();
 
-        PersistentDataContainer data = p.getPersistentDataContainer();
-
         //If a wolf is clicked by the player with a bone
         if (entityClicked.getType() == EntityType.WOLF && itemInHand == Material.BONE)
         {
             Wolf playerDog = (Wolf) entityClicked;
             PetData pet = Cerberus.obtainPetData(p);
+            System.out.println("ClickEventFired + "+pet);
             if (pet==null) { return;}
             //If player is the owner, changes this dog to be main pet;
             if (playerDog.isTamed() && playerDog.getOwner().getName() == p.getName())
@@ -67,8 +66,8 @@ public class DogBehavior implements Listener {
                 }
                 else
                 {
-                    pReset.initializeP(p,pet);
                     PetData newData = new PetData(playerDog,p);
+                    pReset.newP(p,newData,playerDog);
                     Cerberus.updateWolfList(newData,p,"PetAdded");
                 }
             }

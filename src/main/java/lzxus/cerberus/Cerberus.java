@@ -170,16 +170,18 @@ public final class Cerberus extends JavaPlugin {
                 if (pObtained != null) {
                     Wolf obtainedWolf = pObtained.getWolf();
                     wList.remove(p);
-                    if (obtainedWolf != null && obtainedWolf.getHealth() > 0)
+                    if (obtainedWolf != null)
                     {
+                        updateHelper(p,new PetData(p));
                         obtainedWolf.remove();
-                        //obtainedWolf.setHealth(0);
+                        p.sendMessage(cData.successColor+"Your pet data has been reset!"
+                                +"\n"+cData.systemColor+"To register a new pet, "
+                                +cData.successColor+"tame another wolf"
+                                +"\n"+cData.systemColor+"or right-click a tamed wolf with a "+cData.successColor+"bone.");
+
+                        break;
                     }
 
-                    p.sendMessage(cData.successColor+"Your pet data has been reset!"
-                            +"\n"+cData.systemColor+"To register a name pet, "
-                            +cData.successColor+"tame another wolf"
-                    +"\n"+cData.systemColor+"or right-click a tamed wolf with a "+cData.successColor+"Bone.");
                 }
                 updateHelper(p,new PetData(p));
                 break;

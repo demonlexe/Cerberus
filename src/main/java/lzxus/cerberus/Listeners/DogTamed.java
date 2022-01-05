@@ -17,16 +17,19 @@ public class DogTamed implements Listener {
     // An event function that operates upon an animal being tamed.
     // It then checks if it is of EntityType.WOLF
     private static final PlayerReset pReset = new PlayerReset();
+
     @EventHandler
     public void onAnimalTamed(EntityTameEvent event) throws IOException {
+        System.out.println("TameEventFired");
         if (event.getEntity() instanceof Wolf && event.getOwner() instanceof Player)
         {
-            //FIXME: Add check to make sure player has a value of 0 for wolf owned
             Wolf tamedWolf = (Wolf) event.getEntity();
             Player tamer = (Player) event.getOwner();
             PetData pet = Cerberus.obtainPetData(tamer);
+            System.out.println("TameEventFired2");
             if (pet!=null)
             {
+                System.out.println("WolfNotNull");
                 if (pet.getWolfOwned().equals(1))
                 {
                     tamer.sendMessage(ChatColor.BLUE+"You already have a pet!");
@@ -34,8 +37,8 @@ public class DogTamed implements Listener {
                 }
                 else
                 {
-                    pReset.initializeP(tamer,pet);
                     PetData newData = new PetData(tamedWolf,tamer);
+                    pReset.newP(tamer,newData,tamedWolf);
                     Cerberus.updateWolfList(newData,tamer,"PetAdded");
                 }
             }

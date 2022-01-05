@@ -11,6 +11,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import javax.xml.stream.events.Namespace;
 import java.util.Deque;
@@ -160,7 +161,7 @@ public class PetData {
         {
             Location pLoc = p.getLocation();
             Location eLoc = e.getLocation();
-            if (pLoc.distance(eLoc) < 20.0)
+            if (pLoc.distance(eLoc) < 15.0)
             {
                 return true;
             }
@@ -235,9 +236,12 @@ public class PetData {
     {
         if (w!=null) {
             if (p != null) {
-                attackChoice();
                 Hologram h = new Hologram(this, "+ "+gainedXP+" XP", cData.successColor,w);
-                Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), h::removeHologram, 15L);
+
+                Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), () -> {
+                    h.removeHologram();
+                    attackChoice();
+                }, 15L);
                 //p.sendMessage(cData.successColor+"Your pet has gained " + gainedXP + " XP!");
             }
         }
