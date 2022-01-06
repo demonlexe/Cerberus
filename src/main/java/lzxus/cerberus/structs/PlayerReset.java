@@ -1,4 +1,4 @@
-package lzxus.cerberus.Structs;
+package lzxus.cerberus.structs;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.petdata.Pet;

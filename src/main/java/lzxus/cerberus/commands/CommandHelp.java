@@ -1,4 +1,4 @@
-package lzxus.cerberus.Commands;
+package lzxus.cerberus.commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

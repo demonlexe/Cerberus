@@ -1,4 +1,4 @@
-package lzxus.cerberus.Listeners;
+package lzxus.cerberus.listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.petdata.Pet;

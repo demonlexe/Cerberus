@@ -1,8 +1,8 @@
 package lzxus.cerberus;
 
-import lzxus.cerberus.Commands.*;
-import lzxus.cerberus.Listeners.*;
-import lzxus.cerberus.Structs.UpdateChecker;
+import lzxus.cerberus.commands.*;
+import lzxus.cerberus.listeners.*;
+import lzxus.cerberus.structs.UpdateChecker;
 import lzxus.cerberus.configdata.ConfigData;
 import lzxus.cerberus.petdata.Pet;
 import org.bukkit.Bukkit;

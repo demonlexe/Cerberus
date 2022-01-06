@@ -1,9 +1,8 @@
 package lzxus.cerberus.petdata;
 
-import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.PlayerReset;
+import lzxus.cerberus.attacks.SpecialAttack;
+import lzxus.cerberus.structs.PlayerReset;
 import lzxus.cerberus.configdata.ConfigData;
-import lzxus.cerberus.hologram.Hologram;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -11,13 +10,12 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class PetData {
+public abstract class PetData {
     protected Wolf w;
     protected Player p;
     protected PersistentDataContainer data;
@@ -34,6 +32,7 @@ public class PetData {
     protected NamespacedKey initalizedKey;
     protected ConfigData cData;
     protected PlayerReset ResetFunctions;
+    protected ArrayList<SpecialAttack> specialAttacks;
 
     public PetData(Player pl) //Called if player does not own a pet.
     {

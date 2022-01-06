@@ -1,4 +1,4 @@
-package lzxus.cerberus.Listeners;
+package lzxus.cerberus.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,4 +1,4 @@
-package lzxus.cerberus.Commands;
+package lzxus.cerberus.commands;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Bukkit;

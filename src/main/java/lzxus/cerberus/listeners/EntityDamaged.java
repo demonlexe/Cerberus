@@ -1,9 +1,10 @@
-package lzxus.cerberus.Listeners;
+package lzxus.cerberus.listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.configdata.ConfigData;
 import lzxus.cerberus.petdata.Pet;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
@@ -97,7 +98,7 @@ public class EntityDamaged implements Listener {
     public void onDamaged(EntityDamageByEntityEvent e)
     {
         isThreat(e.getEntity(),e.getDamager());
-        if (e.getDamager() instanceof Wolf)
+        if (e.getDamager() instanceof Wolf && e.getEntity() instanceof LivingEntity)
         {
             Wolf w = (Wolf) e.getDamager();
             if (w.getOwner() != null)
@@ -121,6 +122,7 @@ public class EntityDamaged implements Listener {
                             damageDone = (double)(convertedDmg/100);
                             pet.onXPGained(Double.toString(damageDone));
                             updateLevel(w, p);
+                            pet.determineSpecialAttack((LivingEntity) e.getEntity());
                         }
                     }
                     else

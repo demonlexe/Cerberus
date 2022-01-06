@@ -1,4 +1,4 @@
-package lzxus.cerberus.Commands;
+package lzxus.cerberus.commands;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.petdata.Pet;

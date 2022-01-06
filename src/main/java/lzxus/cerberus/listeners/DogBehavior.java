@@ -1,8 +1,8 @@
-package lzxus.cerberus.Listeners;
+package lzxus.cerberus.listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.petdata.Pet;
-import lzxus.cerberus.Structs.PlayerReset;
+import lzxus.cerberus.structs.PlayerReset;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.*;

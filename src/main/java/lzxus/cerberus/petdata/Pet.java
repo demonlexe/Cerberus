@@ -1,14 +1,19 @@
 package lzxus.cerberus.petdata;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.attacks.IndividualFlameAttack;
+import lzxus.cerberus.attacks.SpecialAttack;
 import lzxus.cerberus.hologram.Hologram;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
 
 public class Pet extends PetData{
 
@@ -46,6 +51,25 @@ public class Pet extends PetData{
     {
         super(w,pl);
         updateKeys();
+
+        specialAttacks = new ArrayList<>();
+        specialAttacks.add(new IndividualFlameAttack(this));
+    }
+
+    public void determineSpecialAttack(LivingEntity e)
+    {
+        //FIXME: Add logic for assigning specific attacks to player
+        //FIXME: More specifically, divide the chance by the number of total attacks.
+        //FIXME: E.G. Math.random() / 3 for 3 attacks will spread the chance across.
+        if (e == null || e.isDead()) { return; }
+        for (SpecialAttack a : specialAttacks)
+        {
+            if (a.applyChance(Math.random()))
+            {
+                a.attack(e);
+                return;
+            }
+        }
     }
 
     public void onLevelUp()

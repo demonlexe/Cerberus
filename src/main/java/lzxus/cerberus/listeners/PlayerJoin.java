@@ -1,8 +1,8 @@
-package lzxus.cerberus.Listeners;
+package lzxus.cerberus.listeners;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.petdata.Pet;
-import lzxus.cerberus.Structs.WolfObtainer;
+import lzxus.cerberus.structs.WolfObtainer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;

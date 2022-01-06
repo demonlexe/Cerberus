@@ -1,22 +1,16 @@
-package lzxus.cerberus.Commands;
+package lzxus.cerberus.commands;
 
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.petdata.Pet;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
-import org.bukkit.util.Vector;
 
-public class CommandJump extends CerberusCommand {
-    /**
-     * CAN be overridden by subclass.
-     * Returns a formatted string describing command function.
-     * @return
-     */
+public class CommandBringPet extends CerberusCommand {
     public String getDescription()
     {
         String formattedString = (cData.successColor + "/ce " + CommandName
-                + cData.systemColor + " - " + cData.dataColor + "Your pet does a lil jump.");
+                + cData.systemColor + " - " + cData.dataColor + "Teleports your pet to you.");
         return formattedString;
     }
 
@@ -24,18 +18,17 @@ public class CommandJump extends CerberusCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             Pet pet = Cerberus.obtainPetData(p);
+
             if (pet!=null && pet.getWolfStatus().equals(1))
             {
-                Wolf w = pet.getWolf();
-                if (w!=null)
+                Wolf obtainedWolf = pet.getWolf();
+                p.sendMessage(cData.successColor + "You have brought your pet!");
+                if (obtainedWolf != null)
                 {
-                    w.setVelocity(new Vector(0,.5,0));
-                /*for(float i = 0; i<=360; i++)
-                {
-                    w.setRotation(0.0F,i);
-                }*/
-                    return true;
+                    obtainedWolf.teleport(p);
+                    pet.clearQueue();
                 }
+                return true;
             }
             else
             {
@@ -46,13 +39,11 @@ public class CommandJump extends CerberusCommand {
         return false;
     }
 
-    public CommandJump()
-    {
+    public CommandBringPet(){
         super();
         Description = getDescription();
-        CommandName = "jump";
-        Aliases.add("jump");
-        Aliases.add("j");
+        CommandName = "bring";
+        Aliases.add("bring");
+        Aliases.add("b");
     }
-
 }
