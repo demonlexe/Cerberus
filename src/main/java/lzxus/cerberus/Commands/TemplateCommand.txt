@@ -22,8 +22,8 @@ public class //FIXME extends CerberusCommand {
      */
     public String getDescription()
     {
-        String formattedString = (successColor + "/ce //FIXME"
-                + systemColor + " - " + dataColor + //FIXME);
+        String formattedString = (cData.successColor + "/ce " + CommandName
+                + cData.systemColor + " - " + cData.dataColor + //FIXME);
         return formattedString;
     }
     /**

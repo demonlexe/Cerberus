@@ -23,6 +23,7 @@ public class MainCommand implements CommandExecutor {
         commandList.add(new CommandNamePet());
         commandList.add(new CommandResetPlayer());
         commandList.add(new CommandViewStats());
+        commandList.add(new CommandSittable());
         helpCommand = new CommandHelp();
     }
 
