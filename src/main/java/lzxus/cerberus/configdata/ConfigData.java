@@ -1,16 +1,21 @@
 package lzxus.cerberus.configdata;
 
 import lzxus.cerberus.Cerberus;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 
+import java.util.Hashtable;
+
 public class ConfigData extends ConfigFunctions{
-    public static final String [] attackTypeList = {"all", "passive", "monster"};
+    //HARD-CODED
+    public static final String [] attackTypeList = {"all", "animals", "monster", "raider","creature","watermob"};
 
     public String failColor;
     public String successColor;
     public String dataColor;
     public String systemColor;
     public Color newColor;
+    boolean PvPAllowed;
 
     public double [] xpList;
 
@@ -23,6 +28,7 @@ public class ConfigData extends ConfigFunctions{
         systemColor = getChatColor("systemChatColor");
         newColor = getColor("levelUpColor");
         xpList = Cerberus.obtainXPList();
+        PvPAllowed = getPvPAllowed();
     }
 
     public String displayTypeList()

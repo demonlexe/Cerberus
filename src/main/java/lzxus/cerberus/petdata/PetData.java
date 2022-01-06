@@ -162,6 +162,8 @@ public class PetData {
     //Non-Static methods
     public boolean isAllowedToAttack(Entity e)
     {
+        if ((e instanceof Player) && !(cData.getPvPAllowed())) {return false;}
+
         if (p != null && !e.equals(p) && !(e instanceof Wolf))
         {
             Integer attackAllowed = getAttackStatus();
@@ -177,9 +179,30 @@ public class PetData {
                             return true;
                         }
                     }
-                    else if (attackMode.equals("passive"))
+                    else if (attackMode.equals("animals"))
                     {
                         if (e instanceof Animals)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (attackMode.equals("creature"))
+                    {
+                        if (e instanceof Creature)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (attackMode.equals("raider"))
+                    {
+                        if (e instanceof Raider)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (attackMode.equals("watermob"))
+                    {
+                        if (e instanceof WaterMob)
                         {
                             return true;
                         }

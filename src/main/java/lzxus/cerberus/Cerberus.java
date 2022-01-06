@@ -56,6 +56,7 @@ public final class Cerberus extends JavaPlugin {
         config.addDefault("warningChatColor", (ChatColor.DARK_RED).toString());
         config.addDefault("failureChatColor", (ChatColor.RED).toString());
         config.addDefault("dataChatColor", (ChatColor.BLUE).toString());
+        config.addDefault("pvpEnabled",false);
 
         //Updates Main Config
         config.options().copyDefaults(true);

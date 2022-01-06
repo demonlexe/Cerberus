@@ -50,7 +50,6 @@ public class CommandAttack extends CerberusCommand {
                     }
                     else
                     {
-                        //FIXME
                         p.sendMessage(cData.failColor+"That is not a valid attack type! Valid types are "+cData.displayTypeList());
                     }
                 }

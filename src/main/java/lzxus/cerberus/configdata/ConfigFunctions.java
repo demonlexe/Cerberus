@@ -9,10 +9,18 @@ import java.util.List;
 public class ConfigFunctions {
     private FileConfiguration config = null;
 
+    //CONFIG
     public String getChatColor(String s){
         String obtainedS = config.getString(s);
         return obtainedS;
     }
+
+    public boolean getPvPAllowed()
+    {
+        return config.getBoolean("pvpEnabled");
+    }
+
+    //HARD-CODED
     public Color getColor(String s)
     {
         switch (s) {
