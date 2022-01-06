@@ -19,7 +19,7 @@ public class CommandAttack extends CerberusCommand {
      */
     public String getDescription()
     {
-        String formattedString = (cData.successColor + "/ce attack"
+        String formattedString = (cData.successColor + "/ce " + CommandName
                 + cData.systemColor + " - " + cData.dataColor + "Toggles if pet is allowed to attack."
                 + "\n" + cData.successColor + "/ce attack <AttackType>"
                 + cData.systemColor + " - " + cData.dataColor + "Valid AttackTypes: "+cData.displayTypeList());

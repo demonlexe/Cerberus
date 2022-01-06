@@ -16,7 +16,7 @@ public class CommandAllowDamage extends CerberusCommand {
      */
     public String getDescription()
     {
-        String formattedString = (cData.successColor + "/ce allow"
+        String formattedString = (cData.successColor + "/ce " + CommandName
                 + cData.systemColor + " - " + cData.dataColor + "Toggles if pet is able to be harmed by you.");
         return formattedString;
     }
@@ -64,7 +64,9 @@ public class CommandAllowDamage extends CerberusCommand {
     {
         super();
         Description = getDescription();
-        CommandName = "allow";
-        Aliases.add("allow");
+        CommandName = "allowdamage";
+        Aliases.add("allowdmg");
+        Aliases.add("allowd");
+        Aliases.add("ad");
     }
 }

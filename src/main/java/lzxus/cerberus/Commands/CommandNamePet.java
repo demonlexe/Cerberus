@@ -10,7 +10,7 @@ import org.bukkit.entity.Wolf;
 public class CommandNamePet extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (cData.successColor + "/ce name <Name>"
+        String formattedString = (cData.successColor + "/ce "+ CommandName +"<Name>"
                 + cData.systemColor + " - " + cData.dataColor + "Names your pet.");
         return formattedString;
     }

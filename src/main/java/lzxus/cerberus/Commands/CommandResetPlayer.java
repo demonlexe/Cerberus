@@ -11,7 +11,7 @@ public class CommandResetPlayer extends CerberusCommand {
 //FIXME : CHANGE TO /CE RESET CONFIRM. OVERWRITE ERROR MESSAGE TO SAY "PLEASE CONFIRM WITH /CE RESET CONFIRM"
     public String getDescription()
     {
-        String formattedString = (cData.successColor + "/ce reset"
+        String formattedString = (cData.successColor + "/ce " + CommandName
                 + cData.systemColor + " - " + cData.dataColor + "Kills your current pet.");
         return formattedString;
     }
@@ -61,5 +61,6 @@ public class CommandResetPlayer extends CerberusCommand {
         Description = getDescription();
         CommandName = "reset";
         Aliases.add("reset");
+        Aliases.add("res");
     }
 }

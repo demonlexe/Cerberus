@@ -9,7 +9,7 @@ import org.bukkit.entity.Wolf;
 public class CommandViewStats extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (cData.successColor + "/ce stats"
+        String formattedString = (cData.successColor + "/ce " + CommandName
                 + cData.systemColor + " - " + cData.dataColor + "Displays current pet statistics.");
         return formattedString;
     }
@@ -88,5 +88,9 @@ public class CommandViewStats extends CerberusCommand {
         CommandName = "stats";
         Aliases.add("s");
         Aliases.add("stats");
+        Aliases.add("statistics");
+        Aliases.add("getstats");
+        Aliases.add("viewstats");
+        Aliases.add("view");
     }
 }

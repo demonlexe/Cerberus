@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class CommandHelp extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (cData.successColor + "/ce help"
+        String formattedString = (cData.successColor + "/ce " + CommandName
                 + cData.systemColor + " - " + cData.dataColor + "View the Cerberus help page.");
         return formattedString;
     }

@@ -9,7 +9,7 @@ import org.bukkit.entity.Wolf;
 public class CommandBringPet extends CerberusCommand {
     public String getDescription()
     {
-        String formattedString = (cData.successColor + "/ce bring"
+        String formattedString = (cData.successColor + "/ce " + CommandName
                 + cData.systemColor + " - " + cData.dataColor + "Teleports your pet to you.");
         return formattedString;
     }
