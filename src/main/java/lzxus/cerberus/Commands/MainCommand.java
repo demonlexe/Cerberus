@@ -1,6 +1,7 @@
 package lzxus.cerberus.Commands;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +16,7 @@ public class MainCommand implements CommandExecutor {
     //to be called by Cerberus.java
     public static void main()
     {
-        System.out.println("Adding commands to CommandList.");
+        Bukkit.getLogger().info("Adding commands to CommandList.");
         commandList.add(new CommandAllowDamage());
         commandList.add(new CommandAttack());
         commandList.add(new CommandBringPet());
@@ -23,7 +24,6 @@ public class MainCommand implements CommandExecutor {
         commandList.add(new CommandNamePet());
         commandList.add(new CommandResetPlayer());
         commandList.add(new CommandViewStats());
-        commandList.add(new CommandSittable());
         helpCommand = new CommandHelp();
     }
 

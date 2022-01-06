@@ -15,6 +15,7 @@ public class PlayerJoin implements Listener {
     {
         //Code to teleport main wolf to player, if applicable. Also loads wolf into Cerberus' hashtable.
         Player p = event.getPlayer();
+
         Wolf obtainedWolf = WolfObtainer.getWolf(p);
         //System.out.println("Running PlayerJoin wolf obtainer: "+obtainedWolf);
         if (obtainedWolf != null)
@@ -28,5 +29,6 @@ public class PlayerJoin implements Listener {
             }
 
         }
+        Cerberus.checkForUpdates(p);
     }
 }

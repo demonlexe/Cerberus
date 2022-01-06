@@ -73,7 +73,7 @@ public class EntityDamaged implements Listener {
             {
                 Player p = (Player) damagedEntity;
                 Pet pet = Cerberus.obtainPetData(p);
-                if (pet!= null)
+                if (pet!= null && pet.getWolf() != null)
                 {
                     pet.enQueueFirst(attacker);
                 }
@@ -85,7 +85,7 @@ public class EntityDamaged implements Listener {
                 if (p!= null)
                 {
                     Pet pet = Cerberus.obtainPetData(p);
-                    if (pet!= null)
+                    if (pet!= null && pet.getWolf() != null)
                     {
                         pet.enQueueFirst(attacker);
                     }
@@ -105,6 +105,7 @@ public class EntityDamaged implements Listener {
                 Player p = (Player) w.getOwner();
                 if (p != null) {
                     Pet pet = Cerberus.obtainPetData(p);
+                    if (pet.getWolf() != w) {return;}
                     Integer allowedToAttack = pet.getAttackStatus();
                     if (allowedToAttack.equals(1) && pet.isAllowedToAttack(e.getEntity()))
                     {

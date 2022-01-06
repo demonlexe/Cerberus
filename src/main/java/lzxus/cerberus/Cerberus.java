@@ -2,6 +2,7 @@ package lzxus.cerberus;
 
 import lzxus.cerberus.Commands.*;
 import lzxus.cerberus.Listeners.*;
+import lzxus.cerberus.Structs.UpdateChecker;
 import lzxus.cerberus.configdata.ConfigData;
 import lzxus.cerberus.petdata.Pet;
 import org.bukkit.Bukkit;
@@ -31,6 +32,7 @@ public final class Cerberus extends JavaPlugin {
     private static double [] xpRequirementList; //Holds the full list of XP requirements
     private static Hashtable<Player, Pet> wList = new Hashtable<>(); //Key is Player, Value is live Wolf entity
     private static ConfigData cData;
+    private static UpdateChecker uCheck;
 
     /**
      * Plugin start-up logic.
@@ -45,6 +47,7 @@ public final class Cerberus extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
+        uCheck = new UpdateChecker(this, 98849);
         config = getConfig();
 
         //Main Config Set-up
@@ -102,7 +105,7 @@ public final class Cerberus extends JavaPlugin {
 
         cData = new ConfigData();
 
-        System.out.println("Cerberus has completed start-up behaviors and is successfully launched.");
+        Bukkit.getLogger().info("Cerberus has completed start-up behaviors and is successfully launched.");
     }
 
     /**
@@ -111,7 +114,7 @@ public final class Cerberus extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        System.out.println("Cerberus has closed down.");
+        Bukkit.getLogger().info("Cerberus has closed down.");
         for (Player p : Bukkit.getOnlinePlayers()){
             if (wList.get(p) != null)
             {
@@ -128,6 +131,23 @@ public final class Cerberus extends JavaPlugin {
      */
     public static Cerberus getPlugin() {
         return plugin;
+    }
+
+    /**
+     * To be used by PlayerJoin
+     */
+    public static void checkForUpdates(Player p)
+    {
+        boolean isOp = p.isOp();
+        if (!isOp) {return;}
+        uCheck.getVersion(version -> {
+            if (plugin.getDescription().getVersion().equals(version)) {
+                Bukkit.getLogger().info("There is not a new update available for "+plugin.getName()+".");
+            } else {
+                p.sendMessage(cData.successColor+"There is a new update available for "+plugin.getName()+"! Please update to "+cData.failColor+version);
+                Bukkit.getLogger().info("There is a new update available for "+plugin.getName()+"! Please update to "+version);
+            }
+        });
     }
 
     /**Obtains config
@@ -209,7 +229,7 @@ public final class Cerberus extends JavaPlugin {
                 }
                 break;
             default:
-                System.out.println("ERROR");
+                Bukkit.getLogger().info("ERROR");
         }
 
     }
