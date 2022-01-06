@@ -1,9 +1,8 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.ConfigData;
-import lzxus.cerberus.Structs.ConfigFunctions;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.configdata.ConfigData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +22,7 @@ public class CommandDebugData implements CommandExecutor {
             }
 
             Player p = (Player) sender;
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             if (pet!=null)
             {
                 p.sendMessage(successColor+ "wolf-xp: "+ pet.getWolfXp()+

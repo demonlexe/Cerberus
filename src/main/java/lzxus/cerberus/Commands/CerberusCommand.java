@@ -1,6 +1,8 @@
-package lzxus.cerberus.Structs;
+package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.petdata.Pet;
+import lzxus.cerberus.configdata.ConfigData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -37,7 +39,7 @@ public class CerberusCommand {
     }
 
     /**
-     * Method to be called by CommandMain.
+     * Method to be called by MainCommand.
      * CAN be overridden.
      * @param p
      * @return
@@ -46,7 +48,7 @@ public class CerberusCommand {
     {
         if (p!=null)
         {
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             if (pet==null) {return false;}
             if (pet.getWolfStatus().equals(0))
             {

@@ -1,8 +1,7 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,7 +18,7 @@ public class CommandNamePet extends CerberusCommand {
     public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player && !ArrayUtils.isEmpty(args)) {
             Player p = (Player) sender;
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             if (pet!=null && pet.getWolfStatus().equals(1))
             {
                 Wolf obtainedWolf = pet.getWolf();

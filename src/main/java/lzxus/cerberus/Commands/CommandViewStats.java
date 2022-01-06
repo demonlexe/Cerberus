@@ -1,8 +1,7 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -24,10 +23,19 @@ public class CommandViewStats extends CerberusCommand {
         return cData.dataColor;
     }
 
+    private String getNextXP(int lvl)
+    {
+        if (lvl < (cData.xpList.length-1))
+        {
+            return String.valueOf(cData.xpList[lvl+1]);
+        }
+        return "MAX";
+    }
+
     public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             Wolf obtainedWolf = null;
 
             if (pet!=null && pet.getWolfStatus().equals(1)) {
@@ -53,7 +61,7 @@ public class CommandViewStats extends CerberusCommand {
                         p.sendMessage(cData.systemColor+"------------------"+ "\n" + cData.successColor + "Your wolf's statistics:" +
                                         cData.systemColor +
                                         "\n" + "Level: " + cData.dataColor +lvl +
-                                        cData.systemColor +"\n" + "XP: " + cData.dataColor +Math.ceil(xp) + " / " + cData.xpList[lvl+1] +
+                                        cData.systemColor +"\n" + "XP: " + cData.dataColor +Math.ceil(xp) + " / " + getNextXP(lvl) +
                                         cData.systemColor + "\n" + "Health: " + isLowHealth(currentHealth,maxHealth) +currentHealth +" / "+ cData.dataColor + maxHealth+
                                         cData.systemColor + "\n" + "Attack Damage: " + cData.dataColor +damage + cData.systemColor+"\n"+"------------------"
                                 //FIXME: Add statistics like personality.

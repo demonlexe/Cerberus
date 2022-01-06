@@ -1,7 +1,7 @@
 package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class DogAttack implements Listener {
     {
         //System.out.println("Cerberus: Testing position 4");
         Player p = event.getPlayer();
-        PetData pet = Cerberus.obtainPetData(p);
+        Pet pet = Cerberus.obtainPetData(p);
         Wolf w;
         if (pet != null && pet.getWolf() != null)
         {

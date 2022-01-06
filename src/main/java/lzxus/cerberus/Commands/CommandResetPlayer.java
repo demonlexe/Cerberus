@@ -1,16 +1,10 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.ConfigFunctions;
-import lzxus.cerberus.Structs.PetData;
-import lzxus.cerberus.Structs.PlayerReset;
+import lzxus.cerberus.petdata.Pet;
 import org.apache.commons.lang.ArrayUtils;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
 
 public class CommandResetPlayer extends CerberusCommand {
 
@@ -26,7 +20,7 @@ public class CommandResetPlayer extends CerberusCommand {
     {
         if (p!=null)
         {
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             assert pet!=null;
             if (pet.getWolfOwned().equals(0))
             {
@@ -48,7 +42,7 @@ public class CommandResetPlayer extends CerberusCommand {
                 String confirmation = args[0];
                 if (confirmation.equalsIgnoreCase("confirm"))
                 {
-                    PetData pet = Cerberus.obtainPetData(p);
+                    Pet pet = Cerberus.obtainPetData(p);
                     if (pet!=null){
                         pet.getResetFunctions().resetP(p,pet);
                         return true;

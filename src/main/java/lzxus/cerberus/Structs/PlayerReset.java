@@ -1,11 +1,12 @@
 package lzxus.cerberus.Structs;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 
 public class PlayerReset {
-    private void createPetData(Player p, PetData pet)
+    private void createPet(Player p, Pet pet)
     {
         //Creates Boolean data
         pet.setWolfOwned(0); //false
@@ -31,21 +32,21 @@ public class PlayerReset {
         pet.setWolfUUID("");
     }
 
-    public void initializeP(Player p, PetData pet)
+    public void initializeP(Player p, Pet pet)
     {
-        createPetData(p,pet);
+        createPet(p,pet);
     }
 
-    public void newP(Player p, PetData pet, Wolf w) {
-        createPetData(p, pet);
+    public void newP(Player p, Pet pet, Wolf w) {
+        createPet(p, pet);
         pet.setWolfStatus(1);
         pet.setWolfOwned(1);
         pet.setWolfUUID(w.getUniqueId().toString());
     }
 
-    public void resetP(Player p, PetData pet){
+    public void resetP(Player p, Pet pet){
 
-        createPetData(p,pet);
+        createPet(p,pet);
         if (pet!=null && p!= null)
         {
             Cerberus.updateWolfList(pet,p,"PetRemoved");

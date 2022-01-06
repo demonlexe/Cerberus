@@ -1,9 +1,9 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.ConfigFunctions;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.Commands.CerberusCommand;
+import lzxus.cerberus.configdata.ConfigFunctions;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -35,7 +35,7 @@ public class //FIXME extends CerberusCommand {
     public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
 
             if (pet!=null)
             {

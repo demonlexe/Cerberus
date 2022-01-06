@@ -1,13 +1,9 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.ConfigData;
-import lzxus.cerberus.Structs.ConfigFunctions;
-import lzxus.cerberus.Structs.PetData;
-import lzxus.cerberus.Structs.PlayerReset;
-import net.md_5.bungee.chat.SelectorComponentSerializer;
+import lzxus.cerberus.configdata.ConfigData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,7 +30,7 @@ public class CommandClean implements CommandExecutor {
                         Player wolfOwner = (Player) ((Wolf) e).getOwner();
                         if (wolfOwner != null)
                         {
-                            PetData pet = Cerberus.obtainPetData(wolfOwner);
+                            Pet pet = Cerberus.obtainPetData(wolfOwner);
                             if (pet!=null)
                             {
                                 pet.getResetFunctions().resetP(wolfOwner,pet);

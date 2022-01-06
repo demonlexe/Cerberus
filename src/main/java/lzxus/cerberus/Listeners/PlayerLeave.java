@@ -1,7 +1,7 @@
 package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +14,7 @@ public class PlayerLeave implements Listener {
      */
     public static void funcOnDisconnect(Player p)
     {
-        PetData pet = Cerberus.obtainPetData(p);
+        Pet pet = Cerberus.obtainPetData(p);
         if (pet==null) {return;}
         String currentUUID = pet.getWolfUUID();
         if (currentUUID == null || currentUUID.equals(""))

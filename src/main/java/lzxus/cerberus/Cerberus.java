@@ -2,13 +2,10 @@ package lzxus.cerberus;
 
 import lzxus.cerberus.Commands.*;
 import lzxus.cerberus.Listeners.*;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.ConfigData;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.configdata.ConfigData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameRule;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -32,7 +29,7 @@ public final class Cerberus extends JavaPlugin {
     private static FileConfiguration config;
     private static Cerberus plugin;
     private static double [] xpRequirementList; //Holds the full list of XP requirements
-    private static Hashtable<Player, PetData> wList = new Hashtable<>(); //Key is Player, Value is live Wolf entity
+    private static Hashtable<Player, Pet> wList = new Hashtable<>(); //Key is Player, Value is live Wolf entity
     private static ConfigData cData;
 
     /**
@@ -41,7 +38,7 @@ public final class Cerberus extends JavaPlugin {
      * Registers single-word utility commands ce, cclean, and cdebug
      * Sets up plugin config with default values, which is a FileConfiguration
      * Initializes the array of levels using data from config
-     * Calls CommandMain.main() to set up CerberusCommand
+     * Calls MainCommand.main() to set up CerberusCommand
      *
      */
     @Override
@@ -88,7 +85,7 @@ public final class Cerberus extends JavaPlugin {
         */
 
         //Initalize main methods:
-        CommandMain.main();
+        MainCommand.main();
 
         getServer().getPluginManager().registerEvents(new DogBehavior(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
@@ -100,7 +97,7 @@ public final class Cerberus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ArmorStandBehavior(), this);
         this.getCommand("cdebug").setExecutor(new CommandDebugData());
         this.getCommand("cclean").setExecutor(new CommandClean());
-        this.getCommand("ce").setExecutor(new CommandMain());
+        this.getCommand("ce").setExecutor(new MainCommand());
 
         cData = new ConfigData();
 
@@ -147,7 +144,7 @@ public final class Cerberus extends JavaPlugin {
      * @param p
      * @param pet
      */
-    private static void updateHelper(Player p, PetData pet)
+    private static void updateHelper(Player p, Pet pet)
     {
         if (wList.get(p) != null)
         {
@@ -158,7 +155,7 @@ public final class Cerberus extends JavaPlugin {
     /** Public mutator function, updates wList:
      - String callType serves to determine case
      */
-    public static void updateWolfList(PetData pet, Player p, String callType)
+    public static void updateWolfList(Pet pet, Player p, String callType)
     {
         switch(callType)
         {
@@ -166,13 +163,13 @@ public final class Cerberus extends JavaPlugin {
                 updateHelper(p,pet);
                 break;
             case "PetRemoved":
-                PetData pObtained = wList.get(p);
+                Pet pObtained = wList.get(p);
                 if (pObtained != null) {
                     Wolf obtainedWolf = pObtained.getWolf();
                     wList.remove(p);
                     if (obtainedWolf != null)
                     {
-                        updateHelper(p,new PetData(p));
+                        updateHelper(p,new Pet(p));
                         obtainedWolf.remove();
                         p.sendMessage(cData.successColor+"Your pet data has been reset!"
                                 +"\n"+cData.systemColor+"To register a new pet, "
@@ -183,7 +180,7 @@ public final class Cerberus extends JavaPlugin {
                     }
 
                 }
-                updateHelper(p,new PetData(p));
+                updateHelper(p,new Pet(p));
                 break;
             case "PetAdded":
                 Wolf w = null;
@@ -217,15 +214,15 @@ public final class Cerberus extends JavaPlugin {
     }
 
     /**
-     * Used to obtain PetData for given Player p
+     * Used to obtain Pet for given Player p
      * @param p
      * @return
      */
-    public static PetData obtainPetData(Player p)
+    public static Pet obtainPetData(Player p)
     {
         if (!wList.isEmpty())
         {
-            PetData pet = wList.get(p);
+            Pet pet = wList.get(p);
             if (pet!= null)
             {
                 return pet;

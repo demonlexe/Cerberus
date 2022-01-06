@@ -1,7 +1,7 @@
 package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import lzxus.cerberus.Structs.WolfObtainer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -19,7 +19,7 @@ public class PlayerJoin implements Listener {
         //System.out.println("Running PlayerJoin wolf obtainer: "+obtainedWolf);
         if (obtainedWolf != null)
         {
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             if (pet==null) {return;}
             Integer lvl = pet.getWolfLvl();
             if (lvl != null)

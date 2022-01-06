@@ -1,15 +1,13 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 /**
- * Should be constructed as an object by CommandMain.
+ * Should be constructed as an object by MainCommand.
  * Toggles if the pet is allowed to attack, and what it can attack.
  */
 public class CommandAttack extends CerberusCommand {
@@ -37,7 +35,7 @@ public class CommandAttack extends CerberusCommand {
     public boolean onCommand(final CommandSender sender, final String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
 
             if (pet!=null && pet.getWolfStatus().equals(1))
             {
@@ -83,7 +81,7 @@ public class CommandAttack extends CerberusCommand {
 
 
     /**
-     * Constructor to be called by CommandMain. MUST call super();
+     * Constructor to be called by MainCommand. MUST call super();
      * Overwrites command info, such as Description, CommandName, Aliases.
      */
     public CommandAttack(){

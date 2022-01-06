@@ -1,4 +1,4 @@
-package lzxus.cerberus.Structs;
+package lzxus.cerberus.configdata;
 
 import lzxus.cerberus.Cerberus;
 import org.bukkit.Color;

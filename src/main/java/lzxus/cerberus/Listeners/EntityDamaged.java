@@ -1,11 +1,9 @@
 package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.*;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
+import lzxus.cerberus.configdata.ConfigData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
@@ -44,7 +42,7 @@ public class EntityDamaged implements Listener {
 
         if (w != null && p != null && p.isOnline())
         {
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             if (pet==null) {return;}
             Double currentXP = pet.getWolfXp();
             Integer currentLevel = pet.getWolfLvl();
@@ -74,7 +72,7 @@ public class EntityDamaged implements Listener {
             if (damagedEntity instanceof Player)
             {
                 Player p = (Player) damagedEntity;
-                PetData pet = Cerberus.obtainPetData(p);
+                Pet pet = Cerberus.obtainPetData(p);
                 if (pet!= null)
                 {
                     pet.enQueueFirst(attacker);
@@ -86,7 +84,7 @@ public class EntityDamaged implements Listener {
                 Player p = (Player) (w).getOwner();
                 if (p!= null)
                 {
-                    PetData pet = Cerberus.obtainPetData(p);
+                    Pet pet = Cerberus.obtainPetData(p);
                     if (pet!= null)
                     {
                         pet.enQueueFirst(attacker);
@@ -106,7 +104,7 @@ public class EntityDamaged implements Listener {
             {
                 Player p = (Player) w.getOwner();
                 if (p != null) {
-                    PetData pet = Cerberus.obtainPetData(p);
+                    Pet pet = Cerberus.obtainPetData(p);
                     Integer allowedToAttack = pet.getAttackStatus();
                     if (allowedToAttack.equals(1) && pet.isAllowedToAttack(e.getEntity()))
                     {
@@ -117,6 +115,9 @@ public class EntityDamaged implements Listener {
                         {
                             pet.setWolfXp(prevXp+damageDone);
                             //System.out.println("Total XP of this wolf: "+PlayerWolfData.getWolfXp(p));
+                            damageDone = damageDone*100;
+                            int convertedDmg = (int)damageDone;
+                            damageDone = (double)(convertedDmg/100);
                             pet.onXPGained(Double.toString(damageDone));
                             updateLevel(w, p);
                         }

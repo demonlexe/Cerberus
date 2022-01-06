@@ -1,17 +1,14 @@
 package lzxus.cerberus.Commands;
 
-import lzxus.cerberus.Structs.CerberusCommand;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.defaults.HelpCommand;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class CommandMain implements CommandExecutor {
+public class MainCommand implements CommandExecutor {
     private static ArrayList<CerberusCommand> commandList = new ArrayList<>();
     private static CerberusCommand helpCommand;
 

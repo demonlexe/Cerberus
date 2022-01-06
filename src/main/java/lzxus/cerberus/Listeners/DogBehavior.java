@@ -1,7 +1,7 @@
 package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import lzxus.cerberus.Structs.PlayerReset;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,10 +9,8 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.persistence.PersistentDataContainer;
 
 public class DogBehavior implements Listener {
     private static final PlayerReset pReset = new PlayerReset();
@@ -45,7 +43,7 @@ public class DogBehavior implements Listener {
         if (entityClicked.getType() == EntityType.WOLF && itemInHand == Material.BONE)
         {
             Wolf playerDog = (Wolf) entityClicked;
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             if (pet==null) { return;}
             //If player is the owner, changes this dog to be main pet;
             if (playerDog.isTamed() && playerDog.getOwner().getName() == p.getName())
@@ -65,7 +63,7 @@ public class DogBehavior implements Listener {
                 }
                 else
                 {
-                    PetData newData = new PetData(playerDog,p);
+                    Pet newData = new Pet(playerDog,p);
                     pReset.newP(p,newData,playerDog);
                     Cerberus.updateWolfList(newData,p,"PetAdded");
                 }
@@ -101,7 +99,7 @@ public class DogBehavior implements Listener {
             return;
         }
 
-        PetData pet = Cerberus.obtainPetData(p);
+        Pet pet = Cerberus.obtainPetData(p);
         if (pet==null) {return;}
         Integer dataObtained = pet.getDamageEnabled();
         //If the attacker is not its owner, the damage does not occur and the wolf is angered.

@@ -1,13 +1,12 @@
 package lzxus.cerberus.Commands;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * Should be constructed as an object by CommandMain. Toggles if the pet is able to be harmed by its owner.
+ * Should be constructed as an object by MainCommand. Toggles if the pet is able to be harmed by its owner.
  */
 public class CommandAllowDamage extends CerberusCommand {
     /**
@@ -31,7 +30,7 @@ public class CommandAllowDamage extends CerberusCommand {
         if (sender instanceof Player)
         {
             Player p = (Player) sender;
-            PetData pet = Cerberus.obtainPetData(p);
+            Pet pet = Cerberus.obtainPetData(p);
             if (pet != null && pet.getWolfStatus().equals(1))
             {
                 Integer dataObtained  = pet.getDamageEnabled();
@@ -58,7 +57,7 @@ public class CommandAllowDamage extends CerberusCommand {
     }
 
     /**
-     * Constructor to be called by CommandMain. MUST call super();
+     * Constructor to be called by MainCommand. MUST call super();
      * Overwrites command info, such as Description, CommandName, Aliases.
      */
     public CommandAllowDamage()

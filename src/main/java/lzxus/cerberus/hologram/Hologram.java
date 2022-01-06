@@ -1,6 +1,7 @@
-package lzxus.cerberus.Structs;
+package lzxus.cerberus.hologram;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.petdata.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,9 +10,9 @@ import org.bukkit.util.Vector;
 
 public class Hologram {
     private ArmorStand standEntity;
-    private PetData data;
+    private Pet data;
 
-    public Hologram(PetData pet, String displayName, String displayColor, Entity ToTeleport){
+    public Hologram(Pet pet, String displayName, String displayColor, Entity ToTeleport){
         data = pet;
         Player p = pet.isPlayerPet();
         World w = p.getWorld();
@@ -27,7 +28,7 @@ public class Hologram {
             Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), () -> {
                // System.out.println("Hologram: Teleporting hologram.");
                 Location newLoc = ToTeleport.getLocation();
-                newLoc.setY(newLoc.getY()-1);
+                newLoc.setY(newLoc.getY()-1.2);
                 standEntity.setVelocity(new Vector(0,.4,0));
                 standEntity.teleport(newLoc);
             }, 3L);

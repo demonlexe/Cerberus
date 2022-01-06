@@ -1,10 +1,9 @@
 package lzxus.cerberus.Listeners;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Structs.PetData;
+import lzxus.cerberus.petdata.Pet;
 import lzxus.cerberus.Structs.PlayerReset;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
@@ -24,7 +23,7 @@ public class DogTamed implements Listener {
         {
             Wolf tamedWolf = (Wolf) event.getEntity();
             Player tamer = (Player) event.getOwner();
-            PetData pet = Cerberus.obtainPetData(tamer);
+            Pet pet = Cerberus.obtainPetData(tamer);
             if (pet!=null)
             {
                 if (pet.getWolfOwned().equals(1))
@@ -34,7 +33,7 @@ public class DogTamed implements Listener {
                 }
                 else
                 {
-                    PetData newData = new PetData(tamedWolf,tamer);
+                    Pet newData = new Pet(tamedWolf,tamer);
                     pReset.newP(tamer,newData,tamedWolf);
                     Cerberus.updateWolfList(newData,tamer,"PetAdded");
                 }

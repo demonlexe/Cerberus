@@ -1,7 +1,9 @@
-package lzxus.cerberus.Structs;
+package lzxus.cerberus.petdata;
 
 import lzxus.cerberus.Cerberus;
-import lzxus.cerberus.Listeners.DogBehavior;
+import lzxus.cerberus.Structs.PlayerReset;
+import lzxus.cerberus.configdata.ConfigData;
+import lzxus.cerberus.hologram.Hologram;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -11,52 +13,27 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
-import javax.xml.stream.events.Namespace;
 import java.util.Deque;
 import java.util.LinkedList;
 
 public class PetData {
-    private Wolf w;
-    private Player p;
-    private PersistentDataContainer data;
-    private Deque<Entity> attackQueue;
-    private NamespacedKey uniqueIDKey;
-    private NamespacedKey xpKey;
-    private NamespacedKey levelKey;
-    private NamespacedKey aliveKey;
-    private NamespacedKey ownedKey;
-    private NamespacedKey nameKey;
-    private NamespacedKey damageKey;
-    private NamespacedKey statusKey;
-    private NamespacedKey attackKey;
-    private NamespacedKey initalizedKey;
-    private ConfigData cData;
-    private PlayerReset ResetFunctions;
-
-    private void initalizeKeys()
-    {
-        if (data.get(initalizedKey,PersistentDataType.INTEGER) == null)
-        {
-            data.set(initalizedKey,PersistentDataType.INTEGER,1);
-            ResetFunctions.initializeP(p,this); //extended from PlayerReset
-        }
-    }
-
-    private void updateKeys()
-    {
-        uniqueIDKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-uuid");
-        xpKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-xp");
-        levelKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-level");
-        aliveKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-status");
-        ownedKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-owned");
-        nameKey = new NamespacedKey(Cerberus.getPlugin(), "wolf-name");
-        damageKey = new NamespacedKey(Cerberus.getPlugin(), "damageEnabled");
-        statusKey = new NamespacedKey(Cerberus.getPlugin(), "attackStatus");
-        attackKey = new NamespacedKey(Cerberus.getPlugin(), "attackType");
-        initalizedKey = new NamespacedKey(Cerberus.getPlugin(),"initalizedStatus");
-    }
+    protected Wolf w;
+    protected Player p;
+    protected PersistentDataContainer data;
+    protected Deque<Entity> attackQueue;
+    protected NamespacedKey uniqueIDKey;
+    protected NamespacedKey xpKey;
+    protected NamespacedKey levelKey;
+    protected NamespacedKey aliveKey;
+    protected NamespacedKey ownedKey;
+    protected NamespacedKey nameKey;
+    protected NamespacedKey damageKey;
+    protected NamespacedKey statusKey;
+    protected NamespacedKey attackKey;
+    protected NamespacedKey initalizedKey;
+    protected ConfigData cData;
+    protected PlayerReset ResetFunctions;
 
     public PetData(Player pl) //Called if player does not own a pet.
     {
@@ -65,8 +42,6 @@ public class PetData {
         data = p.getPersistentDataContainer();
         cData = new ConfigData();
         ResetFunctions = new PlayerReset();
-        updateKeys();
-        initalizeKeys();
     }
 
     public PetData(Wolf newWolf, Player pl) //Called if a player owns a pet.
@@ -77,7 +52,6 @@ public class PetData {
         cData = new ConfigData();
         ResetFunctions = new PlayerReset();
         attackQueue = new LinkedList<>();
-        updateKeys();
     }
 
     public Wolf getWolf()
@@ -228,56 +202,6 @@ public class PetData {
             if (eChosen != null)
             {
                 w.setTarget((LivingEntity) eChosen);
-            }
-        }
-    }
-
-    public void onXPGained(String gainedXP)
-    {
-        if (w!=null) {
-            if (p != null) {
-                Hologram h = new Hologram(this, "+ "+gainedXP+" XP", cData.successColor,w);
-
-                Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), () -> {
-                    h.removeHologram();
-                    attackChoice();
-                }, 15L);
-                //p.sendMessage(cData.successColor+"Your pet has gained " + gainedXP + " XP!");
-            }
-        }
-    }
-
-    public void onLevelUp()
-    {
-        if (w!=null && p!=null)
-        {
-            World wWorld = w.getWorld();
-            Location loc = w.getLocation();
-            wWorld.spawnParticle(Particle.REDSTONE, loc.getX(),loc.getY(),loc.getZ(),45, .5,.7,.5,new Particle.DustOptions(cData.newColor, (float) 1.3));
-        }
-    }
-
-    public void updateStats(Integer currentLevel){
-        if (w != null && currentLevel != null)
-        {
-            //System.out.println("Current Attack Damage: "+ w.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue());
-            //System.out.println("Current Max Health: "+ w.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
-
-            w.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(4+(((double)currentLevel)*.5));
-            w.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20+currentLevel);
-
-            if (currentLevel >= 5 && !w.hasPotionEffect(PotionEffectType.REGENERATION))
-            {
-                PotionEffect newEffect = new PotionEffect(PotionEffectType.REGENERATION,Integer.MAX_VALUE,1,true,false);
-                w.addPotionEffect(newEffect);
-            }
-
-            Player p = (Player) w.getOwner();
-            if (p != null)
-            {
-                PetData pet = Cerberus.obtainPetData(p);
-                if (pet!= null && pet.getWolf().equals(w))
-                    w.setCustomName(pet.getWolfName());
             }
         }
     }

@@ -1,8 +1,5 @@
 package lzxus.cerberus.Commands;
 
-import lzxus.cerberus.Structs.CerberusCommand;
-import lzxus.cerberus.Structs.ConfigFunctions;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
