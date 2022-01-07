@@ -38,10 +38,10 @@ public class RegenerateAttack extends SpecialAttack{
 
     @Override
     public String getAttackInfo() {
-    String toReturn = attackChatColor+attackName+cData.systemColor+" ("
+    String toReturn = cData.systemColor+attackName+" ("
             +attackChatColor+nameInData+cData.systemColor+") - "
-            +ChatColor.ITALIC+ChatColor.WHITE+"Provides "+effectLengthTicks/20+" seconds of "
-            +attackChatColor+ChatColor.ITALIC+"Regeneration "+ChatColor.ITALIC+ChatColor.WHITE+"for your pet.";
+            +ChatColor.WHITE+ChatColor.ITALIC+"Provides "+effectLengthTicks/20+" seconds of "
+            +attackChatColor+ChatColor.ITALIC+"Regeneration "+ChatColor.WHITE+ChatColor.ITALIC+"for your pet.";
         return toReturn;
     }
 

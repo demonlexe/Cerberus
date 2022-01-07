@@ -50,18 +50,18 @@ public class GroupFlameAttack extends SpecialAttack{
 
     @Override
     public String getAttackInfo() {
-        String toReturn = attackChatColor+attackName+cData.systemColor+" ("
+        String toReturn = cData.systemColor+attackName+" ("
                 +attackChatColor+nameInData+cData.systemColor+") - "
-                +ChatColor.ITALIC+ChatColor.WHITE+"Provides "+effectLengthTicks/20+" seconds of "
-                +attackChatColor+ChatColor.ITALIC+"Flame Effect "+ChatColor.ITALIC+ChatColor.WHITE+"to multiple nearby enemies.";
+                +ChatColor.WHITE+ChatColor.ITALIC+"Provides "+effectLengthTicks/20+" seconds of "
+                +attackChatColor+ChatColor.ITALIC+"Flame Effect "+ChatColor.WHITE+ChatColor.ITALIC+"to multiple nearby enemies.";
         return toReturn;
     }
 
     public GroupFlameAttack(Pet petToUse){
         super(petToUse);
 
-        attackName = "Group Flame Attack";
-        nameInData = "wide-flame";
+        attackName = "Sweeping Flame Attack";
+        nameInData = "sweep-flame";
         attackChatColor = ChatColor.YELLOW;
 
         PotionEffect newPotionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,effectLengthTicks, (int) damageMultiplier,false,false);

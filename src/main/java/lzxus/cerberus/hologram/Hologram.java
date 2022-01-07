@@ -25,6 +25,7 @@ public class Hologram {
             standEntity.setCustomNameVisible(true);
             standEntity.setCustomName(displayColor + displayName);
             standEntity.setGravity(true);
+            standEntity.setRemoveWhenFarAway(true);
             Bukkit.getScheduler().runTaskLater(Cerberus.getPlugin(), () -> {
                // System.out.println("Hologram: Teleporting hologram.");
                 Location newLoc = ToTeleport.getLocation();

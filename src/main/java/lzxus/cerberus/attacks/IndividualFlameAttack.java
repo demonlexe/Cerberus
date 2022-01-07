@@ -41,10 +41,10 @@ public class IndividualFlameAttack extends SpecialAttack{
 
     @Override
     public String getAttackInfo() {
-        String toReturn = attackChatColor+attackName+cData.systemColor+" ("
+        String toReturn = cData.systemColor+attackName+" ("
                 +attackChatColor+nameInData+cData.systemColor+") - "
-                +ChatColor.ITALIC+ChatColor.WHITE+"Provides "+effectLengthTicks/20+" seconds of "
-                +attackChatColor+ChatColor.ITALIC+"Flame Effect "+ChatColor.ITALIC+ChatColor.WHITE+"to an enemy.";
+                +ChatColor.WHITE+ChatColor.ITALIC+"Provides "+effectLengthTicks/20+" seconds of "
+                +attackChatColor+ChatColor.ITALIC+"Flame Effect "+ChatColor.WHITE+ChatColor.ITALIC+"to an enemy.";
         return toReturn;
     }
 

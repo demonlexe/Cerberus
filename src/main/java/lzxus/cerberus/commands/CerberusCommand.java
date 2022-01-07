@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class CerberusCommand {
+public abstract class CerberusCommand {
     protected ConfigData cData = new ConfigData();;
 
     protected String CommandName;

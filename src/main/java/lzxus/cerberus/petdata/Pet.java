@@ -61,6 +61,11 @@ public class Pet extends PetData{
         specialAttacks.add(new RegenerateAttack(this));
     }
 
+    public ArrayList<SpecialAttack> getAttackList()
+    {
+        return specialAttacks;
+    }
+
     public void determineSpecialAttack(LivingEntity e)
     {
         //FIXME: Add logic for assigning specific attacks to player
