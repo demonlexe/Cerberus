@@ -77,17 +77,16 @@ public final class Cerberus extends JavaPlugin {
         xpRequirements[1] = xpBaseLevel;
         for (int j = 2; j <= maxLevel; j++)
         {
-            xpRequirements[j] = xpRequirements[j-1] + (levelMultiplier*1.25);
+            xpRequirements[j] = xpRequirements[j-1] + (j*levelMultiplier);
         }
         xpRequirementList = xpRequirements;
 
-        /* Outputs the XP list
+        /*Outputs the XP list
         for (int i = 0; i <= maxLevel; i++)
         {
             System.out.println("At position: "+i+" Value: "+xpRequirementList[i]);
         }
-        */
-
+*/
         //Initalize main methods:
         MainCommand.main();
 

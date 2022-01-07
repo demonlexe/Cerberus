@@ -36,10 +36,20 @@ public class RegenerateAttack extends SpecialAttack{
         return null;
     }
 
+    @Override
+    public String getAttackInfo() {
+    String toReturn = attackChatColor+attackName+cData.systemColor+" ("
+            +attackChatColor+nameInData+cData.systemColor+") - "
+            +ChatColor.ITALIC+ChatColor.WHITE+"Provides "+effectLengthTicks/20+" seconds of "
+            +attackChatColor+ChatColor.ITALIC+"Regeneration "+ChatColor.ITALIC+ChatColor.WHITE+"for your pet.";
+        return toReturn;
+    }
+
     public RegenerateAttack(Pet petToUse){
         super(petToUse);
 
         attackName = "Regeneration Spell";
+        nameInData = "regen";
         attackChatColor = ChatColor.LIGHT_PURPLE;
         effectLengthTicks = 80;
 

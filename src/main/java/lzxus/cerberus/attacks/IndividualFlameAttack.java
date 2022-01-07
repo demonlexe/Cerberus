@@ -39,12 +39,22 @@ public class IndividualFlameAttack extends SpecialAttack{
         return null;
     }
 
+    @Override
+    public String getAttackInfo() {
+        String toReturn = attackChatColor+attackName+cData.systemColor+" ("
+                +attackChatColor+nameInData+cData.systemColor+") - "
+                +ChatColor.ITALIC+ChatColor.WHITE+"Provides "+effectLengthTicks/20+" seconds of "
+                +attackChatColor+ChatColor.ITALIC+"Flame Effect "+ChatColor.ITALIC+ChatColor.WHITE+"to an enemy.";
+        return toReturn;
+    }
+
     public IndividualFlameAttack(Pet petToUse){
         super(petToUse);
 
         attackName = "Flame Attack";
+        nameInData = "flame";
         attackChatColor = ChatColor.GOLD;
-        effectLengthTicks = 60;
+        effectLengthTicks = 100;
 
         PotionEffect newPotionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,effectLengthTicks, (int) damageMultiplier,false,false);
         if (!addPetEffect(newPotionEffect)) {return;}

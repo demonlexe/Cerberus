@@ -3,10 +3,7 @@ package lzxus.cerberus.listeners;
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.configdata.ConfigData;
 import lzxus.cerberus.petdata.Pet;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -20,7 +17,23 @@ public class EntityDamaged implements Listener {
     private static double [] xpList = null;
     private static Integer maxLevel = null;
 
+    private static Integer checkLevelHelper(Pet p)
+    {
+        if (p==null) {return null;}
 
+        Double petXP = p.getWolfXp();
+
+        if (petXP == null) {return null;}
+
+        for (int i = 0; i < xpList.length; i++)
+        {
+            if (petXP < xpList[i])
+            {
+                return i;
+            }
+        }
+        return xpList.length-1;
+    }
 
     public static void updateLevel(Wolf w, Player p)
     {
@@ -45,18 +58,17 @@ public class EntityDamaged implements Listener {
         {
             Pet pet = Cerberus.obtainPetData(p);
             if (pet==null) {return;}
-            Double currentXP = pet.getWolfXp();
             Integer currentLevel = pet.getWolfLvl();
+            Integer updatedLevel = checkLevelHelper(pet);
             Double currentHealth = pet.getCurrentWolfHealth();
             Double maxHealth = pet.getWolfHealth();
             //System.out.println("Cerberus: Obtaining Data: CurrentXP is "+currentXP+" while currentLevel is "+currentLevel);
-            if ((currentLevel != null) && (currentXP != null) && (currentLevel < maxLevel) &&(xpList[currentLevel+1] <= currentXP))
+            if ((currentLevel != null) && (updatedLevel != null) && !(currentLevel.equals(updatedLevel)))
             {
-                currentLevel++;
-                pet.setWolfLvl(currentLevel);
+                pet.setWolfLvl(updatedLevel);
                 pet.onLevelUp();
-                p.sendMessage(successColor + "Your pet has leveled up! It is now " +dataColor+"Level "+currentLevel);
-                pet.updateStats(currentLevel);
+                p.sendMessage(successColor + "Your pet has leveled up! It is now " +dataColor+"Level "+updatedLevel);
+                pet.updateStats(updatedLevel);
             }
 
             if (currentHealth / maxHealth < .5)
@@ -94,6 +106,16 @@ public class EntityDamaged implements Listener {
             }
     }
 
+    private static double determineExperienceMultiplier(final double finalDmg, Entity e)
+    {
+        double dmgToReturn = finalDmg;
+        if (e instanceof Monster)
+        {
+            dmgToReturn = finalDmg*1.5;
+        }
+        return dmgToReturn;
+    }
+
     @EventHandler
     public void onDamaged(EntityDamageByEntityEvent e)
     {
@@ -110,16 +132,16 @@ public class EntityDamaged implements Listener {
                     Integer allowedToAttack = pet.getAttackStatus();
                     if (allowedToAttack.equals(1) && pet.isAllowedToAttack(e.getEntity()))
                     {
-                        double damageDone = e.getFinalDamage();
+                        double damageDone = determineExperienceMultiplier(e.getFinalDamage(),e.getEntity());
 
                         Double prevXp = pet.getWolfXp();
                         if (prevXp != null)
                         {
                             pet.setWolfXp(prevXp+damageDone);
                             //System.out.println("Total XP of this wolf: "+PlayerWolfData.getWolfXp(p));
-                            damageDone = damageDone*100;
+                            damageDone = damageDone*100.0;
                             int convertedDmg = (int)damageDone;
-                            damageDone = (double)(convertedDmg/100);
+                            damageDone = ((double)convertedDmg)/100.0;
                             pet.onXPGained(Double.toString(damageDone));
                             updateLevel(w, p);
                             pet.determineSpecialAttack((LivingEntity) e.getEntity());

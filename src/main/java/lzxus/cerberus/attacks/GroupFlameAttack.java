@@ -22,8 +22,10 @@ public class GroupFlameAttack extends SpecialAttack{
         World tWorld = target.getWorld();
         if (!applyPotionEffects(w,target)) {return false;}
 
+        target.setFireTicks(effectLengthTicks);
         for (Particle p : targetParticles)
         {
+            tWorld.spawnParticle(p,target.getLocation(),6,.8,.8,.8);
             for (Entity e : target.getNearbyEntities(2,2,2))
             {
                 if (e instanceof LivingEntity && !e.isDead() && !(e instanceof Player) && !(e instanceof Wolf))
@@ -45,10 +47,21 @@ public class GroupFlameAttack extends SpecialAttack{
         }
         return null;
     }
+
+    @Override
+    public String getAttackInfo() {
+        String toReturn = attackChatColor+attackName+cData.systemColor+" ("
+                +attackChatColor+nameInData+cData.systemColor+") - "
+                +ChatColor.ITALIC+ChatColor.WHITE+"Provides "+effectLengthTicks/20+" seconds of "
+                +attackChatColor+ChatColor.ITALIC+"Flame Effect "+ChatColor.ITALIC+ChatColor.WHITE+"to multiple nearby enemies.";
+        return toReturn;
+    }
+
     public GroupFlameAttack(Pet petToUse){
         super(petToUse);
 
         attackName = "Group Flame Attack";
+        nameInData = "wide-flame";
         attackChatColor = ChatColor.YELLOW;
 
         PotionEffect newPotionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,effectLengthTicks, (int) damageMultiplier,false,false);

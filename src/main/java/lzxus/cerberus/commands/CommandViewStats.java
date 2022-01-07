@@ -1,6 +1,7 @@
 package lzxus.cerberus.commands;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.listeners.EntityDamaged;
 import lzxus.cerberus.petdata.Pet;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -51,6 +52,7 @@ public class CommandViewStats extends CerberusCommand {
                 }
 
                 if (obtainedWolf != null) {
+                    EntityDamaged.updateLevel(obtainedWolf,p);
                     Double xp = pet.getWolfXp();
                     Integer lvl = pet.getWolfLvl();
                     Double currentHealth = pet.getCurrentWolfHealth();

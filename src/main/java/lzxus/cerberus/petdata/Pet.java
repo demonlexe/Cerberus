@@ -8,6 +8,7 @@ import lzxus.cerberus.attacks.SpecialAttack;
 import lzxus.cerberus.hologram.Hologram;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;

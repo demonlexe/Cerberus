@@ -1,5 +1,6 @@
 package lzxus.cerberus.attacks;
 
+import lzxus.cerberus.configdata.ConfigData;
 import lzxus.cerberus.petdata.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,6 +12,7 @@ import org.bukkit.potion.PotionEffect;
 import java.util.ArrayList;
 
 public abstract class SpecialAttack {
+    protected String nameInData;
     protected String attackName;
     protected ChatColor attackChatColor;
 
@@ -19,6 +21,7 @@ public abstract class SpecialAttack {
     protected double damageMultiplier;
     protected double chance;
     protected double critChance;
+    protected ConfigData cData;
     protected ArrayList<PotionEffect> petEffects;
     protected ArrayList<PotionEffect> targetEffects;
     protected ArrayList<Particle> petParticles;
@@ -33,6 +36,7 @@ public abstract class SpecialAttack {
 
     public abstract boolean attack(LivingEntity target);
     public abstract String getAttackMessage();
+    public abstract String getAttackInfo();
 
     public boolean applyChance(double rand, int numAttacks)
     {
@@ -118,6 +122,7 @@ public abstract class SpecialAttack {
         petParticles = new ArrayList<>();
         targetParticles = new ArrayList<>();
         assignedPet = petToUse;
+        cData = new ConfigData();
         updateChance();
     }
 }
