@@ -1,7 +1,6 @@
 package lzxus.cerberus.attacks;
 
 import lzxus.cerberus.petdata.Pet;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -10,8 +9,7 @@ import org.bukkit.entity.Wolf;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class IndividualFlameAttack extends SpecialAttack{
-
+public class RegenerateAttack extends SpecialAttack{
     @Override
     public boolean attack(LivingEntity target) {
         Wolf w = assignedPet.getWolf();
@@ -21,10 +19,9 @@ public class IndividualFlameAttack extends SpecialAttack{
 
         World tWorld = target.getWorld();
         if (!applyPotionEffects(w,target)) {return false;}
-        target.setFireTicks(effectLengthTicks);
         for (Particle p : targetParticles)
         {
-            tWorld.spawnParticle(p,target.getLocation(),10,1.5,1,1.5);
+            tWorld.spawnParticle(p,target.getLocation(),15,1,2,1);
         }
 
         return true;
@@ -39,16 +36,16 @@ public class IndividualFlameAttack extends SpecialAttack{
         return null;
     }
 
-    public IndividualFlameAttack(Pet petToUse){
+    public RegenerateAttack(Pet petToUse){
         super(petToUse);
 
-        attackName = "Flame Attack";
-        attackChatColor = ChatColor.GOLD;
-        effectLengthTicks = 60;
+        attackName = "Regeneration Spell";
+        attackChatColor = ChatColor.LIGHT_PURPLE;
+        effectLengthTicks = 80;
 
-        PotionEffect newPotionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,effectLengthTicks, (int) damageMultiplier,false,false);
+        PotionEffect newPotionEffect = new PotionEffect(PotionEffectType.REGENERATION,effectLengthTicks, (int) damageMultiplier,false,true);
         if (!addPetEffect(newPotionEffect)) {return;}
-        Particle newParticle = Particle.LAVA;
+        Particle newParticle = Particle.SPELL_WITCH;
         if (!addTargetParticle(newParticle)) {return;}
     }
 }

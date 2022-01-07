@@ -1,7 +1,9 @@
 package lzxus.cerberus.petdata;
 
 import lzxus.cerberus.Cerberus;
+import lzxus.cerberus.attacks.GroupFlameAttack;
 import lzxus.cerberus.attacks.IndividualFlameAttack;
+import lzxus.cerberus.attacks.RegenerateAttack;
 import lzxus.cerberus.attacks.SpecialAttack;
 import lzxus.cerberus.hologram.Hologram;
 import org.bukkit.*;
@@ -54,6 +56,8 @@ public class Pet extends PetData{
 
         specialAttacks = new ArrayList<>();
         specialAttacks.add(new IndividualFlameAttack(this));
+        specialAttacks.add(new GroupFlameAttack(this));
+        specialAttacks.add(new RegenerateAttack(this));
     }
 
     public void determineSpecialAttack(LivingEntity e)
@@ -64,9 +68,10 @@ public class Pet extends PetData{
         if (e == null || e.isDead()) { return; }
         for (SpecialAttack a : specialAttacks)
         {
-            if (a.applyChance(Math.random()))
+            if (a.applyChance(Math.random(),specialAttacks.size()))
             {
                 a.attack(e);
+                p.sendMessage(ChatColor.ITALIC+cData.systemColor+"Your pet has performed a "+a.getAttackMessage()+cData.systemColor+"!");
                 return;
             }
         }
@@ -105,12 +110,6 @@ public class Pet extends PetData{
 
             w.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(4+(((double)currentLevel)*.5));
             w.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20+currentLevel);
-
-            if (currentLevel >= 5 && !w.hasPotionEffect(PotionEffectType.REGENERATION))
-            {
-                PotionEffect newEffect = new PotionEffect(PotionEffectType.REGENERATION,Integer.MAX_VALUE,1,true,false);
-                w.addPotionEffect(newEffect);
-            }
 
             Player p = (Player) w.getOwner();
             if (p != null)

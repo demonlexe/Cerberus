@@ -9,7 +9,7 @@ import java.util.Hashtable;
 public class ConfigData extends ConfigFunctions{
     //HARD-CODED
     public static final String [] attackTypeList = {"all", "animals", "monster", "raider","creature","watermob"};
-    public static final String [] specialAttackList = {"fire","poison"};
+    public static final String [] specialAttackList = {"fire","group_fire","regen"};
 
     public String failColor;
     public String successColor;

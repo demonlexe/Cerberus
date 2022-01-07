@@ -1,17 +1,17 @@
 package lzxus.cerberus.attacks;
 
 import lzxus.cerberus.petdata.Pet;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class IndividualFlameAttack extends SpecialAttack{
-
+public class GroupFlameAttack extends SpecialAttack{
     @Override
     public boolean attack(LivingEntity target) {
         Wolf w = assignedPet.getWolf();
@@ -21,10 +21,17 @@ public class IndividualFlameAttack extends SpecialAttack{
 
         World tWorld = target.getWorld();
         if (!applyPotionEffects(w,target)) {return false;}
-        target.setFireTicks(effectLengthTicks);
+
         for (Particle p : targetParticles)
         {
-            tWorld.spawnParticle(p,target.getLocation(),10,1.5,1,1.5);
+            for (Entity e : target.getNearbyEntities(2,2,2))
+            {
+                if (e instanceof LivingEntity && !e.isDead() && !(e instanceof Player) && !(e instanceof Wolf))
+                {
+                    e.setFireTicks(effectLengthTicks);
+                    tWorld.spawnParticle(p,e.getLocation(),6,.8,.8,.8);
+                }
+            }
         }
 
         return true;
@@ -38,13 +45,11 @@ public class IndividualFlameAttack extends SpecialAttack{
         }
         return null;
     }
-
-    public IndividualFlameAttack(Pet petToUse){
+    public GroupFlameAttack(Pet petToUse){
         super(petToUse);
 
-        attackName = "Flame Attack";
-        attackChatColor = ChatColor.GOLD;
-        effectLengthTicks = 60;
+        attackName = "Group Flame Attack";
+        attackChatColor = ChatColor.YELLOW;
 
         PotionEffect newPotionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,effectLengthTicks, (int) damageMultiplier,false,false);
         if (!addPetEffect(newPotionEffect)) {return;}

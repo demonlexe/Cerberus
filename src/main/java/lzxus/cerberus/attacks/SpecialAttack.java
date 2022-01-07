@@ -2,6 +2,7 @@ package lzxus.cerberus.attacks;
 
 import lzxus.cerberus.petdata.Pet;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Wolf;
@@ -10,6 +11,9 @@ import org.bukkit.potion.PotionEffect;
 import java.util.ArrayList;
 
 public abstract class SpecialAttack {
+    protected String attackName;
+    protected ChatColor attackChatColor;
+
     protected int effectLengthTicks;
     protected double attackKnockbackStrength;
     protected double damageMultiplier;
@@ -28,12 +32,12 @@ public abstract class SpecialAttack {
     }
 
     public abstract boolean attack(LivingEntity target);
+    public abstract String getAttackMessage();
 
-    public boolean applyChance(double rand)
+    public boolean applyChance(double rand, int numAttacks)
     {
         updateChance();
-        Bukkit.getLogger().info("Applying chance with "+rand+" against "+chance);
-        if (rand <= chance)
+        if (rand <= chance/numAttacks)
         {
             return true;
         }
@@ -106,7 +110,7 @@ public abstract class SpecialAttack {
 
     public SpecialAttack(Pet petToUse){
         if (petToUse==null) {return;}
-        effectLengthTicks = 20;
+        effectLengthTicks = 40;
         attackKnockbackStrength = 0;
         damageMultiplier = 1;
         petEffects = new ArrayList<>();
