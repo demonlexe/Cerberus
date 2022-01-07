@@ -12,7 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /*
 -------------------------------------------------------
@@ -60,6 +62,11 @@ public final class Cerberus extends JavaPlugin {
         config.addDefault("failureChatColor", (ChatColor.RED).toString());
         config.addDefault("dataChatColor", (ChatColor.BLUE).toString());
         config.addDefault("pvpEnabled",false);
+        List<Integer> toEmbed = new ArrayList<>();
+        toEmbed.add(6);
+        toEmbed.add(20);
+        toEmbed.add(50);
+        config.addDefault("specialAttackLevelRequirements", toEmbed);
 
         //Updates Main Config
         config.options().copyDefaults(true);

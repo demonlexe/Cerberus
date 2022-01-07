@@ -20,6 +20,11 @@ public class ConfigFunctions {
         return config.getBoolean("pvpEnabled");
     }
 
+    public List<Integer> getSpecialLevels()
+    {
+        return config.getIntegerList("specialAttackLevelRequirements");
+    }
+
     //HARD-CODED
     public Color getColor(String s)
     {

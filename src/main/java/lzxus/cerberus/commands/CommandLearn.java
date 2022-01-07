@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * Should be constructed as an object by CommandMain. View all learnable Special Attacks.
  */
 public class CommandLearn extends CerberusCommand {
+    private ArrayList<Integer> specialLevelRequirements;
 /**
  * CAN be overridden by subclass.
  * Returns a formatted string describing command function.
@@ -56,13 +57,16 @@ public boolean onCommand(final CommandSender sender, final String[] args) {
                 {
                     if (pet.getWolfStatus().equals(1))
                     {
+                        Integer petLvl = pet.getWolfLvl();
+                        if (petLvl==null) {commandFailedMessage(p); return true;}
+
                         ArrayList<SpecialAttack> aList = pet.getAttackList();
                         String attackToLearn = null;
                         if (args.length >= 1) {attackToLearn = args[0];}
 
                         if (attackToLearn == null)
                         {
-                            if (aList== null) {return false;}
+                            if (aList== null) {commandFailedMessage(p); return true;}
 
                             String s = cData.systemColor+"------------------"+ "\n" + cData.successColor + ChatColor.BOLD+ "All Learnable Attacks:"+
                                     "\n" ;
@@ -82,22 +86,47 @@ public boolean onCommand(final CommandSender sender, final String[] args) {
                                 {
                                     if (pet.getSpecial1().equals(""))
                                     {
-                                        pet.setSpecial1(attackToLearn.toLowerCase());
-                                        return commandSuccessMessage(p,atk.getNameInData());
+                                        if (petLvl >= specialLevelRequirements.get(0))
+                                        {
+                                            pet.setSpecial1(attackToLearn.toLowerCase());
+                                            return commandSuccessMessage(p,atk.getNameInData());
+                                        }
+                                        else
+                                        {
+                                            p.sendMessage(cData.failColor+"You need to be level "+cData.systemColor+specialLevelRequirements.get(0)+cData.failColor+" to learn your next skill!");
+                                            return true;
+                                        }
                                     }
                                     else if (pet.getSpecial2().equals(""))
                                     {
-                                        pet.setSpecial2(attackToLearn.toLowerCase());
-                                        return commandSuccessMessage(p,atk.getNameInData());
+                                        if (petLvl >= specialLevelRequirements.get(1))
+                                        {
+                                            pet.setSpecial2(attackToLearn.toLowerCase());
+                                            return commandSuccessMessage(p,atk.getNameInData());
+                                        }
+                                        else
+                                        {
+                                            p.sendMessage(cData.failColor+"You need to be level "+cData.systemColor+specialLevelRequirements.get(1)+cData.failColor+" to learn your next skill!");
+                                            return true;
+                                        }
                                     }
                                     else if (pet.getSpecial3().equals(""))
                                     {
-                                        pet.setSpecial3(attackToLearn.toLowerCase());
-                                        return commandSuccessMessage(p,atk.getNameInData());
+                                        if(petLvl >= specialLevelRequirements.get(2))
+                                        {
+                                            pet.setSpecial3(attackToLearn.toLowerCase());
+                                            return commandSuccessMessage(p,atk.getNameInData());
+                                        }
+                                        else
+                                        {
+                                            p.sendMessage(cData.failColor+"You need to be level "+cData.systemColor+specialLevelRequirements.get(2)+cData.failColor+" to learn your next skill!");
+                                            return true;
+                                        }
                                     }
                                     else
                                     {
                                         p.sendMessage(cData.failColor+"You already have learned 3 Special Attacks!");
+                                        return true;
                                     }
                                 }
                             }
@@ -129,6 +158,7 @@ public CommandLearn()
             Aliases.add("viewattacks");
             Aliases.add("seeattacks");
             Aliases.add("attacks");
-            }
+            specialLevelRequirements = (ArrayList<Integer>) cData.getSpecialLevels();
+    }
 
 }
