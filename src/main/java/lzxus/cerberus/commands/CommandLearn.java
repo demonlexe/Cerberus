@@ -29,7 +29,9 @@ public class CommandLearn extends CerberusCommand {
 public String getDescription()
         {
         String formattedString = (cData.successColor + "/ce " + CommandName
-        + cData.systemColor + " - " + cData.dataColor + "View all learnable Special Attacks.");
+        + cData.systemColor + " - " + cData.dataColor + "View all learnable Special Attacks." + "\n"
+                +cData.successColor + "/ce " + CommandName + " <SpecialAttack>" +
+                cData.systemColor + " - " + cData.dataColor + "Learn a new Special Attack.");
         return formattedString;
         }
 
