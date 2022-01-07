@@ -16,6 +16,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 
 public class Pet extends PetData{
@@ -41,6 +42,9 @@ public class Pet extends PetData{
         statusKey = new NamespacedKey(Cerberus.getPlugin(), "attackStatus");
         attackKey = new NamespacedKey(Cerberus.getPlugin(), "attackType");
         initalizedKey = new NamespacedKey(Cerberus.getPlugin(),"initalizedStatus");
+        specialSlot1 = new NamespacedKey(Cerberus.getPlugin(), "specialSlot1");
+        specialSlot2 = new NamespacedKey(Cerberus.getPlugin(), "specialSlot2");
+        specialSlot3 = new NamespacedKey(Cerberus.getPlugin(), "specialSlot3");
     }
 
     public Pet (Player pl)
@@ -66,19 +70,41 @@ public class Pet extends PetData{
         return specialAttacks;
     }
 
+    private int specialAttackSearchHelper(SpecialAttack s)
+    {
+        int occurances = 0;
+        if (getSpecial1().equalsIgnoreCase(s.getNameInData()))
+        {
+            occurances++;
+        }
+        if (getSpecial2().equalsIgnoreCase(s.getNameInData()))
+        {
+            occurances++;
+        }
+        if (getSpecial3().equalsIgnoreCase(s.getNameInData()))
+        {
+            occurances++;
+        }
+        return occurances;
+    }
+
     public void determineSpecialAttack(LivingEntity e)
     {
-        //FIXME: Add logic for assigning specific attacks to player
-        //FIXME: More specifically, divide the chance by the number of total attacks.
-        //FIXME: E.G. Math.random() / 3 for 3 attacks will spread the chance across.
         if (e == null || e.isDead()) { return; }
         for (SpecialAttack a : specialAttacks)
         {
-            if (a.applyChance(Math.random(),specialAttacks.size()))
+            int occuranceCount = specialAttackSearchHelper(a);
+            if (occuranceCount > 0)
             {
-                a.attack(e);
-                p.sendMessage(ChatColor.ITALIC+cData.systemColor+"Your pet has performed a "+a.getAttackMessage()+cData.systemColor+"!");
-                return;
+                for (int i = 1; i <= occuranceCount; i++)
+                {
+                    if (a.applyChance(Math.random(),getSpecialCount()))
+                    {
+                        a.attack(e);
+                        p.sendMessage(ChatColor.ITALIC+cData.systemColor+"Your pet has performed a "+a.getAttackMessage()+cData.systemColor+"!");
+                        return;
+                    }
+                }
             }
         }
     }

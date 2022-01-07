@@ -33,8 +33,10 @@ public class CommandDebugData implements CommandExecutor {
                         "\n"+"wolf-name: "+pet.getWolfName() +
                         "\n"+"wolf-owned: "+pet.getWolfOwned() +
                         "\n"+"wolf-attack-status: "+pet.getAttackStatus() +
-                        "\n"+"wolf-attack-type: "+pet.getAttackType()
-
+                        "\n"+"wolf-attack-type: "+pet.getAttackType() +
+                        "\n"+"special-1: "+pet.getSpecial1() +
+                        "\n"+"special-2: "+pet.getSpecial2() +
+                        "\n"+"special-3: "+pet.getSpecial3()
                 );
                 return true;
             }

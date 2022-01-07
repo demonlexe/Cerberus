@@ -29,6 +29,9 @@ public abstract class PetData {
     protected NamespacedKey damageKey;
     protected NamespacedKey statusKey;
     protected NamespacedKey attackKey;
+    protected NamespacedKey specialSlot1;
+    protected NamespacedKey specialSlot2;
+    protected NamespacedKey specialSlot3;
     protected NamespacedKey initalizedKey;
     protected ConfigData cData;
     protected PlayerReset ResetFunctions;
@@ -316,7 +319,37 @@ public abstract class PetData {
         return data.get(statusKey,PersistentDataType.INTEGER);
     }
 
+    public String getSpecial1() { return data.get(specialSlot1,PersistentDataType.STRING); }
+
+    public String getSpecial2() { return data.get(specialSlot2,PersistentDataType.STRING); }
+
+    public String getSpecial3() { return data.get(specialSlot3,PersistentDataType.STRING); }
+
+    public int getSpecialCount() {
+        int count = 0;
+        if (!(getSpecial1().equals("")))
+        {
+            count++;
+        }
+        if (!(getSpecial2().equals("")))
+        {
+            count++;
+        }
+        if (!(getSpecial3().equals("")))
+        {
+            count++;
+        }
+        return count;
+    }
+
     //Setter functions
+
+    public void setSpecial1(String s) {data.set(specialSlot1,PersistentDataType.STRING, s); }
+
+    public void setSpecial2(String s) {data.set(specialSlot2,PersistentDataType.STRING, s); }
+
+    public void setSpecial3(String s) {data.set(specialSlot3,PersistentDataType.STRING, s); }
+
     public void setAttackType(String s)
     {
         data.set(attackKey,PersistentDataType.STRING,s);

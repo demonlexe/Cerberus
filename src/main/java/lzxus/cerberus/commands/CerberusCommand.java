@@ -22,11 +22,7 @@ public abstract class CerberusCommand {
      * Returns an error message to be sent to player.
      * @return
      */
-    public String getDescription()
-    {
-        String formattedString = (cData.failColor+"Error in obtained description for this command.");
-        return formattedString;
-    }
+    public abstract String getDescription();
 
     /**
      * Returns an ArrayList containing all aliases for a command.
@@ -44,6 +40,8 @@ public abstract class CerberusCommand {
      * @param p
      * @return
      */
+    public boolean commandSuccessMessage(Player p) {return false;}
+
     public boolean commandFailedMessage(Player p)
     {
         if (p!=null)

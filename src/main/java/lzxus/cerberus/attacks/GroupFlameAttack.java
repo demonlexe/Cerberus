@@ -26,7 +26,7 @@ public class GroupFlameAttack extends SpecialAttack{
         for (Particle p : targetParticles)
         {
             tWorld.spawnParticle(p,target.getLocation(),6,.8,.8,.8);
-            for (Entity e : target.getNearbyEntities(2,2,2))
+            for (Entity e : target.getNearbyEntities(3,2,3))
             {
                 if (e instanceof LivingEntity && !e.isDead() && !(e instanceof Player) && !(e instanceof Wolf))
                 {
@@ -61,7 +61,7 @@ public class GroupFlameAttack extends SpecialAttack{
         super(petToUse);
 
         attackName = "Sweeping Flame Attack";
-        nameInData = "sweep-flame";
+        nameInData = "multi-flame";
         attackChatColor = ChatColor.YELLOW;
 
         PotionEffect newPotionEffect = new PotionEffect(PotionEffectType.FIRE_RESISTANCE,effectLengthTicks, (int) damageMultiplier,false,false);

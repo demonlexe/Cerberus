@@ -27,6 +27,9 @@ public class PlayerReset {
         //Creates Attack data
         pet.setAttackStatus(1);
         pet.setAttackType("monster");
+        pet.setSpecial1("");
+        pet.setSpecial2("");
+        pet.setSpecial3("");
 
         //Creates UUID data
         pet.setWolfUUID("");

@@ -31,7 +31,17 @@ public String getDescription()
         + cData.systemColor + " - " + cData.dataColor + "View all learnable Special Attacks.");
         return formattedString;
         }
-/**
+
+    public boolean commandSuccessMessage(Player p, String newAtk) {
+        if (p!=null)
+        {
+            p.sendMessage(cData.successColor+"You have learned the Special Attack "+cData.systemColor+ChatColor.ITALIC+newAtk);
+            return true;
+        }
+        return false;
+    }
+
+    /**
  * Code to be run when a Player executes this command.
  * View all learnable Special Attacks.
  * CAN be overridden by subclass.
@@ -47,17 +57,51 @@ public boolean onCommand(final CommandSender sender, final String[] args) {
                     if (pet.getWolfStatus().equals(1))
                     {
                         ArrayList<SpecialAttack> aList = pet.getAttackList();
-                        if (aList== null) {return false;}
+                        String attackToLearn = null;
+                        if (args.length >= 1) {attackToLearn = args[0];}
 
-                        String s = cData.systemColor+"------------------"+ "\n" + cData.successColor + ChatColor.BOLD+ "All Learnable Attacks:"+
-                                "\n" ;
-
-                        for (SpecialAttack atk : aList)
+                        if (attackToLearn == null)
                         {
-                            s+= atk.getAttackInfo() + "\n";
-                        }
-                        p.sendMessage(s+"------------------");
+                            if (aList== null) {return false;}
 
+                            String s = cData.systemColor+"------------------"+ "\n" + cData.successColor + ChatColor.BOLD+ "All Learnable Attacks:"+
+                                    "\n" ;
+
+                            for (SpecialAttack atk : aList)
+                            {
+                                s+= atk.getAttackInfo() + "\n";
+                            }
+                            p.sendMessage(s+"------------------");
+
+                        }
+                        else
+                        {
+                            for (SpecialAttack atk : aList)
+                            {
+                                if (attackToLearn.equalsIgnoreCase(atk.getNameInData()))
+                                {
+                                    if (pet.getSpecial1().equals(""))
+                                    {
+                                        pet.setSpecial1(attackToLearn.toLowerCase());
+                                        return commandSuccessMessage(p,atk.getNameInData());
+                                    }
+                                    else if (pet.getSpecial2().equals(""))
+                                    {
+                                        pet.setSpecial2(attackToLearn.toLowerCase());
+                                        return commandSuccessMessage(p,atk.getNameInData());
+                                    }
+                                    else if (pet.getSpecial3().equals(""))
+                                    {
+                                        pet.setSpecial3(attackToLearn.toLowerCase());
+                                        return commandSuccessMessage(p,atk.getNameInData());
+                                    }
+                                    else
+                                    {
+                                        p.sendMessage(cData.failColor+"You already have learned 3 Special Attacks!");
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                         {
@@ -79,6 +123,7 @@ public CommandLearn()
             Description = getDescription();
             CommandName = "learn";
             Aliases.add("learn");
+            Aliases.add("train");
             Aliases.add("l");
             Aliases.add("learnattacks");
             Aliases.add("viewattacks");

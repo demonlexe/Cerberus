@@ -37,10 +37,12 @@ public abstract class SpecialAttack {
     public abstract boolean attack(LivingEntity target);
     public abstract String getAttackMessage();
     public abstract String getAttackInfo();
+    public String getNameInData() {return nameInData;}
 
     public boolean applyChance(double rand, int numAttacks)
     {
         updateChance();
+        System.out.println("SpecialAttack: "+rand+" compare to "+(chance/numAttacks));
         if (rand <= chance/numAttacks)
         {
             return true;

@@ -29,7 +29,7 @@ public class EntityDamaged implements Listener {
         {
             if (petXP < xpList[i])
             {
-                return i;
+                return i-1;
             }
         }
         return xpList.length-1;
