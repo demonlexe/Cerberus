@@ -1,3 +1,6 @@
+# Batch file
+*.sh
+
 # User-specific stuff
 .idea/
 

@@ -146,11 +146,13 @@ public final class Cerberus extends JavaPlugin {
     {
         boolean isOp = p.isOp();
         if (!isOp) {return;}
+        String currentVersion = plugin.getDescription().getVersion();
         uCheck.getVersion(version -> {
-            if (plugin.getDescription().getVersion().equals(version)) {
+            if (currentVersion.equals(version)) {
                 Bukkit.getLogger().info("There is not a new update available for "+plugin.getName()+".");
             } else {
-                p.sendMessage(cData.successColor+"There is a new update available for "+plugin.getName()+"! Please update to "+cData.failColor+version);
+                p.sendMessage(cData.successColor+"You are running "+plugin.getName()+" version "+currentVersion+"\n"+
+                        "There is a new update available for "+plugin.getName()+"! Please update to "+cData.failColor+version);
                 Bukkit.getLogger().info("There is a new update available for "+plugin.getName()+"! Please update to "+version);
             }
         });

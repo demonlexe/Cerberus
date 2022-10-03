@@ -3,6 +3,7 @@ package lzxus.cerberus.listeners;
 import lzxus.cerberus.Cerberus;
 import lzxus.cerberus.configdata.ConfigData;
 import lzxus.cerberus.petdata.Pet;
+import lzxus.cerberus.structs.LevelChecker;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ public class EntityDamaged implements Listener {
     private static String successColor = null;
     private static String dataColor = null;
     private static ConfigData cData = new ConfigData();
+    private static LevelChecker lvlChk = new LevelChecker();
     private static double [] xpList = null;
     private static Integer maxLevel = null;
 
@@ -68,6 +70,11 @@ public class EntityDamaged implements Listener {
                 pet.setWolfLvl(updatedLevel);
                 pet.onLevelUp();
                 p.sendMessage(successColor + "Your pet has leveled up! It is now " +dataColor+"Level "+updatedLevel);
+                System.out.println("newSlotLvl is "+lvlChk.nextSlotLvl(pet)+" updated lvl is "+updatedLevel+" and getslot is "+lvlChk.getOpenSlot(pet));
+                if (lvlChk.getOpenSlot(pet) >= 1) {
+                    // Will print once per level-up if upgrades are needed
+                    p.sendMessage(successColor + "You can unlock another skill! Use "+dataColor+"/ce learn");
+                }
                 pet.updateStats(updatedLevel);
             }
 
